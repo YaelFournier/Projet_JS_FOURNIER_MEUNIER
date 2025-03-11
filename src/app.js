@@ -7,5 +7,22 @@ Provider.loadRatings(SERVER);
 Provider.loadFavorites(SERVER);
 
 const routes = [
-    
+    {
+        path : "/characters",
+        component : Character,
+    },
+    {
+        path : "/equipments",
+        component : Equipment,
+    },
+    {
+        path : "/ratings",
+        component : Rating,
+    },
+    {
+        path : "/favorites",
+        component : Favorite,
+    }
 ]
+
+
