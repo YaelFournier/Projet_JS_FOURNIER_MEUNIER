@@ -1,1 +1,1 @@
-SERVER = "localhost:3000"
+export const SERVER = "localhost:3000";
