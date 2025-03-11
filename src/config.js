@@ -1,3 +1,1 @@
-
-
-SERVER = "localhost"
+SERVER = "localhost:3000"
