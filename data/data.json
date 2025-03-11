@@ -1,0 +1,102 @@
+{
+    "characters": [
+      {
+        "id": 1,
+        "name": "Arthas Menethil",
+        "game": "Warcraft",
+        "class": "Death Knight",
+        "level": 50,
+        "rating": 4.7,
+        "image": "images/arthas.jpg",
+        "equipments": [1, 2],
+        "favorites": false
+      },
+      {
+        "id": 2,
+        "name": "Geralt of Rivia",
+        "game": "The Witcher",
+        "class": "Witcher",
+        "level": 45,
+        "rating": 4.9,
+        "image": "images/geralt.jpg",
+        "equipments": [3, 4],
+        "favorites": true
+      },
+      {
+        "id": 3,
+        "name": "Lara Croft",
+        "game": "Tomb Raider",
+        "class": "Adventurer",
+        "level": 40,
+        "rating": 4.8,
+        "image": "images/lara.jpg",
+        "equipments": [5, 6],
+        "favorites": false
+      }
+    ],
+    "equipments": [
+      {
+        "id": 1,
+        "name": "Frostmourne",
+        "type": "Sword",
+        "owner": 1
+      },
+      {
+        "id": 2,
+        "name": "Helmet of Domination",
+        "type": "Armor",
+        "owner": 1
+      },
+      {
+        "id": 3,
+        "name": "Silver Sword",
+        "type": "Sword",
+        "owner": 2
+      },
+      {
+        "id": 4,
+        "name": "Witcher Medallion",
+        "type": "Accessory",
+        "owner": 2
+      },
+      {
+        "id": 5,
+        "name": "Dual Pistols",
+        "type": "Guns",
+        "owner": 3
+      },
+      {
+        "id": 6,
+        "name": "Climbing Gear",
+        "type": "Tool",
+        "owner": 3
+      }
+    ],
+    "ratings": [
+      {
+        "id": 1,
+        "characterId": 1,
+        "user": "Player1",
+        "score": 5,
+        "comment": "A true legend!"
+      },
+      {
+        "id": 2,
+        "characterId": 2,
+        "user": "Player2",
+        "score": 4.5,
+        "comment": "Amazing story and skills."
+      },
+      {
+        "id": 3,
+        "characterId": 3,
+        "user": "Player3",
+        "score": 4.8,
+        "comment": "An icon in gaming history."
+      }
+    ],
+    "favorites": [
+  { "id": 2 }
+]
+  }
+  
