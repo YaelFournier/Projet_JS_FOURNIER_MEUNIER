@@ -1,4 +1,4 @@
-
+import { InterfaceAffichage } from "./InterfaceAffichage.js";
 export class Home extends InterfaceAffichage {
 
     constructor(listCharacter) {
@@ -7,6 +7,6 @@ export class Home extends InterfaceAffichage {
     }
 
     afficher() {
-        // page d'acceuil
+        //afficher 
     }
 }

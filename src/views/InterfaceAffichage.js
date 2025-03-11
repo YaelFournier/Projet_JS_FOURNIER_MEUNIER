@@ -1,5 +1,5 @@
 
-class InterfaceAffichage {
+export class InterfaceAffichage {
     constructor() {
         if (this.constructor === InterfaceAffichage) {
             throw new Error("Une interface ne peut pas être instanciée directement.");

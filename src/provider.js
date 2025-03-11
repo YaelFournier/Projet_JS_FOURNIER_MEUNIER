@@ -1,7 +1,7 @@
-import { Character } from "./character.js";
-import { Equipment } from "./equipment.js";
-import { Rating } from "./rating.js";
-import { Favorite } from "./favorite.js";
+import { Character } from "./modules/Characters.js";
+import { Equipment } from "./modules/Equipments.js";
+import { Rating } from "./modules/Ratings.js";
+import { Favorite } from "./modules/Favorites.js";
 
 export class Provider {
     static loadCharacters(server) {

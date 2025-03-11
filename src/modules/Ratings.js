@@ -1,6 +1,6 @@
 
 
-class Rating {
+export class Rating {
     constructor(id, characterId, user, score, comment) {
         this.id = id;
         this.characterId = characterId;

@@ -1,3 +1,5 @@
+import { InterfaceAffichage } from "./InterfaceAffichage.js";
+
 export class PageCharacters extends InterfaceAffichage {
 
     constructor(listCharacter) {
@@ -9,7 +11,7 @@ export class PageCharacters extends InterfaceAffichage {
         const container = document.createElement("div");
         container.classList.add("container-character");
         container.id = "container-character";
-        document.body.appendChild(container);
+        document.app.appendChild(container);
         for (const character of this.listCharacter) {
             const h6 = document.createElement("h6");
             h6.textContent = character.getName();

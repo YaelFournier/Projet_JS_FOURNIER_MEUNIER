@@ -1,36 +1,53 @@
 import { Provider } from "./provider.js";
-import {PageCharacters} from './views/PageCharacters.js';
+import { PageCharacters } from './views/PageCharacters.js';
 import { Home } from './views/Home.js';
 import { SERVER } from "./config.js";
 
-Provider.loadCharacters(SERVER);
-Provider.loadEquipments(SERVER);
-Provider.loadRatings(SERVER);
-Provider.loadFavorites(SERVER);
-
-const routes = {
-    "/" : () => {
-        let home = new Home();
-        home.afficher();
-    },
-    
-    "/characters" : () => {
-        let data = Provider.loadCharacters(SERVER);
-        let characters = Provider.createCharacters(data);
-        let pcharacters = new PageCharacters(characters);
-        pcharacters.afficher(characters);
+console.log(document);
+document.addEventListener("DOMContentLoaded", () => {
+    function renderView(view){
+        const viewcontainer = document.querySelector("#view-container");
+        if (!viewcontainer) {
+            console.error("Élément #view-container introuvable");
+            return; 
+        }
+        switch (view){
+            case "home":
+                const homeView = new Home();
+                homeView.afficher();
+                break;
+            case "characters":
+                let characters = Provider.loadCharacters(SERVER);
+                const pageCharactersView = new PageCharacters(characters);
+                pageCharactersView.afficher();
+                break;
+            default:
+                viewcontainer.innerHTML = '<h1>Page introuvable</h1>';
+                break;
+        }
     }
 
-}
-
-window.addEventListener("hashchange", () => {
-    const path = window.location.hash.replace("#", "/");
-    if (routes[path]){
-        document.getElementById("container-character").innerHTML = "";
-        routes[path]();
+    function handleRoute(){
+        const path = window.location.pathname;
+        switch (path){
+            case "/":
+                renderView("home");
+                break;
+            case "/characters":
+                renderView("characters");
+                break;
+            default:
+                renderView("404");
+                break;
+        }
     }
+
+    window.addEventListener("popstate", () => {
+        handleRoute();
+    });
+
+    handleRoute();
+
 });
 
-if (!window.location.hash) {
-    window.location.hash = "#";
-}
+
