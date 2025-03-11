@@ -1,6 +1,6 @@
-import { Provider } from "./provider";
-import {PageCharacters} from './views/PageCharacters'
-import { SERVER } from "./config";
+import { Provider } from "./provider.js";
+import {PageCharacters} from './views/PageCharacters.js'
+import { SERVER } from "./config.js";
 
 Provider.loadCharacters(SERVER);
 Provider.loadEquipments(SERVER);
