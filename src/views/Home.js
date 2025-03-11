@@ -7,8 +7,6 @@ export class Home extends InterfaceAffichage {
     }
 
     afficher() {
-        const container = document.querySelector('.container-character');
-
-
+        // page d'acceuil
     }
 }
