@@ -1,6 +1,3 @@
-
-
-
 export class PageCharacters extends InterfaceAffichage {
 
     constructor(listCharacter) {
