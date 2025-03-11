@@ -1,4 +1,5 @@
 import { Provider } from "./provider";
+import {PageCharacters} from './views/PageCharacters'
 import { SERVER } from "./config";
 
 Provider.loadCharacters(SERVER);
@@ -34,11 +35,11 @@ const app = http.createServer((req, res) => {
     if (req.method === "GET" && route){
         switch (route.path){
             case "/characters" :
-                data = Provider.loadCharacters(SERVER);
-                characters = Provider.createCharacters(data);
+                let data = Provider.loadCharacters(SERVER);
+                let characters = Provider.createCharacters(data);
                 res.writeHead(200, {"Content-Type": ""});
-                home = new Home(characters);
-                res.end();
+                let pcharacters = new PageCharacters(characters);
+                res.end(pcharacters.afficher());
                 break;
         }
 
