@@ -4,7 +4,7 @@ import { Home } from './views/Home.js';
 import { SERVER } from "./config.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-    function renderView(view){
+    async function renderView(view){
         const viewcontainer = document.querySelector(".view-container");
         if (!viewcontainer) {
             console.error("Élément .view-container introuvable");
@@ -17,7 +17,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 break;
             case "characters":
                 console.log('renderview')
-                let characters = Provider.loadCharacters(SERVER);
+                const charactersJSON = await Provider.loadCharacters(SERVER);
+                console.log(charactersJSON);
+                const characters = Provider.createCharacters(charactersJSON); 
                 const pageCharactersView = new PageCharacters(characters);
                 pageCharactersView.afficher();
                 break;

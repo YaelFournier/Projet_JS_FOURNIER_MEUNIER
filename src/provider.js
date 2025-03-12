@@ -5,25 +5,32 @@ import { Favorite } from "./modules/Favorites.js";
 
 export class Provider {
     static loadCharacters(server) {
-        fetch( server + "/characters.json" )
-            .then(characters => characters.json())
-            .then(data => console.log(data));
+        return fetch( server + "/characters" )
+            .then(reponse => {
+                if (!reponse.ok){
+                    throw new Error("Erreur lors de la récupération des personnages");
+                }
+                return reponse.json();
+            })
+            .then(response => {
+                return response;
+            });
     }
 
     static loadEquipments(server) {
-        fetch( server + "/equipments.json" )
+        fetch( server + "/equipments" )
             .then(equipments => equipments.json())
             .then(data => console.log(data));
     }
 
     static loadRatings(server) {
-        fetch( server + "/ratings.json" )
+        fetch( server + "/ratings" )
            .then(ratings => ratings.json())
            .then(data => console.log(data));
     }
 
     static loadFavorites(server) {
-        fetch( server + "/favorites.json" )
+        fetch( server + "/favorites" )
            .then(favorites => favorites.json())
            .then(data => console.log(data));
     }
