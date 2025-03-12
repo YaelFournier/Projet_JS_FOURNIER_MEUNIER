@@ -1,6 +1,6 @@
 
 
-class Equipment {
+export class Equipment {
     constructor(id, name, type, owner) {
         this.id = id;
         this.name = name;

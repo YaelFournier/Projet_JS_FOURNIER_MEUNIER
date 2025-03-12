@@ -1,4 +1,4 @@
-
+import { InterfaceAffichage } from "./InterfaceAffichage.js";
 export class Home extends InterfaceAffichage {
 
     constructor(listCharacter) {
@@ -7,8 +7,6 @@ export class Home extends InterfaceAffichage {
     }
 
     afficher() {
-        const container = document.querySelector('.container-character');
-
-
+        //afficher 
     }
 }

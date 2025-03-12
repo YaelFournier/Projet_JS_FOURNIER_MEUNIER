@@ -1,4 +1,4 @@
-class Character {
+export class Character {
     constructor(id, name, game, characterClass, level, rating, image, equipments, favorites) {
         this.id = id;
         this.name = name;

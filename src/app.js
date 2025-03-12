@@ -1,56 +1,57 @@
-import { Provider } from "./provider";
-import { SERVER } from "./config";
+import { Provider } from "./provider.js";
+import { PageCharacters } from './views/PageCharacters.js';
+import { Home } from './views/Home.js';
+import { SERVER } from "./config.js";
 
-Provider.loadCharacters(SERVER);
-Provider.loadEquipments(SERVER);
-Provider.loadRatings(SERVER);
-Provider.loadFavorites(SERVER);
-
-const routes = [
-    {
-        path : "/characters",
-        component : Character,
-    },
-    {
-        path : "/equipments",
-        component : Equipment,
-    },
-    {
-        path : "/ratings",
-        component : Rating,
-    },
-    {
-        path : "/favorites",
-        component : Favorite,
-    }
-]
-
-const http = require("http");
-
-const app = http.createServer((req, res) => {
-    console.log(`Requete reçue :${req.method} ${req.url}`);
-    const route = routes.find(route => route.path === req.url);
-
-    if (req.method === "GET" && route){
-        switch (route.path){
-            case "/characters" :
-                data = Provider.loadCharacters(SERVER);
-                characters = Provider.createCharacters(data);
-                res.writeHead(200, {"Content-Type": ""});
-                home = new Home(characters);
-                res.end();
+document.addEventListener("DOMContentLoaded", () => {
+    async function renderView(view){
+        const viewcontainer = document.querySelector(".view-container");
+        if (!viewcontainer) {
+            console.error("Élément .view-container introuvable");
+            return; 
+        }
+        switch (view){
+            case "home":
+                const homeView = new Home();
+                homeView.afficher();
+                break;
+            case "characters":
+                console.log('renderview')
+                const charactersJSON = await Provider.loadCharacters(SERVER);
+                console.log(charactersJSON);
+                const characters = Provider.createCharacters(charactersJSON); 
+                const pageCharactersView = new PageCharacters(characters);
+                pageCharactersView.afficher();
+                break;
+            default:
+                viewcontainer.innerHTML = '<h1>Page introuvable</h1>';
                 break;
         }
+    }
 
+    function handleRoute(){
+        const path = window.location.hash.substring(1);
+        switch (path){
+            case "/characters":
+                console.log('handleroute');
+                renderView("characters");
+                break;
+            case "/":
+                console.log('handleroute home');
+                renderView("home");
+                break;
+            default:
+                renderView("404");
+                break;
+        }
     }
-    else{
-        res.writeHead(404, { 'Content-Type': 'text/plain' });
-        // p404 = new Page404();
-        res.end(); // p404.afficher()
-    }
+
+    window.addEventListener("popstate", () => {
+        handleRoute();
+    });
+
+    handleRoute();
+
 });
 
 
-server.listen(8000, () => {
-    console.log("Serveur lancé sur http://localhost:8000");
-});
