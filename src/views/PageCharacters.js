@@ -8,6 +8,7 @@ export class PageCharacters extends InterfaceAffichage {
     }
 
     afficher() {
+        console.log(document);
         const container = document.createElement("div");
         container.classList.add("container-character");
         container.id = "container-character";

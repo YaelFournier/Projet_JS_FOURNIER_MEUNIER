@@ -3,12 +3,11 @@ import { PageCharacters } from './views/PageCharacters.js';
 import { Home } from './views/Home.js';
 import { SERVER } from "./config.js";
 
-console.log(document);
 document.addEventListener("DOMContentLoaded", () => {
     function renderView(view){
-        const viewcontainer = document.querySelector("#view-container");
+        const viewcontainer = document.querySelector(".view-container");
         if (!viewcontainer) {
-            console.error("Élément #view-container introuvable");
+            console.error("Élément .view-container introuvable");
             return; 
         }
         switch (view){
@@ -17,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 homeView.afficher();
                 break;
             case "characters":
+                console.log('renderview')
                 let characters = Provider.loadCharacters(SERVER);
                 const pageCharactersView = new PageCharacters(characters);
                 pageCharactersView.afficher();
@@ -28,13 +28,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function handleRoute(){
-        const path = window.location.pathname;
+        const path = window.location.hash.substring(1);
         switch (path){
-            case "/":
-                renderView("home");
-                break;
             case "/characters":
+                console.log('handleroute');
                 renderView("characters");
+                break;
+            case "/":
+                console.log('handleroute home');
+                renderView("home");
                 break;
             default:
                 renderView("404");
