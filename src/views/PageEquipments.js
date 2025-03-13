@@ -1,21 +1,20 @@
 import { InterfaceAffichage } from "./InterfaceAffichage.js";
 
-export class PageCharacters extends InterfaceAffichage {
-
-    constructor(listCharacter) {
+export class PageEquipments extends InterfaceAffichage {
+    constructor(listEquipment) {
         super();
-        this.listCharacter = listCharacter;
+        this.listEquipment = listEquipment;
     }
 
     afficher() {
         const body = document.body;
         const container = document.createElement('div');
-        container.classList.add('container-character');
+        container.classList.add('container-equipment');
         body.appendChild(container);
-        container.id = "container-character";
-        for (const character of this.listCharacter) {
+        container.id = "container-equipment";
+        for (const equipment of this.listEquipment) {
             const h3 = document.createElement("h3");
-            h3.textContent = character.getName();
+            h3.textContent = equipment.getName();
             container.appendChild(h3);
         }
     }
