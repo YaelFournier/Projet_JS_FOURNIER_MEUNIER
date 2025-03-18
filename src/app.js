@@ -6,8 +6,15 @@ import { SERVER } from "./config.js";
 import { DetailsCharacters } from "./views/DetailsCharacters.js";
 
 document.addEventListener("DOMContentLoaded", () => {
+
+    function updateCSS(href) {
+        let link = document.querySelector('#page-styles');
+        link.href = STYLES_PATH + href;
+    }
+    
     async function renderView(view, id=null){
         const body = document.body;
+        const head = document.head
         switch (view){
             case "home":
                 const homeView = new Home();
