@@ -8,7 +8,6 @@ export class PageCharacters extends InterfaceAffichage {
     }
 
     afficher() {
-        const body = document.body;
         const container = document.getElementById("container");
         container.innerHTML = "";
         for (const character of this.listCharacter) {

@@ -7,7 +7,6 @@ export class PageEquipments extends InterfaceAffichage {
     }
 
     afficher() {
-        const body = document.body;
         const container = document.getElementById("container");
         container.innerHTML = "";
         for (const equipment of this.listEquipment) {
