@@ -14,10 +14,10 @@ export class PageCharacters extends InterfaceAffichage {
         for (const character of this.listCharacter) {
             const h3 = document.createElement("div");
             h3.className = 'charac';
-            h3.id = character.id;
+            h3.setAttribute("id-charac", character.getId());
             h3.textContent = character.getName();
             container.appendChild(h3);
         }
-        addClickListener(".charac", "characters/" + this.getAttribute("id"));
+        addClickListener(".charac", "characters/" + document.getAttribute("id-charac"));
     }
 }

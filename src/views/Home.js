@@ -69,6 +69,6 @@ export class Home extends InterfaceAffichage {
                                 <h3 class="mx-auto my-auto text-light">Favorites</h3>
                             </div>
                           </div>`;
-      addClickListener(".card", this.getAttribute("data-category")); 
+      addClickListener(".card", document.getAttribute("data-category")); 
     }
 }
