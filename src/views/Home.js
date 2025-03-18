@@ -1,5 +1,5 @@
 import { InterfaceAffichage } from "./InterfaceAffichage.js";
-import { sendRequest } from "../app.js";
+import { addClickListener } from "../app.js";
 export class Home extends InterfaceAffichage {
 
     constructor(listCharacter) {
@@ -15,11 +15,6 @@ export class Home extends InterfaceAffichage {
                             <div class="card" data-category="ratings">Ratings</div>
                             <div class="card" data-category="favorites">Favorites</div>
                           </div>`;
-      document.querySelectorAll(".card").forEach(card => {
-        card.addEventListener("click", function() {
-            sendRequest(this.getAttribute("data-category"));
-        });
-      });
-                    
+      addClickListener(".card", this.getAttribute("data-category")); 
     }
 }
