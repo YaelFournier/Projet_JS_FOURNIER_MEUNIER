@@ -1,5 +1,5 @@
 import { InterfaceAffichage } from "./InterfaceAffichage.js";
-import { addClickListener } from "../app.js";
+import { sendRequest } from "../app.js";
 export class Home extends InterfaceAffichage {
 
     constructor(listCharacter) {

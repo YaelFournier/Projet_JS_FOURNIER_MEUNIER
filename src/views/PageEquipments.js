@@ -1,5 +1,4 @@
 import { InterfaceAffichage } from "./InterfaceAffichage.js";
-import { addClickListener } from "../app.js";
 
 export class PageEquipments extends InterfaceAffichage {
     constructor(listEquipment) {

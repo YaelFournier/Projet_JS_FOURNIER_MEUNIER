@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-function sendRequest(path){
+export function sendRequest(path){
     window.location.href = `/#/${path}`;
 }
 
