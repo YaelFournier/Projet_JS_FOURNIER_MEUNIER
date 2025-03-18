@@ -3,9 +3,10 @@ import { PageCharacters } from './views/PageCharacters.js';
 import { PageEquipments } from './views/PageEquipments.js';
 import { Home } from './views/Home.js';
 import { SERVER } from "./config.js";
+import { DetailsCharacters } from "./views/DetailsCharacters.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-    async function renderView(view){
+    async function renderView(view, id=null){
         const body = document.body;
         switch (view){
             case "home":
@@ -13,11 +14,26 @@ document.addEventListener("DOMContentLoaded", () => {
                 homeView.afficher();
                 break;
             case "characters":
-                const charactersJSON = await Provider.loadCharacters(SERVER);
-                const characters = Provider.createCharacters(charactersJSON); 
-                const pageCharactersView = new PageCharacters(characters);
-                pageCharactersView.afficher();
-                break;
+                if (id){
+                    const characterJSON = await Provider.loadCharactersById(SERVER, id);
+                    const character = Provider.createCharacterById(characterJSON);
+                    const equipments = [];
+                    for (const id of character.equipments){
+                        const equipmentJSON = await Provider.loadEquipmentsById(SERVER, id);
+                        const equipment = Provider.createEquipmentById(equipmentJSON);
+                        equipments.push(equipment);
+                    }
+                    const detailsCharactersView = new DetailsCharacters(character, equipments);
+                    detailsCharactersView.afficher();
+                    return;
+                }
+                else {
+                    const charactersJSON = await Provider.loadCharacters(SERVER);
+                    const characters = Provider.createCharacters(charactersJSON); 
+                    const pageCharactersView = new PageCharacters(characters);
+                    pageCharactersView.afficher();
+                    break;
+                }
             case "equipments":
                 const equipmentsJSON = await Provider.loadEquipments(SERVER);
                 const equipments = Provider.createEquipments(equipmentsJSON);
@@ -32,25 +48,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function handleRoute(){
         const path = window.location.hash.substring(1);
-        switch (path){
-            case "/characters":
-                renderView("characters");
-                break;
-            case "/equipments":
-                renderView("equipments");
-                break;
-            case "/":
-                renderView("home");
-                break;
-            default:
-                renderView("404");
-                break;
+        const routes = [
+            { pattern: /^\/characters\/(\d+)$/, view: "characters" },
+            { pattern: /^\/characters$/, view: "characters"},
+            { pattern: /^\/equipments\/(\d+)$/, view: "equipments" },
+            { pattern: /^\/equipments$/, view: "equipments" },
+            { pattern: /^\/ratings$/, view: "ratings" },
+            { pattern: /^\/favorites$/, view: "favorites" },
+            { pattern: /^\/$/, view: "home" }
+        ];
+        for (const route of routes) {
+            const match = path.match(route.pattern);
+            console.log(match);
+            if (match) {
+                const id = match[1] || null;
+                renderView(route.view, id);
+                return;
+            }
         }
+        renderView("404");
     }
 
-    window.addEventListener("popstate", () => {
-        handleRoute();
-    });
+    window.addEventListener("popstate", handleRoute);
 
     handleRoute();
 

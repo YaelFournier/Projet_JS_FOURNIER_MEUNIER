@@ -9,7 +9,7 @@ export class Home extends InterfaceAffichage {
 
     afficher() {
         const body = document.body;
-        body.innerHTML = `<div class="container">
+        body.innerHTML = `<div id="container">
                             <div class="card" data-category="characters">Characters</div>
                             <div class="card" data-category="equipments">Equipments</div>
                             <div class="card" data-category="ratings">Ratings</div>
