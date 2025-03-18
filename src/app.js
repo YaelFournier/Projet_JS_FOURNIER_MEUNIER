@@ -85,3 +85,10 @@ document.addEventListener("DOMContentLoaded", () => {
 export function sendRequest(path){
     window.location.href = `/#/${path}`;
 }
+
+export function addClickListener(selector, requestKey){
+    document.querySelector(selector).addEventListener("click", function(event){
+        const request = event.currentTarget.getAttribute(requestKey);
+        sendRequest(request);
+    });
+}

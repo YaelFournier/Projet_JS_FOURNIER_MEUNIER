@@ -11,6 +11,10 @@ export class Character {
         this.favorites = favorites;
     }
 
+    getId() {
+        return this.id;
+    }
+
     getName() {
         return this.name;
     }

@@ -8,6 +8,10 @@ export class Equipment {
         this.owner = owner;
     }
 
+    getId() {
+        return this.id;
+    }
+
     getName() {
         return this.name;
     }

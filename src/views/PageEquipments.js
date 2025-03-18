@@ -7,12 +7,15 @@ export class PageEquipments extends InterfaceAffichage {
     }
 
     afficher() {
-        const container = document.getElementById("container");
+        const container = document.getElementById("view-container");
         container.innerHTML = "";
         for (const equipment of this.listEquipment) {
-            const h3 = document.createElement("h3");
+            const h3 = document.createElement("div");
+            h3.className = 'equip';
+            h3.setAttribute("id-equip", "equipments/" + equipment.getId());
             h3.textContent = equipment.getName();
             container.appendChild(h3);
         }
+        addClickListener(".equip", "id-equip");
     }
 }
