@@ -1,30 +1,31 @@
 import { Provider } from "./provider.js";
 import { PageCharacters } from './views/PageCharacters.js';
+import { PageEquipments } from './views/PageEquipments.js';
 import { Home } from './views/Home.js';
 import { SERVER } from "./config.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     async function renderView(view){
-        const viewcontainer = document.querySelector(".view-container");
-        if (!viewcontainer) {
-            console.error("Élément .view-container introuvable");
-            return; 
-        }
+        const body = document.body;
         switch (view){
             case "home":
                 const homeView = new Home();
                 homeView.afficher();
                 break;
             case "characters":
-                console.log('renderview')
                 const charactersJSON = await Provider.loadCharacters(SERVER);
-                console.log(charactersJSON);
                 const characters = Provider.createCharacters(charactersJSON); 
                 const pageCharactersView = new PageCharacters(characters);
                 pageCharactersView.afficher();
                 break;
+            case "equipments":
+                const equipmentsJSON = await Provider.loadEquipments(SERVER);
+                const equipments = Provider.createEquipments(equipmentsJSON);
+                const pageEquipmentsView = new PageEquipments(equipments);
+                pageEquipmentsView.afficher();
+                break;
             default:
-                viewcontainer.innerHTML = '<h1>Page introuvable</h1>';
+                body.innerHTML = '<h1>Page introuvable</h1>';
                 break;
         }
     }
@@ -33,11 +34,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const path = window.location.hash.substring(1);
         switch (path){
             case "/characters":
-                console.log('handleroute');
                 renderView("characters");
                 break;
+            case "/equipments":
+                renderView("equipments");
+                break;
             case "/":
-                console.log('handleroute home');
                 renderView("home");
                 break;
             default:
@@ -54,4 +56,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-
+export function sendRequest(path){
+    window.location.href = `/#/${path}`;
+}

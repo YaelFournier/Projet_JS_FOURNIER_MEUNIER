@@ -18,21 +18,42 @@ export class Provider {
     }
 
     static loadEquipments(server) {
-        fetch( server + "/equipments" )
-            .then(equipments => equipments.json())
-            .then(data => console.log(data));
+        return fetch( server + "/equipments" )
+            .then(equipments => {
+                if (!equipments.ok){
+                    throw new Error("Erreur lors de la récupération des équipements");
+                }
+                return equipments.json();
+            })
+            .then(data => {
+                return data;
+            });
     }
 
     static loadRatings(server) {
-        fetch( server + "/ratings" )
-           .then(ratings => ratings.json())
-           .then(data => console.log(data));
+        return fetch( server + "/ratings" )
+            .then(ratings => {
+               if (!ratings.ok){
+                    throw new Error("Erreur lors de la récupération des évaluations");
+                }
+                return ratings.json();
+            })
+            .then(data => {
+                return data;
+            });
     }
 
     static loadFavorites(server) {
-        fetch( server + "/favorites" )
-           .then(favorites => favorites.json())
-           .then(data => console.log(data));
+        return fetch( server + "/favorites" )
+            .then(favorites => {
+                if (!favorites.ok){
+                    throw new Error("Erreur lors de la récupération des favoris");
+                }
+                return favorites.json();
+            })
+            .then(data => {
+                return data;
+            });
     }
 
     static createCharacters(data) {
