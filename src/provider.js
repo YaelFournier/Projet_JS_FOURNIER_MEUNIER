@@ -17,6 +17,19 @@ export class Provider {
             });
     }
 
+    static loadCharactersById(server, id) {
+        return fetch( server + "/characters/" + id )
+            .then(character => {
+                if (!character.ok){
+                    throw new Error("Erreur lors de la récupération du personnage");
+                }
+                return character.json();
+            })
+            .then(data => {
+                return data;
+            });
+    }
+
     static loadEquipments(server) {
         return fetch( server + "/equipments" )
             .then(equipments => {
@@ -24,6 +37,19 @@ export class Provider {
                     throw new Error("Erreur lors de la récupération des équipements");
                 }
                 return equipments.json();
+            })
+            .then(data => {
+                return data;
+            });
+    }
+
+    static loadEquipmentsById(server, id) {
+        return fetch( server + "/equipments/" + id )
+            .then(equipment => {
+                if (!equipment.ok){
+                    throw new Error("Erreur lors de la récupération de l'équipement");
+                }
+                return equipment.json();
             })
             .then(data => {
                 return data;
@@ -75,6 +101,20 @@ export class Provider {
         return characters;
     }
 
+    static createCharacterById(data) {
+        const character = new Character(data.id,
+                                        data.name,
+                                        data.game,
+                                        data.characterClass,
+                                        data.level,
+                                        data.rating,
+                                        data.image,
+                                        data.equipments,
+                                        data.favorites
+                                    );
+        return character;
+    }
+
     static createEquipments(data) {
         const equipments = [];
         for (const equipment of data){
@@ -89,6 +129,15 @@ export class Provider {
                                 );
         }
         return equipments;
+    }
+
+    static createEquipmentById(data) {
+        const equipment = new Equipment(data.id,
+                                        data.name,
+                                        data.type,
+                                        data.owner
+                                    );
+        return equipment;
     }
 
     static createRatings(data) {
