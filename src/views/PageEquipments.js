@@ -1,5 +1,4 @@
 import { InterfaceAffichage } from "./InterfaceAffichage.js";
-import { addClickListener } from "../app.js";
 
 export class PageEquipments extends InterfaceAffichage {
     constructor(listEquipment) {
@@ -11,12 +10,9 @@ export class PageEquipments extends InterfaceAffichage {
         const container = document.getElementById("container");
         container.innerHTML = "";
         for (const equipment of this.listEquipment) {
-            const h3 = document.createElement("div");
-            h3.className = 'equip';
-            h3.id = equipment.id;
+            const h3 = document.createElement("h3");
             h3.textContent = equipment.getName();
             container.appendChild(h3);
         }
-        addClickListener(".equip", "equipments/" + this.getAttribute("id"));
     }
 }
