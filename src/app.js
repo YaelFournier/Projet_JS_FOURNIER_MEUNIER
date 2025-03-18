@@ -2,11 +2,23 @@ import { Provider } from "./provider.js";
 import { PageCharacters } from './views/PageCharacters.js';
 import { PageEquipments } from './views/PageEquipments.js';
 import { Home } from './views/Home.js';
-import { SERVER } from "./config.js";
+import {SERVER, STYLES_PATH} from "./config.js";
 
 document.addEventListener("DOMContentLoaded", () => {
+
+    function updateCSS(href) {
+        let link = document.querySelector('#page-styles');
+        link.href = STYLES_PATH + href;
+    }
+
+    function updateJS(href) {
+        let script = document.querySelector('#page-script');
+        script.href = STYLES_PATH + href;
+    }
+
     async function renderView(view){
         const body = document.body;
+        const head = document.head
         switch (view){
             case "home":
                 const homeView = new Home();
@@ -16,6 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const charactersJSON = await Provider.loadCharacters(SERVER);
                 const characters = Provider.createCharacters(charactersJSON); 
                 const pageCharactersView = new PageCharacters(characters);
+                updateCSS("characters.css");
                 pageCharactersView.afficher();
                 break;
             case "equipments":
