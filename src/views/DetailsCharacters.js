@@ -10,7 +10,7 @@ export class DetailsCharacters extends InterfaceAffichage {
     }
 
     afficher(){
-        const container = document.getElementById("container");
+        const container = document.getElementById("view-container");
         container.innerHTML = "";
         //Affichage des détails du personnage
         //Son nom
@@ -33,12 +33,12 @@ export class DetailsCharacters extends InterfaceAffichage {
         for (const equipment of this.equipments){
             const h3 = document.createElement("div");
             h3.className = 'equip';
-            h3.setAttribute("id-equip", equipment.getId());
+            h3.setAttribute("id-equip", "equipments/"+equipment.getId());
             h3.textContent = equipment.getName();
             container.appendChild(h3);
         }
 
-        addClickListener(".equip", "equipments/" + document.getAttribute("id-equip"));
+        addClickListener(".equip", "id-equip");
 
         //TODO : Creer un button pour ajouter le personnage aux favoris
     }
