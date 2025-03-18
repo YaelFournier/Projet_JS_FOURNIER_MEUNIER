@@ -9,10 +9,8 @@ export class PageCharacters extends InterfaceAffichage {
 
     afficher() {
         const body = document.body;
-        const container = document.createElement('div');
-        container.classList.add('container-character');
-        body.appendChild(container);
-        container.id = "container-character";
+        const container = document.getElementById("container");
+        container.innerHTML = "";
         for (const character of this.listCharacter) {
             const h3 = document.createElement("h3");
             h3.textContent = character.getName();
