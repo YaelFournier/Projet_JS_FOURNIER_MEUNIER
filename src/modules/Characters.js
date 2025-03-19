@@ -39,5 +39,9 @@ export class Character {
         return this.favorites;
     }
 
+    setFavorites() {
+        this.favorites = !this.favorites;
+    }
+
 
 }

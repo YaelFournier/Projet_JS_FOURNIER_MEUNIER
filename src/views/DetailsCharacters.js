@@ -37,9 +37,17 @@ export class DetailsCharacters extends InterfaceAffichage {
             h3.textContent = equipment.getName();
             container.appendChild(h3);
         }
-
+        //Listener pour acceder aux details des équipements
         addClickListener(".equip", "id-equip");
 
-        //TODO : Creer un button pour ajouter le personnage aux favoris
+        const buttonFav = document.createElement("div");
+        buttonFav.className = 'button-fav';
+        buttonFav.textContent = "Ajouter aux favoris";
+        container.appendChild(buttonFav);
+
+        //Listener pour ajouter aux favoris
+        document.querySelector(".button-fav").addEventListener("click", () => {
+            this.character.setFavorites();
+        });
     }
 }
