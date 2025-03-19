@@ -28,7 +28,6 @@ export class PageFavorites extends InterfaceAffichage {
                 //Listener pour retirer des favoris 
                 document.querySelector(".button-fav"+character.getId()).addEventListener("click", async () => {
                     await setFavorites(character.getId());
-                    console.log(character.getFavorites());
                     this.afficher();
                 });
             }

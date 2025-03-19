@@ -1,5 +1,6 @@
 import { InterfaceAffichage } from "./InterfaceAffichage.js";
 import { addClickListener } from "../app.js";
+import { setFavorites } from "../app.js";
 
 export class DetailsCharacters extends InterfaceAffichage {
 
@@ -46,8 +47,8 @@ export class DetailsCharacters extends InterfaceAffichage {
         container.appendChild(buttonFav);
 
         //Listener pour ajouter aux favoris
-        document.querySelector(".button-fav").addEventListener("click", () => {
-            this.character.setFavorites();
+        document.querySelector(".button-fav").addEventListener("click", async () => {
+            await setFavorites();
         });
     }
 }
