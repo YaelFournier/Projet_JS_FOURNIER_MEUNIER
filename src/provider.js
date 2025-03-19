@@ -69,19 +69,6 @@ export class Provider {
             });
     }
 
-    static loadFavorites(server) {
-        return fetch( server + "/favorites" )
-            .then(favorites => {
-                if (!favorites.ok){
-                    throw new Error("Erreur lors de la récupération des favoris");
-                }
-                return favorites.json();
-            })
-            .then(data => {
-                return data;
-            });
-    }
-
     static createCharacters(data) {
         const characters = [];
         for (const character of data) {
@@ -153,16 +140,23 @@ export class Provider {
         return ratings;
     }
 
-    static createFavorites(data) {
-        const favorites = [];
-        for (const favorite of data){
-            favorites.push(new Favorite(
-                                        favorite.id,
-                                        favorite.characterId
-                                    )
-                                );
-        }
-        return favorites;
+    static async setFavoritesTrueById(server, characterId) {
+        const rep =  await fetch(`${server}/characters/${characterId}`, {
+            method: "PATCH",
+            headers:{
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ favorites: true })
+        });
     }
 
+    static async setFavoritesFalseById(server, characterId) {
+        const rep = await fetch(`${server}/characters/${characterId}`, {
+            method: "PATCH",
+            headers:{
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ favorites: false })
+        });
+    }
 }

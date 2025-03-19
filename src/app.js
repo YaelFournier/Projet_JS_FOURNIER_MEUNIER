@@ -5,6 +5,7 @@ import { Home } from './views/Home.js';
 import { SERVER } from "./config.js";
 import { DetailsCharacters } from "./views/DetailsCharacters.js";
 import { DetailsEquipments } from "./views/DetailsEquipments.js";
+import { PageFavorites } from "./views/PageFavorites.js";
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -59,6 +60,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     pageEquipmentsView.afficher();
                     break;
                 }
+            case "favorites":
+                const charactersJSON = await Provider.loadCharacters(SERVER);
+                const characters = Provider.createCharacters(charactersJSON);
+                const pageFavoritesView = new PageFavorites(characters);
+                pageFavoritesView.afficher();
+                break;
             default:
                 body.innerHTML = '<h1>Page introuvable</h1>';
                 break;
@@ -101,8 +108,18 @@ export function addClickListener(selector, requestKey){
     document.querySelectorAll(selector).forEach(element => {
         element.addEventListener("click", function(event){
             const request = event.currentTarget.getAttribute(requestKey);
-            console.log(request);
             sendRequest(request);
         });
     });
+}
+
+export async function setFavorites(characterId){
+    let charac = await Provider.loadCharactersById(SERVER, characterId);
+    const fav = charac.favorites;
+    if (fav){
+        await Provider.setFavoritesFalseById(SERVER, characterId);
+    }
+    else{
+        await Provider.setFavoritesTrueById(SERVER, characterId);
+    }
 }
