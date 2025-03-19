@@ -4,6 +4,7 @@ import { PageEquipments } from './views/PageEquipments.js';
 import { Home } from './views/Home.js';
 import { SERVER } from "./config.js";
 import { DetailsCharacters } from "./views/DetailsCharacters.js";
+import { DetailsEquipments } from "./views/DetailsEquipments.js";
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -42,11 +43,22 @@ document.addEventListener("DOMContentLoaded", () => {
                     break;
                 }
             case "equipments":
-                const equipmentsJSON = await Provider.loadEquipments(SERVER);
-                const equipments = Provider.createEquipments(equipmentsJSON);
-                const pageEquipmentsView = new PageEquipments(equipments);
-                pageEquipmentsView.afficher();
-                break;
+                if (id){
+                    const equipmentJSON = await Provider.loadEquipmentsById(SERVER, id);
+                    const equipment = Provider.createEquipmentById(equipmentJSON);
+                    const ownerJSON = await Provider.loadCharactersById(SERVER, equipment.owner);
+                    const owner = Provider.createCharacterById(ownerJSON);
+                    const detailsEquipmentsView = new DetailsEquipments(equipment, owner);
+                    detailsEquipmentsView.afficher();
+                    return;
+                }
+                else{
+                    const equipmentsJSON = await Provider.loadEquipments(SERVER);
+                    const equipments = Provider.createEquipments(equipmentsJSON);
+                    const pageEquipmentsView = new PageEquipments(equipments);
+                    pageEquipmentsView.afficher();
+                    break;
+                }
             default:
                 body.innerHTML = '<h1>Page introuvable</h1>';
                 break;
@@ -66,7 +78,6 @@ document.addEventListener("DOMContentLoaded", () => {
         ];
         for (const route of routes) {
             const match = path.match(route.pattern);
-            console.log(match);
             if (match) {
                 const id = match[1] || null;
                 renderView(route.view, id);
@@ -87,8 +98,11 @@ export function sendRequest(path){
 }
 
 export function addClickListener(selector, requestKey){
-    document.querySelector(selector).addEventListener("click", function(event){
-        const request = event.currentTarget.getAttribute(requestKey);
-        sendRequest(request);
+    document.querySelectorAll(selector).forEach(element => {
+        element.addEventListener("click", function(event){
+            const request = event.currentTarget.getAttribute(requestKey);
+            console.log(request);
+            sendRequest(request);
+        });
     });
 }
