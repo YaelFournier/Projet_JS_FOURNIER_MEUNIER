@@ -1,10 +1,7 @@
-
-
 export class Rating {
-    constructor(id, characterId, user, score, comment) {
+    constructor(id, characterId, score, comment) {
         this.id = id;
         this.characterId = characterId;
-        this.user = user;
         this.score = score;
         this.comment = comment;
     }
@@ -15,10 +12,6 @@ export class Rating {
 
     getCharacterId() {
         return this.characterId;
-    }
-
-    getUser() {
-        return this.user;
     }
 
     getScore() {
@@ -35,10 +28,6 @@ export class Rating {
 
     setCharacterId(characterId) {
         this.characterId = characterId;
-    }
-
-    setUser(user) {
-        this.user = user;
     }
 
     setScore(score) {
