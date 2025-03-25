@@ -1,5 +1,6 @@
 import { InterfaceAffichage } from "./InterfaceAffichage.js";
-import { addClickListener } from "../app.js";
+import {addClickListener, background_video} from "../app.js";
+import { updateCSS } from "../app.js";
 export class Home extends InterfaceAffichage {
 
     constructor(listCharacter) {
@@ -8,8 +9,8 @@ export class Home extends InterfaceAffichage {
 
     _init() {
 
-        this._background_video();
-
+        background_video();
+        updateCSS("home.css")
         document.querySelectorAll(".card").forEach(card => {
             card.addEventListener("mouseenter", function() {
                 const text = card.querySelector("h3");
@@ -27,30 +28,6 @@ export class Home extends InterfaceAffichage {
                 }
             });
         });
-    }
-
-    _background_video() {
-        // Créer l'élément vidéo
-        const videoElement = document.createElement('video');
-        videoElement.id = 'background-video';
-        videoElement.autoplay = true;
-        videoElement.muted = true;
-        videoElement.loop = true;
-
-        // Ajouter une source vidéo
-        const videoSource = document.createElement('source');
-        videoSource.src = 'src/static/video/background_home.mp4';
-        videoSource.type = 'video/mp4';
-        videoElement.appendChild(videoSource);
-        document.body.appendChild(videoElement);
-
-        videoElement.style.position = 'fixed';
-        videoElement.style.top = '0';
-        videoElement.style.left = '0';
-        videoElement.style.width = '100%';
-        videoElement.style.height = '100%';
-        videoElement.style.objectFit = 'cover';  // Pour que la vidéo couvre toute la zone sans déformation
-        videoElement.style.zIndex = '-1';
     }
 
     afficher() {

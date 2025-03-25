@@ -2,7 +2,7 @@ import { Provider } from "./provider.js";
 import { PageCharacters } from './views/PageCharacters.js';
 import { PageEquipments } from './views/PageEquipments.js';
 import { Home } from './views/Home.js';
-import { SERVER } from "./config.js";
+import {SERVER, STYLES_PATH} from "./config.js";
 import { DetailsCharacters } from "./views/DetailsCharacters.js";
 import { DetailsEquipments } from "./views/DetailsEquipments.js";
 import { PageFavorites } from "./views/PageFavorites.js";
@@ -10,10 +10,6 @@ import { PageRatings } from "./views/PageRatings.js";
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    function updateCSS(href) {
-        let link = document.querySelector('#page-styles');
-        link.href = STYLES_PATH + href;
-    }
     
     async function renderView(view, id=null){
         const body = document.body;
@@ -122,6 +118,42 @@ export function addClickListener(selector, requestKey){
     });
 }
 
+export async function background_video() {
+    // Vérifier si l'élément vidéo existe déjà
+    const existingVideo = document.getElementById('background-video');
+
+    // Si l'élément vidéo existe déjà, ne rien faire
+    if (existingVideo) {
+        return;
+    }
+
+    // Créer l'élément vidéo si ce n'est pas déjà fait
+    const videoElement = document.createElement('video');
+    videoElement.id = 'background-video';
+    videoElement.autoplay = true;
+    videoElement.muted = true;
+    videoElement.loop = true;
+
+    // Ajouter une source vidéo
+    const videoSource = document.createElement('source');
+    videoSource.src = 'src/static/video/background_home.mp4';
+    videoSource.type = 'video/mp4';
+    videoElement.appendChild(videoSource);
+
+    // Ajouter l'élément vidéo au body
+    document.body.appendChild(videoElement);
+
+    // Appliquer des styles à la vidéo
+    videoElement.style.position = 'fixed';
+    videoElement.style.top = '0';
+    videoElement.style.left = '0';
+    videoElement.style.width = '100%';
+    videoElement.style.height = '100%';
+    videoElement.style.objectFit = 'cover';  // Pour que la vidéo couvre toute la zone sans déformation
+    videoElement.style.zIndex = '-1';
+}
+
+
 export async function setFavorites(characterId){
     let charac = await Provider.loadCharactersById(SERVER, characterId);
     const fav = charac.favorites;
@@ -131,4 +163,9 @@ export async function setFavorites(characterId){
     else{
         await Provider.setFavoritesTrueById(SERVER, characterId);
     }
+}
+
+export async function updateCSS(href) {
+    let link = document.querySelector('#page-styles');
+    link.href = STYLES_PATH + href;
 }
