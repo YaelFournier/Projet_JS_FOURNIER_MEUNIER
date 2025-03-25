@@ -40,7 +40,105 @@
         5,
         6
       ],
+      "favorites": false
+    },
+    {
+      "id": "4",
+      "name": "Master Chief",
+      "game": "Halo",
+      "class": "Spartan",
+      "level": 55,
+      "rating": 4.6,
+      "image": "master-chief.jpg",
+      "equipments": [
+        7,
+        8
+      ],
+      "favorites": false
+    },
+    {
+      "id": "5",
+      "name": "Kratos",
+      "game": "God of War",
+      "class": "God Slayer",
+      "level": 60,
+      "rating": 4.9,
+      "image": "kratos.jpg",
+      "equipments": [
+        9,
+        10
+      ],
       "favorites": true
+    },
+    {
+      "id": "6",
+      "name": "Ezio Auditore",
+      "game": "Assassin's Creed",
+      "class": "Assassin",
+      "level": 48,
+      "rating": 4.8,
+      "image": "ezio-auditore.jpg",
+      "equipments": [
+        11,
+        12
+      ],
+      "favorites": true
+    },
+    {
+      "id": "7",
+      "name": "Doom Slayer",
+      "game": "DOOM",
+      "class": "Demon Slayer",
+      "level": 58,
+      "rating": 4.9,
+      "image": "doom-slayer.jpg",
+      "equipments": [
+        13,
+        14
+      ],
+      "favorites": false
+    },
+    {
+      "id": "8",
+      "name": "Cloud Strife",
+      "game": "Final Fantasy VII",
+      "class": "Mercenary",
+      "level": 50,
+      "rating": 4.7,
+      "image": "cloud-strife.jpg",
+      "equipments": [
+        15,
+        16
+      ],
+      "favorites": false
+    },
+    {
+      "id": "9",
+      "name": "Samus Aran",
+      "game": "Metroid",
+      "class": "Bounty Hunter",
+      "level": 53,
+      "rating": 4.8,
+      "image": "samus-aran.jpg",
+      "equipments": [
+        17,
+        18
+      ],
+      "favorites": false
+    },
+    {
+      "id": "10",
+      "name": "Solid Snake",
+      "game": "Metal Gear Solid",
+      "class": "Spy",
+      "level": 52,
+      "rating": 4.8,
+      "image": "solid-snake.jpeg",
+      "equipments": [
+        19,
+        20
+      ],
+      "favorites": false
     }
   ],
   "equipments": [
@@ -79,6 +177,30 @@
       "name": "Climbing Gear",
       "type": "Tool",
       "owner": 3
+    },
+    {
+      "id": "7",
+      "name": "Energy Sword",
+      "type": "Blade",
+      "owner": 4
+    },
+    {
+      "id": "8",
+      "name": "MJOLNIR Armor",
+      "type": "Armor",
+      "owner": 4
+    },
+    {
+      "id": "9",
+      "name": "Blades of Chaos",
+      "type": "Blades",
+      "owner": 5
+    },
+    {
+      "id": "10",
+      "name": "Leviathan Axe",
+      "type": "Axe",
+      "owner": 5
     }
   ],
   "ratings": [
@@ -102,6 +224,20 @@
       "user": "Player3",
       "score": 4.8,
       "comment": "An icon in gaming history."
+    },
+    {
+      "id": "4",
+      "characterId": 4,
+      "user": "Player4",
+      "score": 4.6,
+      "comment": "A true warrior of the future."
+    },
+    {
+      "id": "5",
+      "characterId": 5,
+      "user": "Player5",
+      "score": 5,
+      "comment": "A god among men."
     }
   ]
 }

@@ -8,6 +8,7 @@ import { DetailsEquipments } from "./views/DetailsEquipments.js";
 import { PageFavorites } from "./views/PageFavorites.js";
 
 document.addEventListener("DOMContentLoaded", () => {
+
     
     async function renderView(view, id=null){
         const body = document.body;
@@ -108,7 +109,7 @@ export function addClickListener(selector, requestKey){
     });
 }
 
-export function background_video() {
+export async function background_video() {
     // Vérifier si l'élément vidéo existe déjà
     const existingVideo = document.getElementById('background-video');
 

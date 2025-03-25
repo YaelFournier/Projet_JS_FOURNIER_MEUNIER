@@ -10,31 +10,42 @@ export class PageCharacters extends InterfaceAffichage {
     _init() {
         background_video();
 
-        addClickListener(".card-character", "data-id-charac");
+
     }
 
     afficher() {
+        this._init();
         const container = document.getElementById("view-container");
         container.innerHTML = "";
+
         const characters_container = document.createElement("div");
-        characters_container.classList.add("characters-container");
+        characters_container.classList.add("characters-container"); // Ajout du conteneur
+
         container.append(characters_container);
+
         for (const character of this.listCharacter) {
             this._createCharacterCard(characters_container, character);
         }
-        updateCSS("characters.css")
-        this._init();
+
+        updateCSS("characters.css");
+        addClickListener(".card-character", "data-id-charac");
+
+        setTimeout(() => {
+            characters_container.classList.add("show");
+        }, 100);
     }
 
-    _createCharacterCard(container, character) {
+    _createCharacterCard(container, character, index) {
         const characterCard = document.createElement("div");
         characterCard.classList.add("card-character");
+
         // Image du personnage
         const img = document.createElement("img");
-        console.log(character.getImage());
         img.src = "/src/static/img/characters/" + character.getImage();
         img.alt = "Character";
+        img.loading = "lazy";
         characterCard.appendChild(img);
+
         // Nom du personnage
         const h3 = document.createElement("div");
         h3.className = "character-name";
@@ -42,7 +53,7 @@ export class PageCharacters extends InterfaceAffichage {
         h3.textContent = character.getName();
         characterCard.appendChild(h3);
 
-        // Bouton ajout favoris
+        // Bouton Favoris
         const buttonFav = document.createElement("div");
         buttonFav.classList.add("button-fav");
         characterCard.appendChild(buttonFav);
@@ -53,6 +64,13 @@ export class PageCharacters extends InterfaceAffichage {
         });
 
         container.appendChild(characterCard);
+
+        // Ajouter un délai d'animation pour chaque carte
+        setTimeout(() => {
+            characterCard.style.opacity = "1";
+            characterCard.style.transform = "translateY(0) scale(1)";
+        }, index * 100); // 100ms entre chaque carte
     }
+
 
 }
