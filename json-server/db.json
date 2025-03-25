@@ -12,7 +12,7 @@
         1,
         2
       ],
-      "favorites": false
+      "favorites": true
     },
     {
       "id": "2",
@@ -40,7 +40,7 @@
         5,
         6
       ],
-      "favorites": false
+      "favorites": true
     }
   ],
   "equipments": [

@@ -2,17 +2,12 @@ import { Provider } from "./provider.js";
 import { PageCharacters } from './views/PageCharacters.js';
 import { PageEquipments } from './views/PageEquipments.js';
 import { Home } from './views/Home.js';
-import { SERVER } from "./config.js";
+import {SERVER, STYLES_PATH} from "./config.js";
 import { DetailsCharacters } from "./views/DetailsCharacters.js";
 import { DetailsEquipments } from "./views/DetailsEquipments.js";
 import { PageFavorites } from "./views/PageFavorites.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-
-    function updateCSS(href) {
-        let link = document.querySelector('#page-styles');
-        link.href = STYLES_PATH + href;
-    }
     
     async function renderView(view, id=null){
         const body = document.body;
@@ -122,4 +117,9 @@ export async function setFavorites(characterId){
     else{
         await Provider.setFavoritesTrueById(SERVER, characterId);
     }
+}
+
+export async function updateCSS(href) {
+    let link = document.querySelector('#page-styles');
+    link.href = STYLES_PATH + href;
 }
