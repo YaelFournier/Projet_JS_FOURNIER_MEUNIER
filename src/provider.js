@@ -1,7 +1,6 @@
 import { Character } from "./modules/Characters.js";
 import { Equipment } from "./modules/Equipments.js";
 import { Rating } from "./modules/Ratings.js";
-import { Favorite } from "./modules/Favorites.js";
 
 export class Provider {
     static loadCharacters(server) {
@@ -109,9 +108,7 @@ export class Provider {
                                         equipment.id,
                                         equipment.name,
                                         equipment.type,
-                                        equipment.description,
-                                        equipment.price,
-                                        equipment.image
+                                        equipment.owner
                                     )
                                 );
         }
@@ -130,10 +127,12 @@ export class Provider {
     static createRatings(data) {
         const ratings = [];
         for (const rating of data){
+            console.log(rating);
             ratings.push(new Rating(
                                     rating.id,
                                     rating.characterId,
-                                    rating.value
+                                    rating.score, 
+                                    rating.comment
                                 )
                             );
         }
