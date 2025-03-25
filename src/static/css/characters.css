@@ -1,9 +1,107 @@
-
-
 body {
-    background-color: greenyellow;
+    font-family: 'Poppins', sans-serif;
+    background-color: #121212;
+    color: #fff;
+    margin: 0;
+    padding: 20px;
 }
 
-.card-chracters {
+/* Conteneur des personnages */
+.characters-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
 
+/* Carte d'un personnage */
+.card-character {
+    background: linear-gradient(135deg, #2a1a5e, #1f1a3d);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    text-align: center;
+    position: relative;
+}
+
+/* Effet hover sur la carte */
+.card-character:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 20px rgba(0, 204, 255, 0.5);
+    cursor: pointer;
+}
+
+/* Image du personnage */
+.card-character img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #8a2be2;
+    transition: border-color 0.3s ease-in-out;
+}
+
+/* Changer la couleur de la bordure au hover */
+.card-character:hover img {
+    border-color: #00ffff;
+}
+
+/* Nom du personnage */
+.character-name {
+    font-size: 1.6em;
+    font-weight: bold;
+    margin: 12px 0;
+    color: #8a2be2;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Note du personnage */
+.rating {
+    margin-top: 15px;
+    font-size: 1.3em;
+    color: #8a2be2;
+}
+
+/* Bouton Favoris */
+.button-fav {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 2.5em;
+    color: #bbb;
+    transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5em;
+    height: 1.5em;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+.button-fav::before {
+    content: '\2665';
+    font-family: Arial, sans-serif;
+}
+
+/* Changer la couleur du bouton au hover */
+.button-fav:hover {
+    color: #8a2be2;
+}
+
+/* Effet du cœur au clic */
+.button-fav.active {
+    color: #ff4757;
+    transform: scale(1.2);
+    animation: heartBeat 0.4s ease-in-out;
+}
+
+/* Animation du cœur */
+@keyframes heartBeat {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.4); }
+    100% { transform: scale(1); }
 }

@@ -108,6 +108,42 @@ export function addClickListener(selector, requestKey){
     });
 }
 
+export function background_video() {
+    // Vérifier si l'élément vidéo existe déjà
+    const existingVideo = document.getElementById('background-video');
+
+    // Si l'élément vidéo existe déjà, ne rien faire
+    if (existingVideo) {
+        return;
+    }
+
+    // Créer l'élément vidéo si ce n'est pas déjà fait
+    const videoElement = document.createElement('video');
+    videoElement.id = 'background-video';
+    videoElement.autoplay = true;
+    videoElement.muted = true;
+    videoElement.loop = true;
+
+    // Ajouter une source vidéo
+    const videoSource = document.createElement('source');
+    videoSource.src = 'src/static/video/background_home.mp4';
+    videoSource.type = 'video/mp4';
+    videoElement.appendChild(videoSource);
+
+    // Ajouter l'élément vidéo au body
+    document.body.appendChild(videoElement);
+
+    // Appliquer des styles à la vidéo
+    videoElement.style.position = 'fixed';
+    videoElement.style.top = '0';
+    videoElement.style.left = '0';
+    videoElement.style.width = '100%';
+    videoElement.style.height = '100%';
+    videoElement.style.objectFit = 'cover';  // Pour que la vidéo couvre toute la zone sans déformation
+    videoElement.style.zIndex = '-1';
+}
+
+
 export async function setFavorites(characterId){
     let charac = await Provider.loadCharactersById(SERVER, characterId);
     const fav = charac.favorites;

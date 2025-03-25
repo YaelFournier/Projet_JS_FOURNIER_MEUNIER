@@ -31,6 +31,10 @@ export class Character {
         return this.level;
     }
 
+    getImage() {
+        return this.image;
+    }
+
     getEquipments() {
         return this.equipments;
     }

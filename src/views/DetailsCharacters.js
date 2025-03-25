@@ -1,53 +1,80 @@
 import { InterfaceAffichage } from "./InterfaceAffichage.js";
-import { addClickListener } from "../app.js";
+import { addClickListener, background_video, updateCSS } from "../app.js";
 import { setFavorites } from "../app.js";
 
 export class DetailsCharacters extends InterfaceAffichage {
 
-    constructor(character, equipments){
+    constructor(character, equipments) {
         super();
         this.character = character;
         this.equipments = equipments;
     }
 
-    afficher(){
+    _init() {
+        background_video();
+        updateCSS("detail-character.css");
+    }
+
+    afficher() {
         const container = document.getElementById("view-container");
         container.innerHTML = "";
-        //Affichage des détails du personnage
-        //Son nom
-        const h2 = document.createElement("h2");
-        h2.textContent = this.character.getName();
-        container.appendChild(h2);
-        //Son jeu de provenance
-        const game = document.createElement("h3");
-        game.textContent = this.character.getGame();
-        container.appendChild(game);
-        //Sa classe
-        const characterClass = document.createElement("h3");
-        characterClass.textContent = this.character.getCharacterClass();
-        container.appendChild(characterClass);
-        //Son niveau
-        const level = document.createElement("h3");
-        level.textContent = this.character.getLevel();
-        container.appendChild(level);
-        //Affichage des équipements du personnage
-        for (const equipment of this.equipments){
-            const h3 = document.createElement("div");
-            h3.className = 'equip';
-            h3.setAttribute("id-equip", "equipments/"+equipment.getId());
-            h3.textContent = equipment.getName();
-            container.appendChild(h3);
-        }
-        //Listener pour acceder aux details des équipements
-        addClickListener(".equip", "id-equip");
 
+        // Création du conteneur principal pour les détails
+        const characters_container = document.createElement("div");
+        characters_container.classList.add("characters-container");
+        container.appendChild(characters_container);
+
+        // Ajout du nom du personnage
+        this._addCharacterDetail(characters_container, "h2", this.character.getName());
+
+        // Ajout du jeu d'origine du personnage
+        this._addCharacterDetail(characters_container, "h3", this.character.getGame());
+
+        // Ajout de la classe du personnage
+        this._addCharacterDetail(characters_container, "h3", this.character.getCharacterClass());
+
+        // Ajout du niveau du personnage
+        this._addCharacterDetail(characters_container, "h3", this.character.getLevel());
+
+        // Affichage des équipements du personnage
+        this._displayEquipments(characters_container);
+
+        // Ajout du bouton favoris
+        this._addFavoriteButton(characters_container);
+
+        this._init();
+    }
+
+    // Méthode pour ajouter un détail du personnage
+    _addCharacterDetail(container, tag, content) {
+        const element = document.createElement(tag);
+        element.textContent = content;
+        container.appendChild(element);
+    }
+
+    // Méthode pour afficher les équipements du personnage
+    _displayEquipments(container) {
+        for (const equipment of this.equipments) {
+            const equipmentElement = document.createElement("div");
+            equipmentElement.className = 'equip';
+            equipmentElement.setAttribute("id-equip", "equipments/" + equipment.getId());
+            equipmentElement.textContent = equipment.getName();
+            container.appendChild(equipmentElement);
+        }
+
+        // Ajout des listeners pour les équipements
+        addClickListener(".equip", "id-equip");
+    }
+
+    // Méthode pour ajouter le bouton favoris
+    _addFavoriteButton(container) {
         const buttonFav = document.createElement("div");
         buttonFav.className = 'button-fav';
         buttonFav.textContent = "Ajouter aux favoris";
         container.appendChild(buttonFav);
 
-        //Listener pour ajouter aux favoris
-        document.querySelector(".button-fav").addEventListener("click", async () => {
+        // Listener pour ajouter aux favoris
+        buttonFav.addEventListener("click", async () => {
             await setFavorites();
         });
     }

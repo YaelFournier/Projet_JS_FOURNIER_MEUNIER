@@ -7,12 +7,12 @@
       "class": "Death Knight",
       "level": 50,
       "rating": 4.7,
-      "image": "images/arthas.jpg",
+      "image": "arthas-menethil.jpg",
       "equipments": [
         1,
         2
       ],
-      "favorites": true
+      "favorites": false
     },
     {
       "id": "2",
@@ -21,12 +21,12 @@
       "class": "Witcher",
       "level": 45,
       "rating": 4.9,
-      "image": "images/geralt.jpg",
+      "image": "geralt-of-rivia.jpg",
       "equipments": [
         3,
         4
       ],
-      "favorites": true
+      "favorites": false
     },
     {
       "id": "3",
@@ -35,7 +35,7 @@
       "class": "Adventurer",
       "level": 40,
       "rating": 4.8,
-      "image": "images/lara.jpg",
+      "image": "lara-croft.jpg",
       "equipments": [
         5,
         6
