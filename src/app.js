@@ -6,6 +6,7 @@ import { SERVER } from "./config.js";
 import { DetailsCharacters } from "./views/DetailsCharacters.js";
 import { DetailsEquipments } from "./views/DetailsEquipments.js";
 import { PageFavorites } from "./views/PageFavorites.js";
+import { PageRatings } from "./views/PageRatings.js";
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -65,6 +66,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 const characters = Provider.createCharacters(charactersJSON);
                 const pageFavoritesView = new PageFavorites(characters);
                 pageFavoritesView.afficher();
+                break;
+            case "ratings":
+                const ratingsJSON = await Provider.loadRatings(SERVER);
+                const ratings = Provider.createRatings(ratingsJSON);
+                const linkJSON = await Provider.loadCharacters(SERVER);
+                const link = Provider.createCharacters(linkJSON);
+                const pageRatings = new PageRatings(ratings, link);
+                pageRatings.afficher();
                 break;
             default:
                 body.innerHTML = '<h1>Page introuvable</h1>';
