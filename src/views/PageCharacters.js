@@ -1,5 +1,5 @@
 import { InterfaceAffichage } from "./InterfaceAffichage.js";
-import {addClickListener, background_video, setFavorites, updateCSS} from "../app.js";
+import {addClickListener, setFavorites, updateCSS} from "../app.js";
 
 export class PageCharacters extends InterfaceAffichage {
     constructor(listCharacter) {
@@ -7,33 +7,31 @@ export class PageCharacters extends InterfaceAffichage {
         this.listCharacter = listCharacter;
     }
 
-    _init() {
-        background_video();
 
 
-    }
-
-    afficher() {
-        this._init();
+    async afficher() {
         const container = document.getElementById("view-container");
         container.innerHTML = "";
 
         const characters_container = document.createElement("div");
-        characters_container.classList.add("characters-container"); // Ajout du conteneur
+        characters_container.classList.add("characters-container");
 
         container.append(characters_container);
+
+        await updateCSS("characters.css");
 
         for (const character of this.listCharacter) {
             this._createCharacterCard(characters_container, character);
         }
 
-        updateCSS("characters.css");
         addClickListener(".card-character", "data-id-charac");
+        console.log("fzdz");
 
         setTimeout(() => {
             characters_container.classList.add("show");
         }, 100);
     }
+
 
     _createCharacterCard(container, character, index) {
         const characterCard = document.createElement("div");

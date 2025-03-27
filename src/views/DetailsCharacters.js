@@ -1,5 +1,5 @@
 import { InterfaceAffichage } from "./InterfaceAffichage.js";
-import { addClickListener, background_video, updateCSS } from "../app.js";
+import { addClickListener, updateCSS } from "../app.js";
 import { setFavorites } from "../app.js";
 
 export class DetailsCharacters extends InterfaceAffichage {
@@ -10,12 +10,7 @@ export class DetailsCharacters extends InterfaceAffichage {
         this.equipments = equipments;
     }
 
-    _init() {
-        background_video();
-        updateCSS("detail-character.css");
-    }
-
-    afficher() {
+    async afficher() {
         const container = document.getElementById("view-container");
         container.innerHTML = "";
 
@@ -23,6 +18,7 @@ export class DetailsCharacters extends InterfaceAffichage {
         const characters_container = document.createElement("div");
         characters_container.classList.add("characters-container");
         container.appendChild(characters_container);
+        await updateCSS("detail-character.css");
 
         // Ajout du nom du personnage
         this._addCharacterDetail(characters_container, "h2", this.character.getName());
@@ -42,7 +38,6 @@ export class DetailsCharacters extends InterfaceAffichage {
         // Ajout du bouton favoris
         this._addFavoriteButton(characters_container);
 
-        this._init();
     }
 
     // Méthode pour ajouter un détail du personnage
