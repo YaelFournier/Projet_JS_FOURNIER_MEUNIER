@@ -34,6 +34,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         equipments.push(equipment);
                     }
                     const detailsCharactersView = new DetailsCharacters(character, equipments, notes);
+                    const listRatingsJSON = await Provider.loadRatings(SERVER);
+                    const listRatings = Provider.createRatings(listRatingsJSON);
+                    const detailsCharactersView = new DetailsCharacters(character, equipments, listRatings);
                     detailsCharactersView.afficher();
                     return;
                 }
