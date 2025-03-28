@@ -29,20 +29,19 @@
 
 /* Conteneur individuel pour chaque note */
 .note-container {
+    display: flex;
     width: 100%;
     padding: 15px;
     background: #2a1a5e;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    display: flex;
-    flex-direction: column;
     align-items: center;
 }
 
 /* Titre du commentaire */
 .note-title {
-    font-size: 1.4em;
-    color: #00ffff;
+    font-size: 1.0em;
+    color: whitesmoke;
     text-align: center;
     margin-bottom: 10px;
 }

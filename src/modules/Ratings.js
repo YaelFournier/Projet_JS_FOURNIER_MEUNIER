@@ -1,13 +1,18 @@
 export class Rating {
-    constructor(id, characterId, score, comment) {
+    constructor(id, characterId, score, comment, user) {
         this.id = id;
         this.characterId = characterId;
         this.score = score;
+        this.user = user;
         this.comment = comment;
     }
 
     getId() {
         return this.id;
+    }
+
+    getAuthor() {
+        return this.user;
     }
 
     getCharacterId() {

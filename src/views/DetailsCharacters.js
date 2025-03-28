@@ -74,24 +74,36 @@ export class DetailsCharacters extends InterfaceAffichage {
         delimiter.classList.add("delimiter");
         rating_container.appendChild(title_rating);
         rating_container.appendChild(delimiter);
-        for (let i=0; i<this.notes.length; i++) {
-            const note = this.notes[i];
-            this._addNote(rating_container, note.getComment(), note.getScore())
+        for (let i=0; i<this.listRatings.length; i++) {
+            const note = this.listRatings[i];
+            let authorName = note.getAuthor() ? note.getAuthor() : "Unknown";
+            this._addNote(rating_container, note.getComment(), note.getScore(), authorName)
         }
 
     }
 
-    _addNote(container, title, notation) {
+    _addNote(container, title, notation, author) {
         const note_container = document.createElement("div");
         note_container.classList.add("note-container");
-        const titre = document.createElement("h2");
-        titre.classList.add("note-title");
+        const authorNameContainer = document.createElement('div')
+        authorNameContainer.classList.add("author-name-container");
+        note_container.append(authorNameContainer);
+        const authorName = document.createElement('h2');
+        authorName.classList.add("author-name");
+        authorName.textContent = author;
+        authorName.classList.add("titre-category");
+        authorNameContainer.appendChild(authorName);
+        const secondaryContainer = document.createElement("div");
+        const titre = document.createElement("p");
+        titre.classList.add("note-title", "mx-auto");
         titre.textContent = title;
-        note_container.appendChild(titre);
+        secondaryContainer.appendChild(titre);
         const rate = document.createElement("h5");
         rate.classList.add("rate");
         rate.textContent = notation;
-        note_container.appendChild(rate);
+        secondaryContainer.appendChild(rate);
+        secondaryContainer.classList.add("container-fluid", "d-flex", "justify-content-between", "align-items-center");
+        note_container.appendChild(secondaryContainer);
         container.appendChild(note_container);
     }
 
@@ -104,7 +116,6 @@ export class DetailsCharacters extends InterfaceAffichage {
         const delimiter = document.createElement('div');
         delimiter.classList.add("delimiter");
         container.appendChild(delimiter);
-        this._init();
 
         console.log('Character ID:', this.character.getId());
         this.listRatings.forEach(rating => {

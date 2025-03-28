@@ -143,7 +143,8 @@ export class Provider {
                                     rating.id,
                                     rating.characterId,
                                     rating.score, 
-                                    rating.comment
+                                    rating.comment,
+                                    rating.user
                                 )
                             );
         }
