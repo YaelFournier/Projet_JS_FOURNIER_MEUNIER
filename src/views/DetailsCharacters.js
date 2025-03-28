@@ -32,27 +32,44 @@ export class DetailsCharacters extends InterfaceAffichage {
         characters_container.append(details_container);
         await updateCSS("detail-character.css");
 
+        // Sous containers des détails du personnage
+        const detail_cara = document.createElement("div");
+        detail_cara.classList.add("detail-cara");
+        const detail_univers = document.createElement("div");
+        detail_univers.classList.add("detail-univers");
+        const detail_equipment = document.createElement("div");
+        detail_equipment.classList.add("detail-equipment");
+        details_container.append(detail_cara, detail_univers, detail_equipment);
 
-
-
-        // Ajout du nom du personnage
-        this._addCharacterDetail(details_container, "h2", this.character.getName());
+        // Ajout des caracteristiques du personnage
+        this._addCategorie(detail_cara, "Caracteristiques");
+        this._addCharacterDetail(detail_cara, "h4", this.character.getName());
+        this._addCharacterDetail(detail_cara, "h5", this.character.getCharacterClass());
+        this._addCharacterDetail(detail_cara, "h5", this.character.getLevel());
 
         // Ajout du jeu d'origine du personnage
-        this._addCharacterDetail(details_container, "h3", this.character.getGame());
+        this._addCategorie(detail_univers, "Univers");
 
-        // Ajout de la classe du personnage
-        this._addCharacterDetail(details_container, "h3", this.character.getCharacterClass());
+        this._addCharacterDetail(detail_univers, "h4", this.character.getGame());
 
-        // Ajout du niveau du personnage
-        this._addCharacterDetail(details_container, "h3", this.character.getLevel());
+        this._addCategorie(detail_equipment, "Equipements");
 
-        // Affichage des équipements du personnage
-        this._displayEquipments(details_container);
+        this._displayEquipments(detail_equipment);
 
         // Ajout du bouton favoris
         this._addFavoriteButton(details_container);
 
+    }
+
+    // créer une catégorie
+    _addCategorie(container, title) {
+        const titre = document.createElement('h2');
+        titre.classList.add("titre-category");
+        titre.textContent = title;
+        container.appendChild(titre);
+        const delimiter = document.createElement('div');
+        delimiter.classList.add("delimiter");
+        container.appendChild(delimiter);
     }
 
     // Méthode pour ajouter un détail du personnage

@@ -1,27 +1,90 @@
 
+.details-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-right: 3em;
+    width: 100%;
+    max-width: 80%;
+    height: 80vh;
+    background: #1f1a3d;
+    padding: 20px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7);
+    scrollbar-width: none;
+    overflow: auto;
+    -ms-overflow-style: none;
+}
+.details-container::-webkit-scrollbar {
+    display: none;
+}
+
+
+.titre-category {
+    font-size: 1.8em;
+    color: #8a2be2;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.delimiter {
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to right, #8a2be2, transparent);
+    margin: 10px 0 20px;
+}
+
+.detail-cara, .detail-univers, .detail-equipment {
+    flex: 1; /* Permet d’occuper toute la place */
+    padding: 15px;
+    background: #2a1a5e;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.detail-cara h4, .detail-univers h4, .detail-equipment h4 {
+    font-size: 1.4em;
+    color: #00ffff;
+}
+
+.detail-cara h5, .detail-univers h5, .detail-equipment div {
+    font-size: 1.2em;
+    color: #ddd;
+    margin-top: 5px;
+}
+
+.equip {
+    padding: 8px;
+    background: #3b2a6b;
+    border-radius: 6px;
+    margin: 5px 0;
+    text-align: center;
+    transition: background 0.3s;
+}
+
+.equip:hover {
+    background: #8a2be2;
+    cursor: pointer;
+}
 
 
 .characters-container {
     display: flex;
-    width: 100%;
+    width: 100vw;
     height: 100vh;
     justify-content: center;
     align-items: center;
+    gap: 20px;
 }
 
 .illustration-container {
     height: 80%;
     display: flex;
-    margin-left: 5em;
+    margin-left: 3em;
 }
 
-.details-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-}
 
 
 /* Effet sur l'image du personnage */
@@ -61,7 +124,7 @@
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 2.5em;
+    font-size: 5em;
     color: #bbb;
     transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
     display: inline-flex;
@@ -69,9 +132,9 @@
     justify-content: center;
     width: 1.5em;
     height: 1.5em;
-    position: absolute;
     top: 15px;
     right: 15px;
+    margin: 0 auto;
 }
 
 .button-fav::before {

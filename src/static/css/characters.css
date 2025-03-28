@@ -77,6 +77,17 @@ body {
     color: #8a2be2;
 }
 
+/* Style pour la ligne de délimitation entre les catégories */
+.delimiter {
+    width: 100%;
+    height: 1px;
+    background-color: #ddd; /* Couleur de la ligne */
+    margin: 1em 0; /* Espacement avant et après la ligne */
+    clear: both; /* Permet de s'assurer que la ligne n'est pas masquée par les éléments flottants */
+}
+
+
+
 /* Bouton Favoris */
 .button-fav {
     background: none;
