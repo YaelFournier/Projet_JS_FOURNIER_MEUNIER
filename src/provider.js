@@ -55,6 +55,18 @@ export class Provider {
             });
     }
 
+    static async loadRatingById(server, character_id) {
+        return fetch( server+/ratings/ + character_id)
+            .then(rating => {
+                if (!rating.ok) {
+                    throw new Error("Erreur lors de rating");
+                }
+                return rating.json();
+            })
+            .then(data => Array.isArray(data) ? data : [data]);
+    }
+
+
     static loadRatings(server) {
         return fetch( server + "/ratings" )
             .then(ratings => {

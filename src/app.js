@@ -23,13 +23,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (id){
                     const characterJSON = await Provider.loadCharactersById(SERVER, id);
                     const character = Provider.createCharacterById(characterJSON);
+                    const notesJSON = await Provider.loadRatingById(SERVER, id);
+                    const notes = Provider.createRatings(notesJSON);
+
                     const equipments = [];
+
                     for (const id of character.equipments){
                         const equipmentJSON = await Provider.loadEquipmentsById(SERVER, id);
                         const equipment = Provider.createEquipmentById(equipmentJSON);
                         equipments.push(equipment);
                     }
-                    const detailsCharactersView = new DetailsCharacters(character, equipments);
+                    const detailsCharactersView = new DetailsCharacters(character, equipments, notes);
                     detailsCharactersView.afficher();
                     return;
                 }
@@ -85,6 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
             { pattern: /^\/equipments\/(\d+)$/, view: "equipments" },
             { pattern: /^\/equipments$/, view: "equipments" },
             { pattern: /^\/ratings$/, view: "ratings" },
+            {pattern: /^\/ratings\/(\d+)$/, view: "ratings"},
             { pattern: /^\/favorites$/, view: "favorites" },
             { pattern: /^\/$/, view: "home" }
         ];

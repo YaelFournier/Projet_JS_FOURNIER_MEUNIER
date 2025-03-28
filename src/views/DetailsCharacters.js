@@ -4,10 +4,11 @@ import { setFavorites } from "../app.js";
 
 export class DetailsCharacters extends InterfaceAffichage {
 
-    constructor(character, equipments) {
+    constructor(character, equipments, notes) {
         super();
         this.character = character;
         this.equipments = equipments;
+        this.notes = notes;
     }
 
     async afficher() {
@@ -18,6 +19,9 @@ export class DetailsCharacters extends InterfaceAffichage {
         const characters_container = document.createElement("div");
         characters_container.classList.add("characters-container");
         container.appendChild(characters_container);
+        const rating_container = document.createElement("div");
+        rating_container.classList.add("rating-container");
+        container.appendChild(rating_container);
         const illustration_container = document.createElement("div");
         const details_container = document.createElement("div");
         illustration_container.classList.add("illustration-container");
@@ -59,6 +63,33 @@ export class DetailsCharacters extends InterfaceAffichage {
         // Ajout du bouton favoris
         this._addFavoriteButton(details_container);
 
+        //note dans rating container
+        const title_rating = document.createElement("h2");
+        title_rating.classList.add("titre-category");
+        title_rating.textContent = "Les notes";
+        const  delimiter = document.createElement("div");
+        delimiter.classList.add("delimiter");
+        rating_container.appendChild(title_rating);
+        rating_container.appendChild(delimiter);
+        for (let i=0; i<this.notes.length; i++) {
+            const note = this.notes[i];
+            this._addNote(rating_container, note.getComment(), note.getScore())
+        }
+
+    }
+
+    _addNote(container, title, notation) {
+        const note_container = document.createElement("div");
+        note_container.classList.add("note-container");
+        const titre = document.createElement("h2");
+        titre.classList.add("note-title");
+        titre.textContent = title;
+        note_container.appendChild(titre);
+        const rate = document.createElement("h5");
+        rate.classList.add("rate");
+        rate.textContent = notation;
+        note_container.appendChild(rate);
+        container.appendChild(note_container);
     }
 
     // créer une catégorie

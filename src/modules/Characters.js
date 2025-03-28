@@ -47,5 +47,9 @@ export class Character {
         this.favorites = !this.favorites;
     }
 
+    getRating() {
+        return this.rating;
+    }
+
 
 }
