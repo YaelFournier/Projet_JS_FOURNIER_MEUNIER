@@ -1,0 +1,128 @@
+/* Conteneur des équipements */
+.equipments-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    opacity: 0; /* Masqué au départ */
+    transform: translateY(50px) scale(0.95);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+/* Quand la classe est ajoutée, les éléments apparaissent */
+.equipments-container.show {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* Carte d'un équipement */
+.card-equipment {
+    background: linear-gradient(135deg, #1a2d57, #3d3b6e);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    text-align: center;
+    position: relative;
+    opacity: 0;
+    transform: translateY(40px) scale(0.9);
+    animation: fadeInZoom 0.6s ease-out forwards;
+}
+
+/* Effet hover sur la carte */
+.card-equipment:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 20px rgba(0, 204, 255, 0.5);
+    cursor: pointer;
+}
+
+/* Image de l'équipement */
+.card-equipment img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #5a5a9b;
+    transition: border-color 0.3s ease-in-out;
+}
+
+/* Changer la couleur de la bordure au hover */
+.card-equipment:hover img {
+    border-color: #00bcd4;
+}
+
+/* Nom de l'équipement */
+.equipment-name {
+    font-size: 1.6em;
+    font-weight: bold;
+    margin: 12px 0;
+    color: #5a5a9b;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Effet du cœur (favoris) */
+.button-fav {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 2.5em;
+    color: #bbb;
+    transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5em;
+    height: 1.5em;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+.button-fav::before {
+    content: '\2665';
+    font-family: Arial, sans-serif;
+}
+
+/* Changer la couleur du bouton au hover */
+.button-fav:hover {
+    color: #5a5a9b;
+}
+
+/* Effet du cœur au clic */
+.button-fav.active {
+    color: #ff4757;
+    transform: scale(1.2);
+    animation: heartBeat 0.4s ease-in-out;
+}
+
+/* Animation du cœur */
+@keyframes heartBeat {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.4); }
+    100% { transform: scale(1); }
+}
+
+/* Animation d'apparition */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animation zoom + fade-in */
+@keyframes fadeInZoom {
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}

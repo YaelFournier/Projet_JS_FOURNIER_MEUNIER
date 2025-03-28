@@ -82,30 +82,57 @@ export class DetailsCharacters extends InterfaceAffichage {
 
     }
 
-    _addNote(container, title, notation, author) {
+    _addNote(container, title, notation, author, ratingId) {
         const note_container = document.createElement("div");
         note_container.classList.add("note-container");
-        const authorNameContainer = document.createElement('div')
+
+        const authorNameContainer = document.createElement('div');
         authorNameContainer.classList.add("author-name-container");
         note_container.append(authorNameContainer);
+
         const authorName = document.createElement('h2');
-        authorName.classList.add("author-name");
+        authorName.classList.add("author-name", "titre-category");
         authorName.textContent = author;
-        authorName.classList.add("titre-category");
         authorNameContainer.appendChild(authorName);
+
         const secondaryContainer = document.createElement("div");
+        secondaryContainer.classList.add("container-fluid", "d-flex", "justify-content-between", "align-items-center");
+
         const titre = document.createElement("p");
         titre.classList.add("note-title", "mx-auto");
         titre.textContent = title;
         secondaryContainer.appendChild(titre);
+
         const rate = document.createElement("h5");
         rate.classList.add("rate");
         rate.textContent = notation;
         secondaryContainer.appendChild(rate);
-        secondaryContainer.classList.add("container-fluid", "d-flex", "justify-content-between", "align-items-center");
+
         note_container.appendChild(secondaryContainer);
         container.appendChild(note_container);
+
+        // Ajout du bouton de modification
+        const button = document.createElement("div");
+        button.className = 'modif-rate';
+        button.classList.add("btn", "text-light");
+        button.textContent = "Modifier";
+        note_container.appendChild(button);
+
+        // Ajout de l'événement sur le bouton de modification
+        button.addEventListener("click", (event) => {
+            event.stopPropagation();
+
+            let existingForm = note_container.querySelector(".form-rate");
+            if (existingForm) {
+                existingForm.remove();
+            } else {
+                const changeRate = new ChangeRate(this.listRatings, ratingId);
+                const form = changeRate.afficher();
+                note_container.appendChild(form);
+            }
+        });
     }
+
 
     // créer une catégorie
     _addCategorie(container, title) {
@@ -116,50 +143,6 @@ export class DetailsCharacters extends InterfaceAffichage {
         const delimiter = document.createElement('div');
         delimiter.classList.add("delimiter");
         container.appendChild(delimiter);
-
-        console.log('Character ID:', this.character.getId());
-        this.listRatings.forEach(rating => {
-            console.log('Checking rating for characterId:', rating.characterId);
-        });
-
-
-        console.log(this.listRatings);
-        console.log(this.character.getId());
-        const rating = this.listRatings.find(rating => rating.getCharacterId() == this.character.getId());
-        console.log(rating);
-
-        // ajout du button de modification de note
-        const button = document.createElement("div");
-        button.className = 'modif-rate';
-        const liste = JSON.stringify(this.listRatings);
-        button.setAttribute("rates", liste);
-        button.setAttribute("change-rate", rating.getId());
-        button.textContent = "Modifier";
-        container.appendChild(button);
-
-        // Ajout d'un écouteur d'événement sur les boutons de modification de note
-        document.querySelectorAll(".modif-rate").forEach(element => {
-            element.addEventListener("click", function(event){
-                const ratingsString = event.currentTarget.getAttribute("rates");
-                const data = JSON.parse(ratingsString);
-                const ratings = new Array();
-                for (const rating of data) {
-                    ratings.push(new Rating(rating.id, rating.characterId, rating.score, rating.comment));
-                }
-
-                const ratingId = event.currentTarget.getAttribute("change-rate");
-                const ratingDiv = event.currentTarget.parentElement;
-
-                let existingForm = ratingDiv.querySelector(".form-rate");
-                if (existingForm) {
-                    existingForm.remove(); 
-                } else {
-                    const changeRate = new ChangeRate(ratings, ratingId);
-                    const form = changeRate.afficher();
-                    ratingDiv.appendChild(form); 
-                }
-            });
-        });
     }
 
     // Méthode pour ajouter un détail du personnage

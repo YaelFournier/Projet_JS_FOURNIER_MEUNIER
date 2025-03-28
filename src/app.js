@@ -48,7 +48,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (id){
                     const equipmentJSON = await Provider.loadEquipmentsById(SERVER, id);
                     const equipment = Provider.createEquipmentById(equipmentJSON);
-                    const ownerJSON = await Provider.loadCharactersById(SERVER, equipment.owner);
+                    console.log(equipment);
+
+                    const ownerJSON = await Provider.loadCharactersById(SERVER, equipment.getOwner());
                     const owner = Provider.createCharacterById(ownerJSON);
                     const detailsEquipmentsView = new DetailsEquipments(equipment, owner);
                     detailsEquipmentsView.afficher();
