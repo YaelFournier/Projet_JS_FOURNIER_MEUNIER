@@ -29,7 +29,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         const equipment = Provider.createEquipmentById(equipmentJSON);
                         equipments.push(equipment);
                     }
-                    const detailsCharactersView = new DetailsCharacters(character, equipments);
+                    const listRatingsJSON = await Provider.loadRatings(SERVER);
+                    const listRatings = Provider.createRatings(listRatingsJSON);
+                    const detailsCharactersView = new DetailsCharacters(character, equipments, listRatings);
                     detailsCharactersView.afficher();
                     return;
                 }
