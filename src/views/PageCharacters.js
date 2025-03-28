@@ -25,7 +25,6 @@ export class PageCharacters extends InterfaceAffichage {
         }
 
         addClickListener(".card-character", "data-id-charac");
-        console.log("fzdz");
 
         setTimeout(() => {
             characters_container.classList.add("show");
@@ -54,10 +53,19 @@ export class PageCharacters extends InterfaceAffichage {
         // Bouton Favoris
         const buttonFav = document.createElement("div");
         buttonFav.classList.add("button-fav");
+        if (character.favorites) {
+            buttonFav.classList.add("active");
+        }
         characterCard.appendChild(buttonFav);
 
         // Listener pour ajouter aux favoris
         buttonFav.addEventListener("click", async () => {
+            if (buttonFav.classList.contains("active")) {
+                buttonFav.classList.remove("active")
+            }
+            else {
+                buttonFav.classList.add("active");
+            }
             await setFavorites(character.getId());
         });
 
@@ -67,7 +75,7 @@ export class PageCharacters extends InterfaceAffichage {
         setTimeout(() => {
             characterCard.style.opacity = "1";
             characterCard.style.transform = "translateY(0) scale(1)";
-        }, index * 100); // 100ms entre chaque carte
+        }, index * 100);
     }
 
 

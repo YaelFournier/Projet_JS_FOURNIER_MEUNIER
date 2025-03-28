@@ -18,25 +18,40 @@ export class DetailsCharacters extends InterfaceAffichage {
         const characters_container = document.createElement("div");
         characters_container.classList.add("characters-container");
         container.appendChild(characters_container);
+        const illustration_container = document.createElement("div");
+        const details_container = document.createElement("div");
+        illustration_container.classList.add("illustration-container");
+        details_container.classList.add("details-container");
+        const illustration = document.createElement("img");
+        illustration.src = "/src/static/img/characters/" + this.character.getImage();
+        illustration.alt = "Character";
+        illustration.loading = "lazy";
+        illustration.classList.add("illustration");
+        illustration_container.appendChild(illustration);
+        characters_container.append(illustration_container);
+        characters_container.append(details_container);
         await updateCSS("detail-character.css");
 
+
+
+
         // Ajout du nom du personnage
-        this._addCharacterDetail(characters_container, "h2", this.character.getName());
+        this._addCharacterDetail(details_container, "h2", this.character.getName());
 
         // Ajout du jeu d'origine du personnage
-        this._addCharacterDetail(characters_container, "h3", this.character.getGame());
+        this._addCharacterDetail(details_container, "h3", this.character.getGame());
 
         // Ajout de la classe du personnage
-        this._addCharacterDetail(characters_container, "h3", this.character.getCharacterClass());
+        this._addCharacterDetail(details_container, "h3", this.character.getCharacterClass());
 
         // Ajout du niveau du personnage
-        this._addCharacterDetail(characters_container, "h3", this.character.getLevel());
+        this._addCharacterDetail(details_container, "h3", this.character.getLevel());
 
         // Affichage des équipements du personnage
-        this._displayEquipments(characters_container);
+        this._displayEquipments(details_container);
 
         // Ajout du bouton favoris
-        this._addFavoriteButton(characters_container);
+        this._addFavoriteButton(details_container);
 
     }
 
@@ -64,13 +79,22 @@ export class DetailsCharacters extends InterfaceAffichage {
     // Méthode pour ajouter le bouton favoris
     _addFavoriteButton(container) {
         const buttonFav = document.createElement("div");
-        buttonFav.className = 'button-fav';
-        buttonFav.textContent = "Ajouter aux favoris";
+        buttonFav.classList.add("button-fav");
+        if (this.character.favorites) {
+            buttonFav.classList.add("active");
+        }
         container.appendChild(buttonFav);
 
         // Listener pour ajouter aux favoris
-        buttonFav.addEventListener("click", async () => {
-            await setFavorites();
+        buttonFav.addEventListener("click", async (event) => {
+            event.stopPropagation();
+            if (buttonFav.classList.contains("active")) {
+                buttonFav.classList.remove("active")
+            }
+            else {
+                buttonFav.classList.add("active");
+            }
+            await setFavorites(this.character.getId());
         });
     }
 }
