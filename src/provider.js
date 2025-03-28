@@ -127,7 +127,6 @@ export class Provider {
     static createRatings(data) {
         const ratings = [];
         for (const rating of data){
-            console.log(rating);
             ratings.push(new Rating(
                                     rating.id,
                                     rating.characterId,
@@ -158,4 +157,25 @@ export class Provider {
             body: JSON.stringify({ favorites: false })
         });
     }
+
+    static async setRating(server, ratingId, score, comment) {
+        const characId = await fetch(`${server}/ratings/${ratingId}`)
+            .then(response => response.json())
+            .then(data => data.characterId);
+        const rep = await fetch(`${server}/ratings/${ratingId}`, {
+            method: "PATCH",
+            headers:{
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({score: score, comment: comment})
+        });
+        const charac = await fetch(`${server}/characters/${characId}`, {
+            method: "PATCH",
+            headers:{
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ rating: score })
+        });
+    }
+
 }
