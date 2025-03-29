@@ -1,6 +1,7 @@
 import { InterfaceAffichage } from "./InterfaceAffichage.js";
-import { addClickListener, setFavorites, updateCSS } from "../app.js";
+import { addClickListener, updateCSS } from "../app.js";
 import { Pagination } from "../modules/pagination.js";
+import { LocalStorage } from "../modules/LocalStorage.js";
 
 export class PageCharacters extends InterfaceAffichage {
     constructor(listCharacter) {
@@ -70,19 +71,22 @@ export class PageCharacters extends InterfaceAffichage {
         // Bouton Favoris
         const buttonFav = document.createElement("div");
         buttonFav.classList.add("button-fav");
-        if (character.favorites) {
+        if (LocalStorage.getFavorites("characters").find(id => id == character.getId())) {
             buttonFav.classList.add("active");
         }
         characterCard.appendChild(buttonFav);
 
         // Listener pour ajouter aux favoris
-        buttonFav.addEventListener("click", async () => {
+        buttonFav.addEventListener("click", (event) => {
+            event.stopPropagation();
             if (buttonFav.classList.contains("active")) {
                 buttonFav.classList.remove("active");
+                LocalStorage.removeFavorites(character.getId(), "characters");
+
             } else {
                 buttonFav.classList.add("active");
+                LocalStorage.addFavorites(character.getId(), "characters");
             }
-            await setFavorites(character.getId());
         });
 
         container.appendChild(characterCard);

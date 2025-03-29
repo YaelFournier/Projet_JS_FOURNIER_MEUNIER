@@ -11,8 +11,7 @@
       "equipments": [
         1,
         2
-      ],
-      "favorites": true
+      ]
     },
     {
       "id": "2",
@@ -25,8 +24,7 @@
       "equipments": [
         3,
         4
-      ],
-      "favorites": true
+      ]
     },
     {
       "id": "3",
@@ -39,8 +37,7 @@
       "equipments": [
         5,
         6
-      ],
-      "favorites": true
+      ]
     },
     {
       "id": "4",
@@ -53,8 +50,7 @@
       "equipments": [
         7,
         8
-      ],
-      "favorites": false
+      ]
     },
     {
       "id": "5",
@@ -67,8 +63,7 @@
       "equipments": [
         9,
         10
-      ],
-      "favorites": false
+      ]
     },
     {
       "id": "6",
@@ -81,8 +76,7 @@
       "equipments": [
         11,
         12
-      ],
-      "favorites": true
+      ]
     },
     {
       "id": "7",
@@ -95,8 +89,7 @@
       "equipments": [
         13,
         14
-      ],
-      "favorites": false
+      ]
     },
     {
       "id": "8",
@@ -109,8 +102,7 @@
       "equipments": [
         15,
         16
-      ],
-      "favorites": false
+      ]
     },
     {
       "id": "9",
@@ -123,8 +115,7 @@
       "equipments": [
         17,
         18
-      ],
-      "favorites": false
+      ]
     },
     {
       "id": "10",
@@ -137,8 +128,7 @@
       "equipments": [
         19,
         20
-      ],
-      "favorites": false
+      ]
     }
   ],
   "equipments": [
