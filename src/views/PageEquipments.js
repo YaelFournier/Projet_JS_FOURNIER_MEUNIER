@@ -1,10 +1,12 @@
 import { InterfaceAffichage } from "./InterfaceAffichage.js";
 import {addClickListener, setFavorites, updateCSS} from "../app.js";
+import {Pagination} from "../modules/pagination.js";
 
 export class PageEquipments extends InterfaceAffichage {
     constructor(listEquipment) {
         super();
         this.listEquipment = listEquipment;
+        this.paginationObject = new Pagination(this.listEquipment, ".pagination", "/#/equipments");
     }
 
     async afficher() {
@@ -16,9 +18,14 @@ export class PageEquipments extends InterfaceAffichage {
 
         container.appendChild(equipmentsContainer);
 
+        const paginationContainer = document.createElement("div");
+        paginationContainer.classList.add("pagination-container");
+        container.append(paginationContainer);
         await updateCSS("equipments.css");
+        this._addPagination(paginationContainer);
 
-        for (const equipment of this.listEquipment) {
+        const equip = await this.paginationObject.afficherCharacters()
+        for (const equipment of equip) {
             this._createEquipmentCard(equipmentsContainer, equipment);
         }
 
@@ -27,6 +34,17 @@ export class PageEquipments extends InterfaceAffichage {
         setTimeout(() => {
             equipmentsContainer.classList.add("show");
         }, 100);
+    }
+
+    _addPagination(container) {
+        container.innerHTML = `
+            <nav aria-label="Pagination characters">
+              <ul class="pagination">
+              </ul>
+            </nav>
+        `;
+
+        this.paginationObject.updatePage();
     }
 
     _createEquipmentCard(container, equipment, index) {
