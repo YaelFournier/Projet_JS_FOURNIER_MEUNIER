@@ -96,6 +96,58 @@
     animation: heartBeat 0.4s ease-in-out;
 }
 
+/* Conteneur de la pagination */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Liste de pagination */
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    gap: 10px;
+}
+
+/* Boutons de pagination */
+.page-item {
+    background: linear-gradient(135deg, #2a1a5e, #1f1a3d);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    transition: transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.page-item a {
+    display: block;
+    padding: 10px 16px;
+    text-decoration: none;
+    color: #8a2be2;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background 0.3s ease-in-out;
+}
+
+/* Effet au survol */
+.page-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 204, 255, 0.5);
+}
+
+/* Boutons désactivés */
+.page-item.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* Effet actif */
+.page-item a:hover {
+    background: #8a2be2;
+}
+
+
 /* Animation du cœur */
 @keyframes heartBeat {
     0% { transform: scale(1); }

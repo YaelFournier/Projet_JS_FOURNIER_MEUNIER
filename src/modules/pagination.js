@@ -41,6 +41,7 @@ export class Pagination {
 
     async afficherCharacters() {
         const slice = this.listObjects.slice(this.objectsPerPage * (this.currentPage - 1), this.objectsPerPage * this.currentPage);
+        console.log(slice);
         return slice;
     }
 }
