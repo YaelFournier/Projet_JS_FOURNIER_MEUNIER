@@ -1,6 +1,38 @@
 
+.bg-navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 5px 0;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    background: linear-gradient(rgba(255,255,255,0.3) 0%, rgba(235,225,217,0.2) 50%, rgba(29,21,16,0) 100%);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
 
+/* Effet au scroll */
+.bg-navbar.scrolled {
+    background: rgba(29, 21, 16, 0.8);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* Style des liens de la navbar */
+.navbar-nav .nav-link {
+    color: white;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Pour éviter que le contenu soit caché sous la navbar */
 body {
+    padding-top: 70px;
     background: linear-gradient(135deg, #9400D3, #4B0082, #00FFFF);
     height: 100vh;
     margin: 0;
