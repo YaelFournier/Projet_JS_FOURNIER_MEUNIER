@@ -1,0 +1,197 @@
+/* Conteneurs généraux */
+.equipments-container, .characters-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    opacity: 0; /* Masqué au départ */
+    transform: translateY(50px) scale(0.95);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+/* Apparition des éléments */
+.equipments-container.show, .characters-container.show {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* Cartes (Équipement & Personnage) */
+.card-equipment, .card-character {
+    background: linear-gradient(135deg, #1a2d57, #3d3b6e);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    text-align: center;
+    position: relative;
+    opacity: 0;
+    transform: translateY(40px) scale(0.9);
+    animation: fadeInZoom 0.6s ease-out forwards;
+}
+
+/* Effet hover sur les cartes */
+.card-equipment:hover, .card-character:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 20px rgba(0, 204, 255, 0.5);
+    cursor: pointer;
+}
+
+/* Images des cartes */
+.card-equipment img, .card-character img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #5a5a9b;
+    transition: border-color 0.3s ease-in-out;
+}
+
+.card-character img {
+    border-color: #8a2be2;
+}
+
+/* Changement de bordure au hover */
+.card-equipment:hover img {
+    border-color: #00bcd4;
+}
+
+.card-character:hover img {
+    border-color: #00ffff;
+}
+
+/* Noms des éléments */
+.equipment-name, .character-name {
+    font-size: 1.6em;
+    font-weight: bold;
+    margin: 12px 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.equipment-name {
+    color: #5a5a9b;
+}
+
+.character-name, .rating {
+    color: #8a2be2;
+}
+
+/* Conteneur de la pagination */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Liste de pagination */
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    gap: 10px;
+}
+
+/* Boutons de pagination */
+.page-item {
+    background: linear-gradient(135deg, #2a1a5e, #1f1a3d);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    transition: transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.page-item a {
+    display: block;
+    padding: 10px 16px;
+    text-decoration: none;
+    color: #8a2be2;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background 0.3s ease-in-out;
+}
+
+.page-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 204, 255, 0.5);
+}
+
+.page-item.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.page-item a:hover {
+    background: #8a2be2;
+}
+
+/* Bouton Favoris */
+.button-fav {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 2.5em;
+    color: #bbb;
+    transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5em;
+    height: 1.5em;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+.button-fav::before {
+    content: '\2665';
+    font-family: Arial, sans-serif;
+}
+
+.button-fav:hover {
+    color: #8a2be2;
+}
+
+.button-fav.active {
+    color: #ff4757;
+    transform: scale(1.2);
+    animation: heartBeat 0.4s ease-in-out;
+}
+
+/* Animation du cœur */
+@keyframes heartBeat {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.4); }
+    100% { transform: scale(1); }
+}
+
+/* Animation d'apparition */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animation zoom + fade-in */
+@keyframes fadeInZoom {
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Délimiteur */
+.delimiter {
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to right, #8a2be2, transparent);
+    margin: 10px 0 20px;
+}
