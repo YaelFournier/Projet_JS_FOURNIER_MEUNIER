@@ -12,7 +12,7 @@
         1,
         2
       ],
-      "favorites": false
+      "favorites": true
     },
     {
       "id": "2",
@@ -211,6 +211,41 @@
       "type": "Axe",
       "owner": 5,
       "image": "leviathan-axe.jpeg"
+    }
+  ],
+
+  "ratings": [
+    {
+      "id": "1",
+      "characterId": 1,
+      "score": "5",
+      "comment": "A True legend !"
+    },
+    {
+      "id": "2",
+      "characterId": 2,
+      "score": 4.5,
+      "comment": "Amazing story and skills."
+    },
+    {
+      "id": "3",
+      "characterId": 3,
+      "score": 4.8,
+      "comment": "An icon in gaming history."
+    },
+    {
+      "id": "4",
+      "characterId": 4,
+      "user": "Player4",
+      "score": 4.6,
+      "comment": "A true warrior of the future."
+    },
+    {
+      "id": "5",
+      "characterId": 5,
+      "user": "Player5",
+      "score": 5,
+      "comment": "A god among men."
     }
   ]
 }

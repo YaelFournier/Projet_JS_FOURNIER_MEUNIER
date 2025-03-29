@@ -1,0 +1,208 @@
+/* Conteneur principal des détails */
+.details-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-right: 3em;
+    width: 100%;
+    height: 80vh;
+    border-radius: 10px;
+    background: #1f1a3d;
+    padding: 20px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7);
+    scrollbar-width: none;
+    overflow: auto;
+    -ms-overflow-style: none;
+}
+
+.details-container::-webkit-scrollbar {
+    display: none;
+}
+
+/* Titre des catégories */
+.titre-category {
+    font-size: 1.8em;
+    color: #8a2be2;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.delimiter {
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to right, #8a2be2, transparent);
+    margin: 10px 0 20px;
+}
+
+/* Conteneur des détails de l'équipement */
+.detail-info, .detail-owner {
+    flex: 1;
+    padding: 15px;
+    background: #2a1a5e;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.detail-info h4, .detail-owner h4 {
+    font-size: 1.4em;
+    color: #00ffff;
+}
+
+.detail-equipment h5, .detail-owner div {
+    font-size: 1.2em;
+    color: #ddd;
+    margin-top: 5px;
+}
+
+/* Conteneur principal de l'équipement */
+.equipment-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 3em;
+}
+
+.illustration-container {
+    height: 80vh;
+    display: flex;
+    margin-left: 3em;
+}
+
+/* Image de l'équipement */
+.illustration {
+    width: 20em;
+    object-fit: cover;
+    display: block;
+    opacity: 1;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(138, 43, 226, 0.6), 0px 0px 30px rgba(0, 191, 255, 0.5);
+    transition: 300ms all;
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.illustration:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 0px 40px rgba(138, 43, 226, 0.8), 0px 0px 60px rgba(0, 191, 255, 0.7);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Style du propriétaire */
+.owner {
+    padding: 8px;
+    background: #3b2a6b;
+    border-radius: 6px;
+    margin: 5px 0;
+    text-align: center;
+    transition: background 0.3s;
+    cursor: pointer;
+}
+
+.owner:hover {
+    background: #8a2be2;
+}
+
+/* Bouton Favoris */
+.button-fav {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 5em;
+    color: #bbb;
+    transition: color 0.3s ease-in-out, transform 0.2s ease-in-out;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5em;
+    height: 1.5em;
+    margin: 0 auto;
+}
+
+.button-fav::before {
+    content: '\2665';
+    font-family: Arial, sans-serif;
+}
+
+.button-fav:hover {
+    color: #8a2be2;
+}
+
+.button-fav.active {
+    color: #ff4757;
+    transform: scale(1.2);
+    animation: heartBeat 0.4s ease-in-out;
+}
+
+@keyframes heartBeat {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.4); }
+    100% { transform: scale(1); }
+}
+
+/* Conteneur des notes */
+.rating-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    background: #251b48;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    margin-top: 20px;
+}
+
+.note-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 15px;
+    background: #2a1a5e;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.author-name {
+    font-size: 1.2em;
+    color: #8a2be2;
+}
+
+.note-title {
+    font-size: 1.1em;
+    color: #ddd;
+}
+
+.rate {
+    font-size: 1.5em;
+    color: #00ffff;
+    font-weight: bold;
+}
+
+.modif-rate {
+    background: #8a2be2;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.modif-rate:hover {
+    background: #5a1c9e;
+}

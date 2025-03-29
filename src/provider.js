@@ -57,15 +57,16 @@ export class Provider {
     }
 
     static async loadRatingById(server, character_id) {
-        return fetch( server+/ratings/ + character_id)
-            .then(rating => {
-                if (!rating.ok) {
-                    throw new Error("Erreur lors de rating");
-                }
-                return rating.json();
-            })
-            .then(data => Array.isArray(data) ? data : [data]);
+        const response = await fetch(server + "/ratings/" + character_id);
+
+        if (!response.ok) {
+            throw new Error(`Erreur lors de la récupération du rating (${response.status} ${response.statusText})`);
+        }
+
+        const data = await response.json(); // ✅ On s'assure de ne lire le body qu'une seule fois
+        return Array.isArray(data) ? data : [data];
     }
+
 
 
     static loadRatings(server) {
@@ -145,9 +146,9 @@ export class Provider {
             ratings.push(new Rating(
                                     rating.id,
                                     rating.characterId,
-                                    rating.score, 
-                                    rating.comment,
-                                    rating.user
+                                    rating.score,
+                                    rating.user,
+                                    rating.comment
                                 )
                             );
         }
