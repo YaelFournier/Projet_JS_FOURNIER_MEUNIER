@@ -213,13 +213,12 @@
       "image": "leviathan-axe.jpeg"
     }
   ],
-
   "ratings": [
     {
       "id": "1",
       "characterId": 1,
       "score": "5",
-      "comment": "A True legend !"
+      "comment": "A true legend !"
     },
     {
       "id": "2",

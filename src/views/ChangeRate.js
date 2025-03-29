@@ -1,13 +1,12 @@
 import { InterfaceAffichage } from "./InterfaceAffichage.js";
 import { Provider } from "../provider.js";
 import { SERVER } from "../config.js";
-import { Rating } from "../modules/Ratings.js";
 
 export class ChangeRate extends InterfaceAffichage {
     constructor(ratings, ratingId){
         super();
         this.ratings = ratings;
-        this.rating = this.ratings.find(rating => rating.getId() === ratingId);
+        this.rating = this.ratings.find(rating => rating.getId() == ratingId);
     }
 
     afficher() {
@@ -42,6 +41,8 @@ export class ChangeRate extends InterfaceAffichage {
     
         form.addEventListener("submit", (event) => {
             event.preventDefault();
+
+            console.log(this.rating)
             
             this.rating.setScore(form.rate.value);
             this.rating.setComment(form.comment.value);

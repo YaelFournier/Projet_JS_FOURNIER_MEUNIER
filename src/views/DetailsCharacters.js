@@ -23,7 +23,7 @@ export class DetailsCharacters extends InterfaceAffichage {
         characters_container.classList.add("characters-container");
         container.appendChild(characters_container);
         const rating_container = document.createElement("div");
-        rating_container.classList.add("rating-container");
+        rating_container.classList.add("ratings-container");
         container.appendChild(rating_container);
         const illustration_container = document.createElement("div");
         const details_container = document.createElement("div");
@@ -74,17 +74,17 @@ export class DetailsCharacters extends InterfaceAffichage {
         delimiter.classList.add("delimiter");
         rating_container.appendChild(title_rating);
         rating_container.appendChild(delimiter);
-        for (let i=0; i<this.listRatings.length; i++) {
+        for (let i=0; i<this.listRatings.length; i++) { 
             const note = this.listRatings[i];
             let authorName = note.getAuthor() ? note.getAuthor() : "Unknown";
-            this._addNote(rating_container, note.getComment(), note.getScore(), authorName)
+            this._addNote(rating_container, note.getComment(), note.getScore(), authorName, note.getId());
         }
 
     }
 
     _addNote(container, title, notation, author, ratingId) {
         const note_container = document.createElement("div");
-        note_container.classList.add("note-container");
+        note_container.classList.add("rating-container");
 
         const authorNameContainer = document.createElement('div');
         authorNameContainer.classList.add("author-name-container");
@@ -99,12 +99,12 @@ export class DetailsCharacters extends InterfaceAffichage {
         secondaryContainer.classList.add("container-fluid", "d-flex", "justify-content-between", "align-items-center");
 
         const titre = document.createElement("p");
-        titre.classList.add("note-title", "mx-auto");
+        titre.classList.add("comment", "mx-auto");
         titre.textContent = title;
         secondaryContainer.appendChild(titre);
 
         const rate = document.createElement("h5");
-        rate.classList.add("rate");
+        rate.classList.add("rating");
         rate.textContent = notation;
         secondaryContainer.appendChild(rate);
 
@@ -126,6 +126,7 @@ export class DetailsCharacters extends InterfaceAffichage {
             if (existingForm) {
                 existingForm.remove();
             } else {
+                console.log(this.listRatings, ratingId);
                 const changeRate = new ChangeRate(this.listRatings, ratingId);
                 const form = changeRate.afficher();
                 note_container.appendChild(form);

@@ -147,8 +147,8 @@ export class Provider {
                                     rating.id,
                                     rating.characterId,
                                     rating.score,
-                                    rating.user,
-                                    rating.comment
+                                    rating.comment,
+                                    rating.user
                                 )
                             );
         }

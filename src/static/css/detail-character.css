@@ -16,7 +16,7 @@
 }
 
 /* Conteneur principal des notes */
-.rating-container {
+.ratings-container {
     width: 90%;
     background: #1f1a3d;
     padding: 20px;
@@ -28,7 +28,7 @@
 }
 
 /* Conteneur individuel pour chaque note */
-.note-container {
+.rating-container {
     display: flex;
     width: 100%;
     padding: 15px;
@@ -39,7 +39,7 @@
 }
 
 /* Titre du commentaire */
-.note-title {
+.comment {
     font-size: 1.0em;
     color: whitesmoke;
     text-align: center;
@@ -47,7 +47,7 @@
 }
 
 /* Score de la note */
-.rate {
+.rating {
     font-size: 1.2em;
     color: #ddd;
     font-weight: bold;
