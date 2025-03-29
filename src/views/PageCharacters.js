@@ -21,14 +21,15 @@ export class PageCharacters extends InterfaceAffichage {
 
         await updateCSS("characters.css");
 
-        for (const character of this.listCharacter) {
-            this._createCharacterCard(characters_container, character);
-        }
-
         const paginationContainer = document.createElement("div");
         paginationContainer.classList.add("pagination-container");
         container.append(paginationContainer);
         this._addPagination(paginationContainer);
+
+        const charac = await this.paginationObject.afficherCharacters()
+        for (const character of charac) {
+            this._createCharacterCard(characters_container, character);
+        }
 
         addClickListener(".card-character", "data-id-charac");
 

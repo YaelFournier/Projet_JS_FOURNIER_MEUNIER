@@ -32,9 +32,15 @@ export class Pagination {
             <li class="page-item ${this.currentPage === 1 ? "disabled" : ""}">
                 <a class="page-link" href="${this.path}?page=${this.currentPage - 1}">Précédent</a>
             </li>
+
             <li class="page-item ${this.currentPage === this.totalPages ? "disabled" : ""}">
                 <a class="page-link" href="${this.path}?page=${this.currentPage + 1}">Suivant</a>
             </li>
         `;
+    }
+
+    async afficherCharacters() {
+        const slice = this.listObjects.slice(this.objectsPerPage * (this.currentPage - 1), this.objectsPerPage * this.currentPage);
+        return slice;
     }
 }
