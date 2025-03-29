@@ -1,18 +1,31 @@
 import { InterfaceAffichage } from "./InterfaceAffichage.js";
 import { addClickListener, setFavorites, updateCSS } from "../app.js";
-import { Pagination } from "../modules/pagination.js";
 
 export class PageCharacters extends InterfaceAffichage {
     constructor(listCharacter) {
         super();
         this.listCharacter = listCharacter;
-        this.paginationObject = new Pagination(this.listCharacter, ".pagination", "/#/characters");
     }
 
     async afficher() {
-        const container = document.getElementById("view-container");
 
+        const container = document.getElementById("view-container");
         container.innerHTML = "";
+
+        const searchContainer = document.createElement("div");
+        searchContainer.classList.add("search-container");
+        container.append(searchContainer);
+
+        let searchBox = document.querySelector('.search-box');
+        if (!searchBox) {
+            searchBox = document.createElement("div");
+            searchBox.classList.add("search-box");
+            searchBox.innerHTML = `<input type="text" id="searchInput" placeholder="Rechercher..." />`;
+            container.append(searchBox);
+        }
+
+        // Écouteur d'événements ajouté après l'affichage
+
 
         const characters_container = document.createElement("div");
         characters_container.classList.add("characters-container");
@@ -26,8 +39,7 @@ export class PageCharacters extends InterfaceAffichage {
         container.append(paginationContainer);
         this._addPagination(paginationContainer);
 
-        const charac = await this.paginationObject.afficherCharacters()
-        for (const character of charac) {
+        for (const character of this.listCharacter) {
             this._createCharacterCard(characters_container, character);
         }
 
@@ -38,6 +50,25 @@ export class PageCharacters extends InterfaceAffichage {
         }, 100);
     }
 
+    async setData(data) {
+        this.listCharacter = data; // Mettre à jour les données
+
+        const characters_container = document.querySelector(".characters-container");
+        if (!characters_container) return; // Sécurité si le conteneur n'est pas encore chargé
+
+        // Supprimer les anciens personnages
+        characters_container.innerHTML = "";
+
+        // Ajouter les nouveaux personnages
+        data.forEach((character, index) => {
+            this._createCharacterCard(characters_container, character, index);
+        });
+
+        addClickListener(".card-character", "data-id-charac"); // Réactiver les événements
+    }
+
+
+
     _addPagination(container) {
         container.innerHTML = `
             <nav aria-label="Pagination characters">
@@ -46,7 +77,6 @@ export class PageCharacters extends InterfaceAffichage {
             </nav>
         `;
 
-        this.paginationObject.updatePage();
     }
 
     _createCharacterCard(container, character, index) {
