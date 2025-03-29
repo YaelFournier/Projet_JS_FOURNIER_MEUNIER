@@ -1,16 +1,17 @@
 import { InterfaceAffichage } from "./InterfaceAffichage.js";
-import {addClickListener, setFavorites, updateCSS} from "../app.js";
+import { addClickListener, setFavorites, updateCSS } from "../app.js";
+import { Pagination } from "../modules/pagination.js";
 
 export class PageCharacters extends InterfaceAffichage {
     constructor(listCharacter) {
         super();
         this.listCharacter = listCharacter;
+        this.paginationObject = new Pagination(this.listCharacter, ".pagination", "/#/characters");
     }
-
-
 
     async afficher() {
         const container = document.getElementById("view-container");
+
         container.innerHTML = "";
 
         const characters_container = document.createElement("div");
@@ -24,6 +25,11 @@ export class PageCharacters extends InterfaceAffichage {
             this._createCharacterCard(characters_container, character);
         }
 
+        const paginationContainer = document.createElement("div");
+        paginationContainer.classList.add("pagination-container");
+        container.append(paginationContainer);
+        this._addPagination(paginationContainer);
+
         addClickListener(".card-character", "data-id-charac");
 
         setTimeout(() => {
@@ -31,6 +37,16 @@ export class PageCharacters extends InterfaceAffichage {
         }, 100);
     }
 
+    _addPagination(container) {
+        container.innerHTML = `
+            <nav aria-label="Pagination characters">
+              <ul class="pagination">
+              </ul>
+            </nav>
+        `;
+
+        this.paginationObject.updatePage();
+    }
 
     _createCharacterCard(container, character, index) {
         const characterCard = document.createElement("div");
@@ -61,9 +77,8 @@ export class PageCharacters extends InterfaceAffichage {
         // Listener pour ajouter aux favoris
         buttonFav.addEventListener("click", async () => {
             if (buttonFav.classList.contains("active")) {
-                buttonFav.classList.remove("active")
-            }
-            else {
+                buttonFav.classList.remove("active");
+            } else {
                 buttonFav.classList.add("active");
             }
             await setFavorites(character.getId());
@@ -77,6 +92,4 @@ export class PageCharacters extends InterfaceAffichage {
             characterCard.style.transform = "translateY(0) scale(1)";
         }, index * 100);
     }
-
-
 }

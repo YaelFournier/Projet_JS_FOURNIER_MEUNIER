@@ -84,18 +84,23 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    function handleRoute(){
-        const path = window.location.hash.substring(1);
+    function handleRoute() {
+        // Récupérer le hash de l'URL sans les paramètres après "?".
+        const path = window.location.hash.substring(1).split('?')[0];
+
+        // Définir les routes possibles
         const routes = [
             { pattern: /^\/characters\/(\d+)$/, view: "characters" },
-            { pattern: /^\/characters$/, view: "characters"},
+            { pattern: /^\/characters$/, view: "characters" },
             { pattern: /^\/equipments\/(\d+)$/, view: "equipments" },
             { pattern: /^\/equipments$/, view: "equipments" },
             { pattern: /^\/ratings$/, view: "ratings" },
-            {pattern: /^\/ratings\/(\d+)$/, view: "ratings"},
+            { pattern: /^\/ratings\/(\d+)$/, view: "ratings" },
             { pattern: /^\/favorites$/, view: "favorites" },
             { pattern: /^\/$/, view: "home" }
         ];
+
+        // Chercher une route qui correspond au chemin
         for (const route of routes) {
             const match = path.match(route.pattern);
             if (match) {
@@ -104,8 +109,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
         }
+
         renderView("404");
     }
+
 
     window.addEventListener("popstate", handleRoute);
 
@@ -160,11 +167,10 @@ export async function updateCSS(href) {
             console.log(`CSS ${href} chargé !`);
             resolve();
         };
-
-        // Sécurité : si le chargement prend trop de temps, on force la résolution
         setTimeout(() => {
             console.warn(`Timeout : CSS ${href} peut ne pas être complètement chargé.`);
             resolve();
         }, 100);
     });
 }
+
