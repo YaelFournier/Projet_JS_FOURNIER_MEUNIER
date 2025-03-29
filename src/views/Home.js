@@ -1,6 +1,5 @@
 import { InterfaceAffichage } from "./InterfaceAffichage.js";
-import {addClickListener, background_video} from "../app.js";
-import { updateCSS } from "../app.js";
+import {addClickListener, updateCSS} from "../app.js";
 export class Home extends InterfaceAffichage {
 
     constructor(listCharacter) {
@@ -9,7 +8,6 @@ export class Home extends InterfaceAffichage {
 
     _init() {
 
-        background_video();
         updateCSS("home.css")
         document.querySelectorAll(".card").forEach(card => {
             card.addEventListener("mouseenter", function() {

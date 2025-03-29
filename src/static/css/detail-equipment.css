@@ -1,4 +1,4 @@
-
+/* Conteneur principal des détails */
 .details-container {
     display: flex;
     flex-direction: column;
@@ -15,56 +15,11 @@
     -ms-overflow-style: none;
 }
 
-/* Conteneur principal des notes */
-.rating-container {
-    width: 90%;
-    background: #1f1a3d;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7);
-    display: flex;
-    flex-direction: column;
-    margin: 20px auto;
-}
-
-/* Conteneur individuel pour chaque note */
-.note-container {
-    display: flex;
-    width: 100%;
-    padding: 15px;
-    background: #2a1a5e;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    align-items: center;
-}
-
-/* Titre du commentaire */
-.note-title {
-    font-size: 1.0em;
-    color: whitesmoke;
-    text-align: center;
-    margin-bottom: 10px;
-}
-
-/* Score de la note */
-.rate {
-    font-size: 1.2em;
-    color: #ddd;
-    font-weight: bold;
-    background: #3b2a6b;
-    padding: 10px;
-    border-radius: 6px;
-    text-align: center;
-    width: 60px;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
-}
-
-
 .details-container::-webkit-scrollbar {
     display: none;
 }
 
-
+/* Titre des catégories */
 .titre-category {
     font-size: 1.8em;
     color: #8a2be2;
@@ -79,8 +34,9 @@
     margin: 10px 0 20px;
 }
 
-.detail-cara, .detail-univers, .detail-equipment {
-    flex: 1; /* Permet d’occuper toute la place */
+/* Conteneur des détails de l'équipement */
+.detail-info, .detail-owner {
+    flex: 1;
     padding: 15px;
     background: #2a1a5e;
     border-radius: 8px;
@@ -90,33 +46,19 @@
     justify-content: center;
 }
 
-.detail-cara h4, .detail-univers h4, .detail-equipment h4 {
+.detail-info h4, .detail-owner h4 {
     font-size: 1.4em;
     color: #00ffff;
 }
 
-.detail-cara h5, .detail-univers h5, .detail-equipment div {
+.detail-equipment h5, .detail-owner div {
     font-size: 1.2em;
     color: #ddd;
     margin-top: 5px;
 }
 
-.equip {
-    padding: 8px;
-    background: #3b2a6b;
-    border-radius: 6px;
-    margin: 5px 0;
-    text-align: center;
-    transition: background 0.3s;
-}
-
-.equip:hover {
-    background: #8a2be2;
-    cursor: pointer;
-}
-
-
-.characters-container {
+/* Conteneur principal de l'équipement */
+.equipment-container {
     display: flex;
     width: 100%;
     height: 100%;
@@ -132,29 +74,22 @@
     margin-left: 3em;
 }
 
-
-
-/* Effet sur l'image du personnage */
+/* Image de l'équipement */
 .illustration {
-    width: 25em;
+    width: 20em;
     object-fit: cover;
     display: block;
     opacity: 1;
     border-radius: 10px;
     box-shadow: 0px 0px 20px rgba(138, 43, 226, 0.6), 0px 0px 30px rgba(0, 191, 255, 0.5);
-
     transition: 300ms all;
     animation: fadeInUp 0.6s ease-out forwards;
-
 }
-
-
 
 .illustration:hover {
     transform: scale(1.1);
     box-shadow: 0px 0px 40px rgba(138, 43, 226, 0.8), 0px 0px 60px rgba(0, 191, 255, 0.7);
 }
-
 
 @keyframes fadeInUp {
     from {
@@ -167,6 +102,20 @@
     }
 }
 
+/* Style du propriétaire */
+.owner {
+    padding: 8px;
+    background: #3b2a6b;
+    border-radius: 6px;
+    margin: 5px 0;
+    text-align: center;
+    transition: background 0.3s;
+    cursor: pointer;
+}
+
+.owner:hover {
+    background: #8a2be2;
+}
 
 /* Bouton Favoris */
 .button-fav {
@@ -181,8 +130,6 @@
     justify-content: center;
     width: 1.5em;
     height: 1.5em;
-    top: 15px;
-    right: 15px;
     margin: 0 auto;
 }
 
@@ -191,22 +138,71 @@
     font-family: Arial, sans-serif;
 }
 
-/* Changer la couleur du bouton au hover */
 .button-fav:hover {
     color: #8a2be2;
 }
 
-/* Effet du cœur au clic */
 .button-fav.active {
     color: #ff4757;
     transform: scale(1.2);
     animation: heartBeat 0.4s ease-in-out;
 }
 
-/* Animation du cœur */
 @keyframes heartBeat {
     0% { transform: scale(1); }
     50% { transform: scale(1.4); }
     100% { transform: scale(1); }
 }
 
+/* Conteneur des notes */
+.rating-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    background: #251b48;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    margin-top: 20px;
+}
+
+.note-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 15px;
+    background: #2a1a5e;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.author-name {
+    font-size: 1.2em;
+    color: #8a2be2;
+}
+
+.note-title {
+    font-size: 1.1em;
+    color: #ddd;
+}
+
+.rate {
+    font-size: 1.5em;
+    color: #00ffff;
+    font-weight: bold;
+}
+
+.modif-rate {
+    background: #8a2be2;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.modif-rate:hover {
+    background: #5a1c9e;
+}

@@ -1,5 +1,5 @@
-
-.characters-container {
+/* Conteneur des équipements */
+.equipments-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
@@ -10,14 +10,14 @@
 }
 
 /* Quand la classe est ajoutée, les éléments apparaissent */
-.characters-container.show {
+.equipments-container.show {
     opacity: 1;
     transform: translateY(0) scale(1);
 }
 
-/* Carte d'un personnage */
-.card-character {
-    background: linear-gradient(135deg, #2a1a5e, #1f1a3d);
+/* Carte d'un équipement */
+.card-equipment {
+    background: linear-gradient(135deg, #1a2d57, #3d3b6e);
     border-radius: 16px;
     padding: 20px;
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7);
@@ -30,56 +30,38 @@
 }
 
 /* Effet hover sur la carte */
-.card-character:hover {
+.card-equipment:hover {
     transform: translateY(-8px);
     box-shadow: 0 8px 20px rgba(0, 204, 255, 0.5);
     cursor: pointer;
 }
 
-/* Image du personnage */
-.card-character img {
+/* Image de l'équipement */
+.card-equipment img {
     width: 120px;
     height: 120px;
     border-radius: 50%;
     object-fit: cover;
-    border: 4px solid #8a2be2;
+    border: 4px solid #5a5a9b;
     transition: border-color 0.3s ease-in-out;
 }
 
 /* Changer la couleur de la bordure au hover */
-.card-character:hover img {
-    border-color: #00ffff;
+.card-equipment:hover img {
+    border-color: #00bcd4;
 }
 
-/* Nom du personnage */
-.character-name {
+/* Nom de l'équipement */
+.equipment-name {
     font-size: 1.6em;
     font-weight: bold;
     margin: 12px 0;
-    color: #8a2be2;
+    color: #5a5a9b;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
 
-/* Note du personnage */
-.rating {
-    margin-top: 15px;
-    font-size: 1.3em;
-    color: #8a2be2;
-}
-
-/* Style pour la ligne de délimitation entre les catégories */
-.delimiter {
-    width: 100%;
-    height: 1px;
-    background-color: #ddd; /* Couleur de la ligne */
-    margin: 1em 0; /* Espacement avant et après la ligne */
-    clear: both; /* Permet de s'assurer que la ligne n'est pas masquée par les éléments flottants */
-}
-
-
-
-/* Bouton Favoris */
+/* Effet du cœur (favoris) */
 .button-fav {
     background: none;
     border: none;
@@ -104,7 +86,7 @@
 
 /* Changer la couleur du bouton au hover */
 .button-fav:hover {
-    color: #8a2be2;
+    color: #5a5a9b;
 }
 
 /* Effet du cœur au clic */

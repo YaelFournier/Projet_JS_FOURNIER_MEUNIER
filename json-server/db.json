@@ -12,7 +12,7 @@
         1,
         2
       ],
-      "favorites": false
+      "favorites": true
     },
     {
       "id": "2",
@@ -26,7 +26,7 @@
         3,
         4
       ],
-      "favorites": false
+      "favorites": true
     },
     {
       "id": "3",
@@ -40,7 +40,7 @@
         5,
         6
       ],
-      "favorites": false
+      "favorites": true
     },
     {
       "id": "4",
@@ -68,7 +68,7 @@
         9,
         10
       ],
-      "favorites": true
+      "favorites": false
     },
     {
       "id": "6",
@@ -146,63 +146,74 @@
       "id": "1",
       "name": "Frostmourne",
       "type": "Sword",
-      "owner": 1
+      "owner": 1,
+      "image": "frostmourne.webp"
     },
     {
       "id": "2",
       "name": "Helmet of Domination",
       "type": "Armor",
-      "owner": 1
+      "owner": 1,
+      "image": "helmet-of-domination.jpg"
     },
     {
       "id": "3",
       "name": "Silver Sword",
       "type": "Sword",
-      "owner": 2
+      "owner": 2,
+      "image": "silver-sword.jpg"
     },
     {
       "id": "4",
       "name": "Witcher Medallion",
       "type": "Accessory",
-      "owner": 2
+      "owner": 2,
+      "image": "witcher-medallion.jpg"
     },
     {
       "id": "5",
       "name": "Dual Pistols",
       "type": "Guns",
-      "owner": 3
+      "owner": 3,
+      "image": "dual-pistols.jpg"
     },
     {
       "id": "6",
       "name": "Climbing Gear",
       "type": "Tool",
-      "owner": 3
+      "owner": 3,
+      "image": "climbing-gear.jpg"
     },
     {
       "id": "7",
       "name": "Energy Sword",
       "type": "Blade",
-      "owner": 4
+      "owner": 4,
+      "image": "energy-sword.jpg"
     },
     {
       "id": "8",
       "name": "MJOLNIR Armor",
       "type": "Armor",
+      "image": "mjolnir.jpg",
       "owner": 4
     },
     {
       "id": "9",
       "name": "Blades of Chaos",
       "type": "Blades",
-      "owner": 5
+      "owner": 5,
+      "image": "blades-of-chaos.jpg"
     },
     {
       "id": "10",
       "name": "Leviathan Axe",
       "type": "Axe",
-      "owner": 5
+      "owner": 5,
+      "image": "leviathan-axe.jpeg"
     }
   ],
+
   "ratings": [
     {
       "id": "1",

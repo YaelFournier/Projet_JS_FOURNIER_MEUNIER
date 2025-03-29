@@ -17,6 +17,7 @@ export class Provider {
     }
 
     static loadCharactersById(server, id) {
+        console.log(id);
         return fetch( server + "/characters/" + id )
             .then(character => {
                 if (!character.ok){
@@ -54,6 +55,19 @@ export class Provider {
                 return data;
             });
     }
+
+    static async loadRatingById(server, character_id) {
+        const response = await fetch(server + "/ratings/" + character_id);
+
+        if (!response.ok) {
+            throw new Error(`Erreur lors de la récupération du rating (${response.status} ${response.statusText})`);
+        }
+
+        const data = await response.json(); // ✅ On s'assure de ne lire le body qu'une seule fois
+        return Array.isArray(data) ? data : [data];
+    }
+
+
 
     static loadRatings(server) {
         return fetch( server + "/ratings" )
@@ -108,6 +122,7 @@ export class Provider {
                                         equipment.id,
                                         equipment.name,
                                         equipment.type,
+                                        equipment.image,
                                         equipment.owner
                                     )
                                 );
@@ -119,6 +134,7 @@ export class Provider {
         const equipment = new Equipment(data.id,
                                         data.name,
                                         data.type,
+                                        data.image,
                                         data.owner
                                     );
         return equipment;
@@ -130,7 +146,8 @@ export class Provider {
             ratings.push(new Rating(
                                     rating.id,
                                     rating.characterId,
-                                    rating.score, 
+                                    rating.score,
+                                    rating.user,
                                     rating.comment
                                 )
                             );

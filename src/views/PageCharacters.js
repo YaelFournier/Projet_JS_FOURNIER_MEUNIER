@@ -1,5 +1,5 @@
 import { InterfaceAffichage } from "./InterfaceAffichage.js";
-import {addClickListener, background_video, setFavorites, updateCSS} from "../app.js";
+import {addClickListener, setFavorites, updateCSS} from "../app.js";
 
 export class PageCharacters extends InterfaceAffichage {
     constructor(listCharacter) {
@@ -7,33 +7,30 @@ export class PageCharacters extends InterfaceAffichage {
         this.listCharacter = listCharacter;
     }
 
-    _init() {
-        background_video();
 
 
-    }
-
-    afficher() {
-        this._init();
+    async afficher() {
         const container = document.getElementById("view-container");
         container.innerHTML = "";
 
         const characters_container = document.createElement("div");
-        characters_container.classList.add("characters-container"); // Ajout du conteneur
+        characters_container.classList.add("characters-container");
 
         container.append(characters_container);
+
+        await updateCSS("characters.css");
 
         for (const character of this.listCharacter) {
             this._createCharacterCard(characters_container, character);
         }
 
-        updateCSS("characters.css");
         addClickListener(".card-character", "data-id-charac");
 
         setTimeout(() => {
             characters_container.classList.add("show");
         }, 100);
     }
+
 
     _createCharacterCard(container, character, index) {
         const characterCard = document.createElement("div");
@@ -56,10 +53,19 @@ export class PageCharacters extends InterfaceAffichage {
         // Bouton Favoris
         const buttonFav = document.createElement("div");
         buttonFav.classList.add("button-fav");
+        if (character.favorites) {
+            buttonFav.classList.add("active");
+        }
         characterCard.appendChild(buttonFav);
 
         // Listener pour ajouter aux favoris
         buttonFav.addEventListener("click", async () => {
+            if (buttonFav.classList.contains("active")) {
+                buttonFav.classList.remove("active")
+            }
+            else {
+                buttonFav.classList.add("active");
+            }
             await setFavorites(character.getId());
         });
 
@@ -69,7 +75,7 @@ export class PageCharacters extends InterfaceAffichage {
         setTimeout(() => {
             characterCard.style.opacity = "1";
             characterCard.style.transform = "translateY(0) scale(1)";
-        }, index * 100); // 100ms entre chaque carte
+        }, index * 100);
     }
 
 
