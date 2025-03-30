@@ -1,14 +1,13 @@
 import { InterfaceAffichage } from "./InterfaceAffichage.js";
 import {addClickListener, setFavorites, updateCSS} from "../app.js";
 import { LocalStorage } from "../modules/LocalStorage.js";
-import {Pagination} from "../modules/pagination.js";
+import {Pagination} from "../modules/sort/pagination.js";
 
 export class PageEquipments extends InterfaceAffichage {
     constructor(listEquipment) {
         super();
         this.listEquipment = listEquipment;
         this.paginationObject = new Pagination(this.listEquipment, ".pagination", "/#/equipments");
-        this.sortController = new SortController(this, { equipments: listEquipment });
     }
 
     async afficher() {
@@ -39,8 +38,6 @@ export class PageEquipments extends InterfaceAffichage {
 
         this._addPagination(paginationContainer);
 
-        // Appeler SortController pour configurer l'écouteur de recherche
-        this.sortController.setupListeners();
 
         // Initialiser les équipements paginés
         const paginatedEquipments = this.paginationObject.getSlices();

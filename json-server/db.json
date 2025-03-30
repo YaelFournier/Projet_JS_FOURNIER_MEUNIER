@@ -19,7 +19,7 @@
       "game": "The Witcher",
       "class": "Witcher",
       "level": 45,
-      "rating": "2",
+      "rating": "3",
       "image": "geralt-of-rivia.jpg",
       "equipments": [
         3,
@@ -213,8 +213,8 @@
     {
       "id": "2",
       "characterId": 2,
-      "score": "2",
-      "comment": "cdqd"
+      "score": "3",
+      "comment": "da"
     },
     {
       "id": "3",

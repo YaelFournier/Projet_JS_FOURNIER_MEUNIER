@@ -1,6 +1,6 @@
 import { InterfaceAffichage } from "./InterfaceAffichage.js";
 import { addClickListener, updateCSS } from "../app.js";
-import { Pagination } from "../modules/pagination.js";
+import { Pagination } from "../modules/sort/pagination.js";
 import { LocalStorage } from "../modules/LocalStorage.js";
 
 export class PageCharacters extends InterfaceAffichage {
