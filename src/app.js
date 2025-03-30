@@ -7,23 +7,26 @@ import { DetailsCharacters } from "./views/DetailsCharacters.js";
 import { DetailsEquipments } from "./views/DetailsEquipments.js";
 import { PageFavorites } from "./views/PageFavorites.js";
 import { PageRatings } from "./views/PageRatings.js";
+import {SortController} from "./modules/sort/SortController.js";
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    
+    let controller = new SortController(null, null);
+
     async function renderView(view, id=null){
         const body = document.body;
         const head = document.head
+        let allData = new Map();
         switch (view){
             case "home":
                 const homeView = new Home();
-                homeView.afficher();
+                controller.refreshAll(homeView, null);
                 break;
             case "characters":
-                if (id){
+                if (id) {
+                    let allData = new Map();
                     const characterJSON = await Provider.loadCharactersById(SERVER, id);
                     const character = Provider.createCharacterById(characterJSON);
-
                     const equipments = [];
 
                     for (const ids of character.equipments){
@@ -31,37 +34,44 @@ document.addEventListener("DOMContentLoaded", () => {
                         const equipment = Provider.createEquipmentById(equipmentJSON);
                         equipments.push(equipment);
                     }
+                    allData.set('equipments', equipments);
+
                     const listRatingsJSON = await Provider.loadRatingById(SERVER, id);
-                    console.log(listRatingsJSON);
                     const listRatings = Provider.createRatings(listRatingsJSON);
-                    const detailsCharactersView = new DetailsCharacters(character, equipments, listRatings);
-                    detailsCharactersView.afficher();
+                    allData.set('ratings', listRatings);
+
+                    const detailsCharactersView = new DetailsCharacters(character, allData.get('equipments'), allData.get('ratings'));
+                    controller.refreshAll(detailsCharactersView, allData);
                     return;
-                }
-                else {
+                } else {
+                    let allData = new Map();
                     const charactersJSON = await Provider.loadCharacters(SERVER);
                     const characters = Provider.createCharacters(charactersJSON);
+                    allData.set('characters', characters);
                     const pageCharactersView = new PageCharacters(characters);
-                    pageCharactersView.afficher();
+                    controller.refreshAll(pageCharactersView, allData);
                     break;
                 }
             case "equipments":
                 if (id){
+                    let allData = new Map();
                     const equipmentJSON = await Provider.loadEquipmentsById(SERVER, id);
                     const equipment = Provider.createEquipmentById(equipmentJSON);
-                    console.log(equipment);
-
+                    allData.set('equipments', equipment);
                     const ownerJSON = await Provider.loadCharactersById(SERVER, equipment.getOwner());
                     const owner = Provider.createCharacterById(ownerJSON);
+                    allData.set('owners', owner);
                     const detailsEquipmentsView = new DetailsEquipments(equipment, owner);
-                    detailsEquipmentsView.afficher();
+                    controller.refreshAll(detailsEquipmentsView, allData); //
                     return;
                 }
                 else{
+                    let allData = new Map();
                     const equipmentsJSON = await Provider.loadEquipments(SERVER);
                     const equipments = Provider.createEquipments(equipmentsJSON);
+                    allData.set('equipments', equipments);
                     const pageEquipmentsView = new PageEquipments(equipments);
-                    pageEquipmentsView.afficher();
+                    controller.refreshAll(pageEquipmentsView, allData);
                     break;
                 }
             case "favorites":
@@ -75,10 +85,12 @@ document.addEventListener("DOMContentLoaded", () => {
             case "ratings":
                 const ratingsJSON = await Provider.loadRatings(SERVER);
                 const ratings = Provider.createRatings(ratingsJSON);
+                allData.set('ratings', ratings);
                 const linkJSON = await Provider.loadCharacters(SERVER);
                 const link = Provider.createCharacters(linkJSON);
+                allData.set('characters', link);
                 const pageRatings = new PageRatings(ratings, link);
-                pageRatings.afficher();
+                controller.refreshAll(pageRatings, allData);
                 break;
             default:
                 body.innerHTML = '<h1>Page introuvable</h1>';
@@ -115,7 +127,6 @@ document.addEventListener("DOMContentLoaded", () => {
         renderView("404");
     }
 
-
     window.addEventListener("popstate", handleRoute);
 
     document.addEventListener("DOMContentLoaded", function () {
@@ -130,8 +141,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     handleRoute();
-
 });
+
+
 
 export function sendRequest(path){
     window.location.href = `/#/${path}`;

@@ -9,7 +9,11 @@ export class Pagination {
         this.currentPage = 1;
     }
 
-    async updatePage() {
+    updatePage() {
+        // Recalcule le nombre total de pages à chaque changement de données
+        this.total = this.listObjects.length;
+        this.totalPages = Math.ceil(this.total / this.objectsPerPage);
+
         // Récupérer la partie après le `#` dans l'URL
         const hash = window.location.hash;
 
@@ -26,6 +30,10 @@ export class Pagination {
         this._afficher(document.querySelector(this.selector));
     }
 
+
+    updateData(data) {
+        this.listObjects = data;
+    }
     // Affiche les boutons de pagination
     _afficher(pagination) {
         pagination.innerHTML = `
@@ -39,7 +47,7 @@ export class Pagination {
         `;
     }
 
-    async afficherCharacters() {
+     getSlices() {
         const slice = this.listObjects.slice(this.objectsPerPage * (this.currentPage - 1), this.objectsPerPage * this.currentPage);
         console.log(slice);
         return slice;

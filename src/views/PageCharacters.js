@@ -1,6 +1,6 @@
 import { InterfaceAffichage } from "./InterfaceAffichage.js";
 import { addClickListener, updateCSS } from "../app.js";
-import { Pagination } from "../modules/pagination.js";
+import { Pagination } from "../modules/sort/pagination.js";
 import { LocalStorage } from "../modules/LocalStorage.js";
 
 export class PageCharacters extends InterfaceAffichage {
@@ -12,8 +12,19 @@ export class PageCharacters extends InterfaceAffichage {
 
     async afficher() {
         const container = document.getElementById("view-container");
-
         container.innerHTML = "";
+
+        const searchContainer = document.createElement("div");
+        searchContainer.classList.add("search-container");
+        container.append(searchContainer);
+
+        let searchBox = document.querySelector('.search-box');
+        if (!searchBox) {
+            searchBox = document.createElement("div");
+            searchBox.classList.add("search-box");
+            searchBox.innerHTML = `<input type="text" id="searchInput" placeholder="Rechercher..." />`;
+            container.append(searchBox);
+        }
 
         const characters_container = document.createElement("div");
         characters_container.classList.add("characters-container");
@@ -27,8 +38,11 @@ export class PageCharacters extends InterfaceAffichage {
         container.append(paginationContainer);
         this._addPagination(paginationContainer);
 
-        const charac = await this.paginationObject.afficherCharacters()
-        for (const character of charac) {
+        // Récupère les éléments paginés avant de les afficher
+        const paginatedCharacters = this.paginationObject.getSlices();
+        this.listCharacter = paginatedCharacters;
+
+        for (const character of this.listCharacter) {
             this._createCharacterCard(characters_container, character);
         }
 
@@ -39,15 +53,38 @@ export class PageCharacters extends InterfaceAffichage {
         }, 100);
     }
 
+    getName() {
+        return "characters";
+    }
+
+    async setData(data) {
+        this.paginationObject.updateData(data);
+        const paginatedData = this.paginationObject.getSlices();
+        console.log(paginatedData);
+
+        const characters_container = document.querySelector(".characters-container");
+        if (!characters_container) return;
+
+        // Supprimer les anciens personnages
+        characters_container.innerHTML = "";
+
+        // Ajouter les nouveaux personnages
+        paginatedData.forEach((character, index) => {
+            this._createCharacterCard(characters_container, character, index);
+        });
+
+        addClickListener(".card-character", "data-id-charac");
+        this.paginationObject.updatePage();
+    }
+
     _addPagination(container) {
         container.innerHTML = `
-            <nav aria-label="Pagination characters">
-              <ul class="pagination">
-              </ul>
-            </nav>
+        <nav aria-label="Pagination characters">
+          <ul class="pagination"></ul>
+        </nav>
         `;
-
-        this.paginationObject.updatePage();
+        // Pas besoin d'appeler `setData` ici, la pagination sera gérée directement par `setData`
+        this.paginationObject.updatePage(); // Met à jour la pagination en fonction des données actuelles
     }
 
     _createCharacterCard(container, character, index) {

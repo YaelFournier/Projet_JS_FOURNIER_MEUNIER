@@ -1,7 +1,7 @@
 import { InterfaceAffichage } from "./InterfaceAffichage.js";
 import {addClickListener, setFavorites, updateCSS} from "../app.js";
 import { LocalStorage } from "../modules/LocalStorage.js";
-import {Pagination} from "../modules/pagination.js";
+import {Pagination} from "../modules/sort/pagination.js";
 
 export class PageEquipments extends InterfaceAffichage {
     constructor(listEquipment) {
@@ -14,19 +14,37 @@ export class PageEquipments extends InterfaceAffichage {
         const container = document.getElementById("view-container");
         container.innerHTML = "";
 
+        const searchContainer = document.createElement("div");
+        searchContainer.classList.add("search-container");
+        container.append(searchContainer);
+
+        let searchBox = document.querySelector('.search-box');
+        if (!searchBox) {
+            searchBox = document.createElement("div");
+            searchBox.classList.add("search-box");
+            searchBox.innerHTML = `<input type="text" id="searchInput" placeholder="Rechercher..." />`;
+            container.append(searchBox);
+        }
+
         const equipmentsContainer = document.createElement("div");
         equipmentsContainer.classList.add("equipments-container");
-
         container.appendChild(equipmentsContainer);
 
         const paginationContainer = document.createElement("div");
         paginationContainer.classList.add("pagination-container");
         container.append(paginationContainer);
+
         await updateCSS("equipments.css");
+
         this._addPagination(paginationContainer);
 
-        const equip = await this.paginationObject.afficherCharacters()
-        for (const equipment of equip) {
+
+        // Initialiser les équipements paginés
+        const paginatedEquipments = this.paginationObject.getSlices();
+        this.listEquipment = paginatedEquipments;
+
+        // Afficher les équipements
+        for (const equipment of this.listEquipment) {
             this._createEquipmentCard(equipmentsContainer, equipment);
         }
 
@@ -37,15 +55,32 @@ export class PageEquipments extends InterfaceAffichage {
         }, 100);
     }
 
+    async setData(data) {
+        this.paginationObject.updateData(data);
+        const paginatedData = this.paginationObject.getSlices();
+
+        const equipmentsContainer = document.querySelector(".equipments-container");
+        if (!equipmentsContainer) return;
+
+        // Supprimer les anciens équipements
+        equipmentsContainer.innerHTML = "";
+
+        // Ajouter les nouveaux équipements
+        paginatedData.forEach((equipment, index) => {
+            this._createEquipmentCard(equipmentsContainer, equipment, index);
+        });
+
+        addClickListener(".card-equipment", "data-id-equip");
+        this.paginationObject.updatePage();
+    }
+
     _addPagination(container) {
         container.innerHTML = `
-            <nav aria-label="Pagination characters">
-              <ul class="pagination">
-              </ul>
-            </nav>
+        <nav aria-label="Pagination equipments">
+          <ul class="pagination"></ul>
+        </nav>
         `;
-
-        this.paginationObject.updatePage();
+        this.paginationObject.updatePage(); // Met à jour la pagination en fonction des données actuelles
     }
 
     _createEquipmentCard(container, equipment, index) {

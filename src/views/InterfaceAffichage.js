@@ -10,4 +10,8 @@ export class InterfaceAffichage {
         throw new Error("Méthode afficher() non implémentée !");
     }
 
+    setData(data) {
+        throw new Error("Méthode setData(data) non implémentée !");
+    }
+
 }
