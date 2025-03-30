@@ -1,7 +1,7 @@
 import { InterfaceAffichage } from "./InterfaceAffichage.js";
-import { addClickListener, setFavorites, updateCSS } from "../app.js";
-import { Pagination } from "../modules/sort/pagination.js";
-import { SortController } from "../modules/sort/sortController.js";
+import {addClickListener, setFavorites, updateCSS} from "../app.js";
+import { LocalStorage } from "../modules/LocalStorage.js";
+import {Pagination} from "../modules/pagination.js";
 
 export class PageEquipments extends InterfaceAffichage {
     constructor(listEquipment) {
@@ -107,19 +107,22 @@ export class PageEquipments extends InterfaceAffichage {
         // Bouton Favoris
         const buttonFav = document.createElement("div");
         buttonFav.classList.add("button-fav");
-        if (equipment.favorites) {
+        if (LocalStorage.getFavorites("equipments").find(id => id == equipment.getId())) {
             buttonFav.classList.add("active");
         }
         equipmentCard.appendChild(buttonFav);
 
         // Listener pour ajouter aux favoris
-        buttonFav.addEventListener("click", async () => {
+        buttonFav.addEventListener("click", (event) => {
+            event.stopPropagation();
             if (buttonFav.classList.contains("active")) {
-                buttonFav.classList.remove("active");
-            } else {
-                buttonFav.classList.add("active");
+                buttonFav.classList.remove("active")
+                LocalStorage.removeFavorites(equipment.getId(), "equipments");
             }
-            await setFavorites(equipment.getId());
+            else {
+                buttonFav.classList.add("active");
+                LocalStorage.addFavorites(equipment.getId(), "equipments");
+            }
         });
 
         container.appendChild(equipmentCard);

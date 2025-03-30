@@ -2,6 +2,7 @@ import { InterfaceAffichage } from "./InterfaceAffichage.js";
 import { addClickListener, updateCSS } from "../app.js";
 import { setFavorites } from "../app.js";
 import { ChangeRate } from "./ChangeRate.js";
+import { LocalStorage } from "../modules/LocalStorage.js";
 
 export class DetailsEquipments extends InterfaceAffichage {
 
@@ -106,14 +107,20 @@ export class DetailsEquipments extends InterfaceAffichage {
         buttonFav.classList.add("button-fav");
 
         // Vérifie si l'équipement est dans les favoris
-        if (this.equipment.favorites) {
+        if (LocalStorage.getFavorites("equipments").find(id => id == equipment.getId())) {
             buttonFav.classList.add("active");
         }
 
         // Ajoute un événement pour basculer l'état du bouton de favoris
-        buttonFav.addEventListener("click", () => {
-            buttonFav.classList.toggle("active");  // Bascule l'état "actif" du bouton
-            this.equipment.favorites = buttonFav.classList.contains("active"); // Met à jour l'état des favoris
+        buttonFav.addEventListener("click", (event) => {
+            event.stopPropagation();
+            if (buttonFav.classList.contains("active")) {
+                buttonFav.classList.remove("active");
+                LocalStorage.removeFavorites(this.equipment.getId(), "equipments");   
+            } else {
+                buttonFav.classList.add("active");   
+                LocalStorage.addFavorites(this.equipment.getId(), "equipments");
+            }
         });
 
         container.appendChild(buttonFav);

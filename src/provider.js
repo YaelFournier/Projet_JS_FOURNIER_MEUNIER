@@ -63,7 +63,7 @@ export class Provider {
             throw new Error(`Erreur lors de la récupération du rating (${response.status} ${response.statusText})`);
         }
 
-        const data = await response.json(); // ✅ On s'assure de ne lire le body qu'une seule fois
+        const data = await response.json();     
         return Array.isArray(data) ? data : [data];
     }
 

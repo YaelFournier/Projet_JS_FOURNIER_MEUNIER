@@ -28,8 +28,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     const characterJSON = await Provider.loadCharactersById(SERVER, id);
                     const character = Provider.createCharacterById(characterJSON);
                     const equipments = [];
-                    for (const id of character.equipments) {
-                        const equipmentJSON = await Provider.loadEquipmentsById(SERVER, id);
+
+                    for (const ids of character.equipments){
+                        const equipmentJSON = await Provider.loadEquipmentsById(SERVER, ids);
                         const equipment = Provider.createEquipmentById(equipmentJSON);
                         equipments.push(equipment);
                     }
@@ -76,9 +77,10 @@ document.addEventListener("DOMContentLoaded", () => {
             case "favorites":
                 const charactersJSON = await Provider.loadCharacters(SERVER);
                 const characters = Provider.createCharacters(charactersJSON);
-                allData.set('characters', characters);
-                const pageFavoritesView = new PageFavorites(characters);
-                controller.refreshAll(pageFavoritesView, allData);
+                const equipmentsJSON = await Provider.loadEquipments(SERVER);
+                const equipments = Provider.createEquipments(equipmentsJSON);
+                const pageFavoritesView = new PageFavorites(characters, equipments);
+                pageFavoritesView.afficher();
                 break;
             case "ratings":
                 const ratingsJSON = await Provider.loadRatings(SERVER);
