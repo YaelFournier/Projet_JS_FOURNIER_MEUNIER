@@ -1,5 +1,5 @@
 import { InterfaceAffichage } from "./InterfaceAffichage.js";
-import { addClickListener } from "../app.js";
+import {addClickListener, updateCSS} from "../app.js";
 import { ChangeRate } from "./ChangeRate.js";
 import { Rating } from "../modules/Ratings.js";
 
@@ -11,7 +11,7 @@ export class PageRatings extends InterfaceAffichage {
         this.characters = characters;
     }
 
-    afficher() {
+    async afficher() {
         const container = document.getElementById("view-container");
         container.innerHTML = "";
         for (const rating of this.listRatings) {
@@ -19,11 +19,13 @@ export class PageRatings extends InterfaceAffichage {
             const div = document.createElement("div");
             div.className = 'rating-container';
             container.appendChild(div);
+            await updateCSS("ratings.css");
+
             //Affichage du nom du personnage
-            const character = this.characters[parseInt(rating.getCharacterId())-1];
+            const character = this.characters[parseInt(rating.getCharacterId()) - 1];
             const h2 = document.createElement("div");
             h2.className = 'char';
-            h2.setAttribute("id-char", "characters/"+character.getId());
+            h2.setAttribute("id-char", "characters/" + character.getId());
             h2.textContent = character.getName();
             div.appendChild(h2);
             //Affichage de la note
@@ -49,7 +51,7 @@ export class PageRatings extends InterfaceAffichage {
 
         // Ajout d'un écouteur d'événement sur les boutons de modification de note
         document.querySelectorAll(".modif-rate").forEach(element => {
-            element.addEventListener("click", function(event){
+            element.addEventListener("click", function (event) {
                 const ratingsString = event.currentTarget.getAttribute("rates");
                 const data = JSON.parse(ratingsString);
                 const ratings = new Array();
@@ -62,11 +64,11 @@ export class PageRatings extends InterfaceAffichage {
 
                 let existingForm = ratingDiv.querySelector(".form-rate");
                 if (existingForm) {
-                    existingForm.remove(); 
+                    existingForm.remove();
                 } else {
                     const changeRate = new ChangeRate(ratings, ratingId);
                     const form = changeRate.afficher();
-                    ratingDiv.appendChild(form); 
+                    ratingDiv.appendChild(form);
                 }
             });
         });
