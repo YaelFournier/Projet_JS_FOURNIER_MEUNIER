@@ -3,10 +3,8 @@ export class SortController {
         this.view = view;
         this.data = data;
 
-        // modules de filtre
+        // Modules de filtre
         this.currentSearch = "";
-        this.currentFilters = {};
-        this.currentPage = 1;
     }
 
     setupListeners() {
@@ -20,20 +18,6 @@ export class SortController {
         }
     }
 
-    updateSearch(searchTerm) {
-        this.currentSearch = searchTerm;
-        this.refreshDataSort();
-    }
-
-    updateFilters(filters) {
-        this.currentFilters = filters;
-        this.refreshDataSort();
-    }
-
-    updatePage(pageNumber) {
-        this.currentPage = pageNumber;
-        this.refreshDataSort();
-    }
 
     async refreshAll(view, data) {
         this.view = view;
@@ -41,61 +25,42 @@ export class SortController {
         await this.view.afficher();
 
         this.setupListeners();
+    }
 
-        if (document.getElementById("filterForm") != null) {
-            console.log("filterForm");
-            document.addEventListener("filterUpdated", (event) => this.updateFilters(event.detail));
-        } else if (document.getElementById("pagination") != null) {
-            console.log("pagination");
-            document.addEventListener("pageUpdated", (event) => this.updatePage(event.detail));
-        }
+    updateSearch(searchTerm) {
+        this.currentSearch = searchTerm;
+        this.refreshDataSort();
     }
 
     refreshDataSort() {
-        console.log(this.data);
-
-        let charactersList = [];
+        let objectsList = [];
 
         // Récupérer uniquement les tableaux de "characters"
         this.data.forEach((value, key) => {
-            if (key === "characters") {
-                if (Array.isArray(value)) {
-                    charactersList = charactersList.concat(value);
-                } else {
-                    console.warn(`Données ignorées pour '${key}' car ce n'est pas un tableau.`);
-                }
+            if (Array.isArray(value)) {
+                objectsList = objectsList.concat(value);
             }
         });
-
-        console.log("Données filtrables :", charactersList);
 
         const searchLower = this.currentSearch.toLowerCase();
 
         // Filtrage des données
-        let filteredData = charactersList.filter(item => {
-            return (
-                item.name &&
-                item.name.toLowerCase().includes(searchLower) &&
-                this.applyFilters(item)
-            );
-        });
+        let filteredData = objectsList.filter(item =>
+            item.name && item.name.toLowerCase().includes(searchLower)
+        );
 
-        // Pagination
-        let paginatedData = this.applyPagination(filteredData);
-        console.log("paginatedData", paginatedData);
-        // Mise à jour de la vue
-        this.view.setData(paginatedData);
+        // Mise à jour de la pagination avec les données filtrées
+        this.view.paginationObject.updateData(filteredData);
+
+        // Ajuster la page actuelle en fonction des données filtrées
+        const maxPage = Math.ceil(filteredData.length / this.view.paginationObject.objectsPerPage);
+        if (this.view.paginationObject.currentPage > maxPage) {
+            this.view.paginationObject.currentPage = maxPage;
+        }
+
+        // Mise à jour de la vue avec les éléments filtrés et paginés
+        this.view.setData(filteredData); // Appel à `setData` avec les données filtrées
     }
 
 
-
-    applyFilters(item) {
-        return Object.entries(this.currentFilters).every(([key, value]) => item[key] === value);
-    }
-
-    applyPagination(data) {
-        const itemsPerPage = 6;
-        const start = (this.currentPage - 1) * itemsPerPage;
-        return data.slice(start, start + itemsPerPage);
-    }
 }
