@@ -1,0 +1,83 @@
+/* Conteneur principal des ratings */
+.rating-container {
+    background: linear-gradient(135deg, #2a1a5e, #1f1a3d);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    text-align: center;
+    position: relative;
+    opacity: 0;
+    transform: translateY(40px) scale(0.9);
+    animation: fadeInZoom 0.6s ease-out forwards;
+    margin-bottom: 20px;
+}
+
+/* Effet hover sur la carte de rating */
+.rating-container:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 20px rgba(0, 204, 255, 0.5);
+    cursor: pointer;
+}
+
+/* Nom du personnage associé à la note */
+.char {
+    font-size: 1.6em;
+    font-weight: bold;
+    margin: 12px 0;
+    color: #8a2be2;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out;
+}
+
+.char:hover {
+    color: #00ffff;
+}
+
+/* Score du rating */
+.rating {
+    margin-top: 15px;
+    font-size: 1.3em;
+    color: #8a2be2;
+}
+
+/* Commentaire du rating */
+.comment {
+    font-size: 1em;
+    color: #ddd;
+    margin-top: 10px;
+}
+
+/* Bouton de modification de note */
+.modif-rate {
+    background: #8a2be2;
+    border: none;
+    padding: 10px 16px;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+    margin-top: 15px;
+    display: inline-block;
+}
+
+.modif-rate:hover {
+    background: #00ffff;
+    transform: scale(1.05);
+}
+
+/* Animation d'apparition */
+@keyframes fadeInZoom {
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}

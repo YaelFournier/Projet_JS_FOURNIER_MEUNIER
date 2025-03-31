@@ -24,12 +24,14 @@ export class ChangeRate extends InterfaceAffichage {
         input.setAttribute("min", "0");
         input.setAttribute("max", "10");
         input.setAttribute("step", "0.1");
+        input.setAttribute("value", this.rating.getScore())
         form.appendChild(input);
 
         const inputComment = document.createElement("textarea");
         inputComment.setAttribute("id", "new-comment");
         inputComment.setAttribute("name", "comment");
-        inputComment.setAttribute("placeholder", "Ajouter un commentaire...");
+        inputComment.setAttribute("placeholder", this.rating.getComment());
+        inputComment.value = this.rating.getComment();
         inputComment.setAttribute("rows", "4");
         inputComment.setAttribute("cols", "50");
         form.appendChild(inputComment);
