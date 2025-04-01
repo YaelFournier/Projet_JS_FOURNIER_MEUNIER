@@ -81,11 +81,11 @@
 }
 
 #rating-container {
-    background-image: url("/src/static/img/equipments.jpg");
+    background-image: url("/src/static/img/ratings_background.webp");
 }
 
 #favorites-container {
-    background-image: url("/src/static/img/equipments.jpg");
+    background-image: url("/src/static/img/favorites_background.webp");
 }
 
 
