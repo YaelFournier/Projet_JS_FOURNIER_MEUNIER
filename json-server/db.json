@@ -205,6 +205,86 @@
       "owner": 5,
       "isGeneric": false,
       "image": "leviathan-axe.jpeg"
+    },
+    {
+      "id": 11,
+      "name": "Ebony Blade",
+      "type": "Sword",
+      "owner": 6,
+      "isGeneric": false,
+      "image": "ebony-blade.jpg"
+    },
+    {
+      "id": 12,
+      "name": "Daedric Armor",
+      "type": "Armor",
+      "owner": 6,
+      "isGeneric": false,
+      "image": "daedric-armor.jpg"
+    },
+    {
+      "id": 13,
+      "name": "Hidden Blade",
+      "type": "Dagger",
+      "owner": 7,
+      "isGeneric": false,
+      "image": "hidden-blade.jpg"
+    },
+    {
+      "id": 14,
+      "name": "Dragon Slayer",
+      "type": "Greatsword",
+      "owner": 11,
+      "isGeneric": false,
+      "image": "dragon-slayer.jpg"
+    },
+    {
+      "id": 15,
+      "name": "BFG 9000",
+      "type": "Gun",
+      "owner": 8,
+      "isGeneric": false,
+      "image": "bfg-9000.jpg"
+    },
+    {
+      "id": 16,
+      "name": "Doom Slayer Armor",
+      "type": "Armor",
+      "owner": 8,
+      "isGeneric": false,
+      "image": "doom-slayer-armor.jpg"
+    },
+    {
+      "id": 17,
+      "name": "Lightsaber",
+      "type": "Blade",
+      "owner": 9,
+      "isGeneric": false,
+      "image": "lightsaber.jpg"
+    },
+    {
+      "id": 18,
+      "name": "Mandalorian Beskar Armor",
+      "type": "Armor",
+      "owner": 9,
+      "isGeneric": false,
+      "image": "beskar-armor.jpg"
+    },
+    {
+      "id": 19,
+      "name": "Master Sword",
+      "type": "Sword",
+      "owner": 10,
+      "isGeneric": false,
+      "image": "master-sword.jpg"
+    },
+    {
+      "id": 20,
+      "name": "Hylian Shield",
+      "type": "Shield",
+      "owner": 10,
+      "isGeneric": false,
+      "image": "hylian-shield.jpg"
     }
   ],
   "equipment_ownership": [
@@ -244,6 +324,41 @@
       "user": "Player5",
       "score": 5,
       "comment": "A god among men."
+    },
+    {
+      "id": "6",
+      "characterId": 6,
+      "user": "Player6",
+      "score": 4.8,
+      "comment": "A master assassin, skilled and deadly."
+    },
+    {
+      "id": "7",
+      "characterId": 7,
+      "user": "Player7",
+      "score": 4.9,
+      "comment": "The Doom Slayer needs no words, only destruction."
+    },
+    {
+      "id": "8",
+      "characterId": 8,
+      "user": "Player8",
+      "score": 4.7,
+      "comment": "An elite warrior with an iconic sword."
+    },
+    {
+      "id": "9",
+      "characterId": 9,
+      "user": "Player9",
+      "score": 4.8,
+      "comment": "A fearless bounty hunter with unstoppable power."
+    },
+    {
+      "id": "10",
+      "characterId": 10,
+      "user": "Player10",
+      "score": 4.8,
+      "comment": "The ultimate stealth operative."
     }
   ]
 }
