@@ -1,4 +1,4 @@
-
+// Interface que les pages implémentent pour avoir les méthodes afficher et setData
 export class InterfaceAffichage {
     constructor() {
         if (this.constructor === InterfaceAffichage) {
@@ -10,6 +10,7 @@ export class InterfaceAffichage {
         throw new Error("Méthode afficher() non implémentée !");
     }
 
+    // Méthode pour la pagination
     setData(data) {
         throw new Error("Méthode setData(data) non implémentée !");
     }

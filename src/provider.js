@@ -17,7 +17,6 @@ export class Provider {
     }
 
     static loadCharactersById(server, id) {
-        console.log(id);
         return fetch( server + "/characters/" + id )
             .then(character => {
                 if (!character.ok){
@@ -89,12 +88,11 @@ export class Provider {
                                     character.id,
                                     character.name, 
                                     character.game, 
-                                    character.characterClass, 
+                                    character.class, 
                                     character.level, 
                                     character.rating, 
                                     character.image, 
-                                    character.equipments, 
-                                    character.favorites
+                                    character.equipments
                                 )
                             );
         }
@@ -105,12 +103,11 @@ export class Provider {
         const character = new Character(data.id,
                                         data.name,
                                         data.game,
-                                        data.characterClass,
+                                        data.class,
                                         data.level,
                                         data.rating,
                                         data.image,
-                                        data.equipments,
-                                        data.favorites
+                                        data.equipments
                                     );
         return character;
     }

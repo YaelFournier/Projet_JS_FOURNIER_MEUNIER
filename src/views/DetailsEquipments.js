@@ -1,7 +1,5 @@
 import { InterfaceAffichage } from "./InterfaceAffichage.js";
-import { addClickListener, updateCSS } from "../app.js";
-import { setFavorites } from "../app.js";
-import { ChangeRate } from "./ChangeRate.js";
+import { addClickListener, updateCSS } from "../utils.js";
 import { LocalStorage } from "../modules/LocalStorage.js";
 
 export class DetailsEquipments extends InterfaceAffichage {
@@ -13,7 +11,10 @@ export class DetailsEquipments extends InterfaceAffichage {
         this.listRatings = listRatings;
     }
 
+    // Page de détail d'un equipment
     async afficher() {
+        
+        // Refresh de la page pour SPA 
         const container = document.getElementById("view-container");
         container.innerHTML = "";
 
@@ -36,6 +37,7 @@ export class DetailsEquipments extends InterfaceAffichage {
 
         equipment_container.append(illustration_container, details_container);
 
+        // Màj du css 
         await updateCSS("detail-equipment.css");
 
         // Conteneurs des détails
@@ -47,8 +49,8 @@ export class DetailsEquipments extends InterfaceAffichage {
 
         // Ajout des détails de l'équipement
         this._addCategorie(detail_info, "Informations");
-        this._addEquipmentDetail(detail_info, "h4", this.equipment.getName());
-        this._addEquipmentDetail(detail_info, "h4", this.equipment.getType());
+        this._addEquipmentDetail(detail_info, "h4", "Nom : "+this.equipment.getName());
+        this._addEquipmentDetail(detail_info, "h4", "Type : "+this.equipment.getType());
 
         // Ajout du propriétaire de l'équipement
         this._addCategorie(detail_owner, "Propriétaire");
@@ -57,8 +59,9 @@ export class DetailsEquipments extends InterfaceAffichage {
         this._addFavoriteButton(details_container);
     }
 
+    // Fontions pour l'affichage
 
-
+    // Créer un catégorie
     _addCategorie(container, titre) {
         const titleElement = document.createElement("h2");
         titleElement.classList.add("titre-category");
@@ -71,12 +74,14 @@ export class DetailsEquipments extends InterfaceAffichage {
         container.appendChild(delimiter);
     }
 
+    // Ajout d'une information
     _addEquipmentDetail(container, tag, content) {
         const element = document.createElement(tag);
         element.textContent = content;
         container.appendChild(element);
     }
 
+    // Character(s) qui possède l'objet
     _displayOwner(container) {
         const ownerElement = document.createElement("div");
         ownerElement.className = 'owner';
@@ -88,8 +93,7 @@ export class DetailsEquipments extends InterfaceAffichage {
         addClickListener(".owner", "id-owner");
     }
 
-
-
+    // Bouton des favoris
     _addFavoriteButton(container) {
         const buttonFav = document.createElement("div");
         buttonFav.classList.add("button-fav");

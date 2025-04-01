@@ -32,7 +32,7 @@
       "game": "Tomb Raider",
       "class": "Adventurer",
       "level": 40,
-      "rating": 4.8,
+      "rating": "4.8",
       "image": "lara-croft.jpg",
       "equipments": [
         5,
@@ -208,7 +208,7 @@
       "id": "1",
       "characterId": 1,
       "score": "10",
-      "comment": "dajdopa"
+      "comment": "cbeh"
     },
     {
       "id": "2",
@@ -219,8 +219,8 @@
     {
       "id": "3",
       "characterId": 3,
-      "score": 4.8,
-      "comment": "An icon in gaming history."
+      "score": "4.8",
+      "comment": "pod"
     },
     {
       "id": "4",
