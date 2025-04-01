@@ -88,9 +88,16 @@ export class PageFavorites extends InterfaceAffichage {
         buttonFav.addEventListener("click", (event) => {
             event.stopPropagation();
             if (buttonFav.classList.contains("active")) {
-                buttonFav.classList.remove("active");
-                LocalStorage.removeFavorites(character.getId(), "characters");
-
+                if (confirm("Retirer des favoris ?")) {
+                    buttonFav.classList.remove("active");
+                    LocalStorage.removeFavorites(character.getId(), "characters");
+        
+                    // Supprimer le personnage de la liste de characters
+                    this.characters = this.characters.filter(c => c.getId() !== character.getId());
+                    
+                    // Refresh de l'affichage
+                    this.afficher();
+                }
             } else {
                 buttonFav.classList.add("active");
                 LocalStorage.addFavorites(character.getId(), "characters");
@@ -133,10 +140,19 @@ export class PageFavorites extends InterfaceAffichage {
         equipmentCard.appendChild(buttonFav);
 
         // Listener pour ajouter aux favoris
-        buttonFav.addEventListener("click", async () => {
+        buttonFav.addEventListener("click", async (event) => {
+            event.stopPropagation();
             if (buttonFav.classList.contains("active")) {
-                buttonFav.classList.remove("active")
-                LocalStorage.removeFavorites(equipment.getId(), "equipments");
+                if (confirm("Retirer des favoris ?")){
+                    buttonFav.classList.remove("active")
+                    LocalStorage.removeFavorites(equipment.getId(), "equipments");
+
+                    // Supprimer l'equipment la liste d'equipments
+                    this.equipments = this.equipments.filter(c => c.getId() !== equipment.getId());
+                    
+                    // Refresh de l'affichage
+                    this.afficher();
+                }
             }
             else {
                 buttonFav.classList.add("active");
