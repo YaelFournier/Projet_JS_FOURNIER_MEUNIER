@@ -103,8 +103,7 @@ export class Provider {
             const characterEquipments = equipments.filter(equipment =>
                 ownerships.some(ownership =>
                     // Vérifier si l'équipement est générique ou s'il appartient au personnage
-                    (Number(ownership.equipment_id) === Number(equipment.id) && Number(ownership.character_id) === Number(characterId)) ||
-                    (equipment.isGeneric && Number(ownership.equipment_id) === Number(equipment.id))
+                    (Number(ownership.equipment_id) === Number(equipment.id) && Number(ownership.character_id) === Number(characterId))
                 )
             );
 
@@ -117,6 +116,42 @@ export class Provider {
         }
     }
 
+
+    static async loadCharactersForEquipments(server, equipmentId) {
+        try {
+            // Récupérer tous les personnages
+            const charactersResponse = await fetch(`${server}/characters`);
+            if (!charactersResponse.ok) {
+                throw new Error("Erreur lors de la récupération des personnages");
+            }
+            const characters = await charactersResponse.json();
+            console.log("Characters:", characters);  // Vérifier les personnages récupérés
+
+            // Récupérer les relations entre les équipements et les personnages
+            const ownershipResponse = await fetch(`${server}/equipment_ownership`);
+            if (!ownershipResponse.ok) {
+                throw new Error("Erreur lors de la récupération des relations équipement-personnage");
+            }
+            const ownerships = await ownershipResponse.json();
+            console.log("Ownerships:", ownerships);  // Vérifier les relations récupérées
+
+            // Filtrer les personnages qui possèdent cet équipement
+            const charactersWithEquipment = characters.filter(character =>
+                ownerships.some(ownership =>
+                    // Vérifier si le personnage possède l'équipement spécifié
+                    Number(ownership.equipment_id) === Number(equipmentId) &&
+                    Number(ownership.character_id) === Number(character.id)  // Vérifier l'ID du personnage
+                )
+            );
+
+            console.log("Filtered Characters:", charactersWithEquipment);  // Vérifier les personnages filtrés
+
+            return charactersWithEquipment;
+        } catch (error) {
+            console.error("Erreur:", error);
+            return [];
+        }
+    }
 
 
 

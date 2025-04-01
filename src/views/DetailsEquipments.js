@@ -4,17 +4,17 @@ import { LocalStorage } from "../modules/LocalStorage.js";
 
 export class DetailsEquipments extends InterfaceAffichage {
 
-    constructor(equipment, owner, listRatings) {
+    constructor(equipment, owner, listeUsers) {
         super();
         this.equipment = equipment;
         this.owner = owner;
-        this.listRatings = listRatings;
+        this.listeUsers = listeUsers;
     }
 
-    // Page de détail d'un equipment
+    // Page de détail d'un équipement
     async afficher() {
-        
-        // Refresh de la page pour SPA 
+        console.log(this.listeUsers);
+        // Refresh de la page pour SPA
         const container = document.getElementById("view-container");
         container.innerHTML = "";
 
@@ -37,7 +37,7 @@ export class DetailsEquipments extends InterfaceAffichage {
 
         equipment_container.append(illustration_container, details_container);
 
-        // Màj du css 
+        // Màj du css
         await updateCSS("detail-equipment.css");
 
         // Conteneurs des détails
@@ -45,23 +45,30 @@ export class DetailsEquipments extends InterfaceAffichage {
         detail_info.classList.add("detail-info");
         const detail_owner = document.createElement("div");
         detail_owner.classList.add("detail-owner");
-        details_container.append(detail_info, detail_owner);
+        const detail_users = document.createElement("div");
+        detail_users.classList.add("detail-users");
+        details_container.append(detail_info, detail_owner, detail_users);
 
         // Ajout des détails de l'équipement
         this._addCategorie(detail_info, "Informations");
-        this._addEquipmentDetail(detail_info, "h4", "Nom : "+this.equipment.getName());
-        this._addEquipmentDetail(detail_info, "h4", "Type : "+this.equipment.getType());
+        this._addEquipmentDetail(detail_info, "h4", "Nom : " + this.equipment.getName());
+        this._addEquipmentDetail(detail_info, "h4", "Type : " + this.equipment.getType());
 
         // Ajout du propriétaire de l'équipement
         this._addCategorie(detail_owner, "Propriétaire");
-        this._displayOwner(detail_owner)
+        this._displayOwner(detail_owner);
+
+        // Ajout de la catégorie Utilisateurs
+        this._addCategorie(detail_users, "Utilisateurs");
+        this._displayUsers(detail_users); // Affiche tous les utilisateurs
+
         // Ajout du bouton favoris
         this._addFavoriteButton(details_container);
     }
 
-    // Fontions pour l'affichage
+    // Fonctions pour l'affichage
 
-    // Créer un catégorie
+    // Créer une catégorie
     _addCategorie(container, titre) {
         const titleElement = document.createElement("h2");
         titleElement.classList.add("titre-category");
@@ -81,7 +88,7 @@ export class DetailsEquipments extends InterfaceAffichage {
         container.appendChild(element);
     }
 
-    // Character(s) qui possède l'objet
+    // Character qui possède l'objet
     _displayOwner(container) {
         const ownerElement = document.createElement("div");
         ownerElement.className = 'owner';
@@ -92,6 +99,30 @@ export class DetailsEquipments extends InterfaceAffichage {
         // Ajout du listener pour le propriétaire
         addClickListener(".owner", "id-owner");
     }
+
+    // Affichage des utilisateurs (plusieurs utilisateurs peuvent avoir l'équipement)
+    // Affichage des utilisateurs (plusieurs utilisateurs peuvent avoir l'équipement)
+    _displayUsers(container) {
+        if (Array.isArray(this.listeUsers) && this.listeUsers.length > 0) {
+            this.listeUsers.forEach(user => {
+                const userElement = document.createElement("div");
+                userElement.className = 'owner'; // Utilisation de 'owner' pour la classe CSS, tu peux la changer si nécessaire
+                userElement.setAttribute("id-owner", "characters/" + user.id);  // Utilise `user.id` directement
+                userElement.textContent = user.name;  // Utilisation de `user.name` pour afficher le nom du personnage
+                container.appendChild(userElement);
+
+                // Ajout du listener pour chaque utilisateur
+                addClickListener(".owner", "id-owner");  // Utilise la même logique de listener pour chaque élément
+            });
+        } else {
+            const noUserElement = document.createElement("div");
+            noUserElement.className = 'no-user';
+            noUserElement.textContent = "Aucun utilisateur";
+            container.appendChild(noUserElement);
+        }
+    }
+
+
 
     // Bouton des favoris
     _addFavoriteButton(container) {
@@ -117,8 +148,4 @@ export class DetailsEquipments extends InterfaceAffichage {
             }
         });
     }
-
-
-
-
 }

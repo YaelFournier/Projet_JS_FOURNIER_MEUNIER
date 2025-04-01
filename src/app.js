@@ -74,16 +74,31 @@ document.addEventListener("DOMContentLoaded", () => {
                     break;
                 }
             case "equipments":
-                if (id){
+                if (id) {
                     let allData = new Map();
+
+                    // Charger les informations sur l'équipement
                     const equipmentJSON = await Provider.loadEquipmentsById(SERVER, id);
                     const equipment = Provider.createEquipmentById(equipmentJSON);
                     allData.set('equipments', equipment);
+
+                    // Charger le propriétaire de l'équipement
                     const ownerJSON = await Provider.loadCharactersById(SERVER, equipment.getOwner());
                     const owner = Provider.createCharacterById(ownerJSON);
                     allData.set('owners', owner);
-                    const detailsEquipmentsView = new DetailsEquipments(equipment, owner);
-                    controller.refreshAll(detailsEquipmentsView, allData); //
+
+                    const usersJSON = await Provider.loadCharactersForEquipments(SERVER, equipment.getId());
+                    const users = usersJSON.map(userData => Provider.createCharacterById(userData));
+
+                    allData.set('users', users);
+
+                    console.log("Owner:", owner);
+                    console.log("Users:", users);
+
+                    // Créer la vue des détails de l'équipement avec le propriétaire et les utilisateurs
+                    const detailsEquipmentsView = new DetailsEquipments(equipment, owner, users);
+                    controller.refreshAll(detailsEquipmentsView, allData);
+
                     return;
                 }
                 else{
