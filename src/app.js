@@ -20,30 +20,51 @@ document.addEventListener("DOMContentLoaded", () => {
         switch (view){
             case "home":
                 const homeView = new Home();
-                controller.refreshAll(homeView, null);
+                await controller.refreshAll(homeView, null);
                 break;
             case "characters":
                 if (id) {
                     let allData = new Map();
+
+                    // Charger les données du personnage par ID
                     const characterJSON = await Provider.loadCharactersById(SERVER, id);
                     const character = Provider.createCharacterById(characterJSON);
-                    const equipments = [];
 
-                    for (const ids of character.equipments){
+                    const equipmentsMap = new Map();
+
+                    // Charger les équipements spécifiques du personnage
+                    for (const ids of character.equipments) {
                         const equipmentJSON = await Provider.loadEquipmentsById(SERVER, ids);
                         const equipment = Provider.createEquipmentById(equipmentJSON);
-                        equipments.push(equipment);
+                        equipmentsMap.set(equipment.id, equipment); // Utiliser l'ID comme clé pour éviter les doublons
                     }
+
+                    // Charger les équipements génériques pour le personnage
+                    const genericalEquipmentsJSON = await Provider.loadEquipmentsForCharacter(SERVER, id);
+
+                    // Créer et ajouter les équipements génériques à la Map (en évitant les doublons)
+                    for (const genericEquipmentJSON of genericalEquipmentsJSON) {
+                        const genericEquipment = Provider.createEquipmentById(genericEquipmentJSON);
+                        equipmentsMap.set(genericEquipment.id, genericEquipment); // L'ID garantit qu'il n'y a pas de doublon
+                    }
+
+                    // Convertir la Map en tableau d'équipements uniques
+                    const equipments = Array.from(equipmentsMap.values());
+
+                    // Ajouter les équipements à la Map
                     allData.set('equipments', equipments);
 
+                    // Charger les évaluations pour le personnage
                     const listRatingsJSON = await Provider.loadRatingById(SERVER, id);
                     const listRatings = Provider.createRatings(listRatingsJSON);
                     allData.set('ratings', listRatings);
 
+                    // Créer la vue de détail du personnage et rafraîchir l'affichage
                     const detailsCharactersView = new DetailsCharacters(character, allData.get('equipments'), allData.get('ratings'));
                     controller.refreshAll(detailsCharactersView, allData);
                     return;
-                } else {
+                }
+                else {
                     let allData = new Map();
                     const charactersJSON = await Provider.loadCharacters(SERVER);
                     const characters = Provider.createCharacters(charactersJSON);

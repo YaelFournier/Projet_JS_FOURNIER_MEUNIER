@@ -8,10 +8,7 @@
       "level": 50,
       "rating": "10",
       "image": "arthas-menethil.jpg",
-      "equipments": [
-        1,
-        2
-      ]
+      "equipments": [1, 2]
     },
     {
       "id": "2",
@@ -21,10 +18,7 @@
       "level": 45,
       "rating": "3",
       "image": "geralt-of-rivia.jpg",
-      "equipments": [
-        3,
-        4
-      ]
+      "equipments": [3, 4]
     },
     {
       "id": "3",
@@ -133,75 +127,90 @@
   ],
   "equipments": [
     {
-      "id": "1",
+      "id": 1,
       "name": "Frostmourne",
       "type": "Sword",
       "owner": 1,
+      "isGeneric": false,
       "image": "frostmourne.webp"
     },
     {
-      "id": "2",
+      "id": 2,
       "name": "Helmet of Domination",
       "type": "Armor",
       "owner": 1,
+      "isGeneric": false,
       "image": "helmet-of-domination.jpg"
     },
     {
-      "id": "3",
+      "id": 3,
       "name": "Silver Sword",
       "type": "Sword",
       "owner": 2,
+      "isGeneric": true,
       "image": "silver-sword.jpg"
     },
     {
-      "id": "4",
+      "id": 4,
       "name": "Witcher Medallion",
       "type": "Accessory",
       "owner": 2,
+      "isGeneric": false,
       "image": "witcher-medallion.jpg"
     },
     {
-      "id": "5",
+      "id": 5,
       "name": "Dual Pistols",
       "type": "Guns",
       "owner": 3,
+      "isGeneric": false,
       "image": "dual-pistols.jpg"
     },
     {
-      "id": "6",
+      "id": 6,
       "name": "Climbing Gear",
       "type": "Tool",
       "owner": 3,
+      "isGeneric": false,
       "image": "climbing-gear.jpg"
     },
     {
-      "id": "7",
+      "id": 7,
       "name": "Energy Sword",
       "type": "Blade",
       "owner": 4,
+      "isGeneric": false,
       "image": "energy-sword.jpg"
     },
     {
-      "id": "8",
+      "id": 8,
       "name": "MJOLNIR Armor",
       "type": "Armor",
-      "image": "mjolnir.jpg",
-      "owner": 4
+      "owner": 4,
+      "isGeneric": false,
+      "image": "mjolnir.jpg"
     },
     {
-      "id": "9",
+      "id": 9,
       "name": "Blades of Chaos",
       "type": "Blades",
       "owner": 5,
+      "isGeneric": false,
       "image": "blades-of-chaos.jpg"
     },
     {
-      "id": "10",
+      "id": 10,
       "name": "Leviathan Axe",
       "type": "Axe",
       "owner": 5,
+      "isGeneric": false,
       "image": "leviathan-axe.jpeg"
     }
+  ],
+  "equipment_ownership": [
+    { "equipment_id": 1, "character_id": 1 },
+    { "equipment_id": 2, "character_id": 1 },
+    { "equipment_id": 3, "character_id": 2 }
   ],
   "ratings": [
     {

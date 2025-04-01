@@ -157,7 +157,8 @@ export class DetailsCharacters extends InterfaceAffichage {
             const equipmentElement = document.createElement("div");
             equipmentElement.className = 'equip';
             equipmentElement.setAttribute("id-equip", "equipments/" + equipment.getId());
-            equipmentElement.textContent = equipment.getName();
+            const type = equipment.isGeneric ? " | Generique" : " | Propriétaire"
+            equipmentElement.textContent = equipment.getName() + type;
             container.appendChild(equipmentElement);
         }
 
