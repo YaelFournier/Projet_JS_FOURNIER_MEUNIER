@@ -8,10 +8,7 @@
       "level": 50,
       "rating": "10",
       "image": "arthas-menethil.jpg",
-      "equipments": [
-        1,
-        2
-      ]
+      "equipments": [1, 2]
     },
     {
       "id": "2",
@@ -21,10 +18,7 @@
       "level": 45,
       "rating": "3",
       "image": "geralt-of-rivia.jpg",
-      "equipments": [
-        3,
-        4
-      ]
+      "equipments": [3, 4]
     },
     {
       "id": "3",
@@ -202,6 +196,12 @@
       "owner": 5,
       "image": "leviathan-axe.jpeg"
     }
+  ],
+  "equipment_ownership": [
+    { "equipment_id": 1, "character_id": 1 },
+    { "equipment_id": 1, "character_id": 2 },
+    { "equipment_id": 2, "character_id": 1 },
+    { "equipment_id": 3, "character_id": 2 }
   ],
   "ratings": [
     {
