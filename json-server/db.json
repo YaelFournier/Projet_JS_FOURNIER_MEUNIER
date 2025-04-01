@@ -6,7 +6,7 @@
       "game": "Warcraft",
       "class": "Death Knight",
       "level": 50,
-      "rating": "5",
+      "rating": "10",
       "image": "arthas-menethil.jpg",
       "equipments": [
         1,
@@ -45,7 +45,7 @@
       "game": "Halo",
       "class": "Spartan",
       "level": 55,
-      "rating": 4.6,
+      "rating": "4.6",
       "image": "master-chief.jpg",
       "equipments": [
         7,
@@ -207,8 +207,8 @@
     {
       "id": "1",
       "characterId": 1,
-      "score": "5",
-      "comment": "A true legend !"
+      "score": "10",
+      "comment": "dajdopa"
     },
     {
       "id": "2",
@@ -226,8 +226,8 @@
       "id": "4",
       "characterId": 4,
       "user": "Player4",
-      "score": 4.6,
-      "comment": "A true warrior of the future."
+      "score": "4.6",
+      "comment": "dadad"
     },
     {
       "id": "5",
