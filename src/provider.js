@@ -82,6 +82,47 @@ export class Provider {
             });
     }
 
+    static async loadEquipmentsForCharacter(server, characterId) {
+        try {
+            // Récupérer tous les équipements
+            const equipmentsResponse = await fetch(`${server}/equipments`);
+            if (!equipmentsResponse.ok) {
+                throw new Error("Erreur lors de la récupération des équipements");
+            }
+            const equipments = await equipmentsResponse.json();
+            console.log("Equipments:", equipments);  // Vérifier les équipements récupérés
+
+            // Récupérer les relations entre les équipements et les personnages
+            const ownershipResponse = await fetch(`${server}/equipment_ownership`);
+            if (!ownershipResponse.ok) {
+                throw new Error("Erreur lors de la récupération des relations équipement-personnage");
+            }
+            const ownerships = await ownershipResponse.json();
+            console.log("Ownerships:", ownerships);  // Vérifier les relations récupérées
+
+            // Filtrer les équipements associés au characterId donné
+            const characterEquipments = equipments.filter(equipment =>
+                ownerships.some(ownership =>
+                    // Vérifier si l'équipement est générique ou s'il appartient au personnage
+                    (Number(ownership.equipment_id) === Number(equipment.id) && Number(ownership.character_id) === Number(characterId)) ||
+                    (equipment.isGeneric && Number(ownership.equipment_id) === Number(equipment.id))
+                )
+            );
+
+            console.log("Filtered Equipments:", characterEquipments);  // Vérifier les équipements filtrés
+
+            return characterEquipments;
+        } catch (error) {
+            console.error("Erreur:", error);
+            return [];  // Retourner un tableau vide en cas d'erreur
+        }
+    }
+
+
+
+
+
+
     static createCharacters(data) {
         const characters = [];
         for (const character of data) {
@@ -123,7 +164,8 @@ export class Provider {
                                         equipment.name,
                                         equipment.type,
                                         equipment.image,
-                                        equipment.owner
+                                        equipment.owner,
+                                        equipment.isGeneric
                                     )
                                 );
         }
@@ -135,7 +177,8 @@ export class Provider {
                                         data.name,
                                         data.type,
                                         data.image,
-                                        data.owner
+                                        data.owner,
+                                        data.isGeneric
                                     );
         return equipment;
     }
