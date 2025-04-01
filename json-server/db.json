@@ -290,7 +290,11 @@
   "equipment_ownership": [
     { "equipment_id": 1, "character_id": 1 },
     { "equipment_id": 2, "character_id": 1 },
-    { "equipment_id": 3, "character_id": 2 }
+    { "equipment_id": 3, "character_id": 2 },
+    { "equipment_id": 3, "character_id": 1 },
+    { "equipment_id": 3, "character_id": 3 },
+    { "equipment_id": 3, "character_id": 2 },
+    { "equipment_id": 3, "character_id": 4 }
   ],
   "ratings": [
     {
