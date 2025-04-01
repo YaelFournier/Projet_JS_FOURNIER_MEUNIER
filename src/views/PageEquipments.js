@@ -1,7 +1,7 @@
 import { InterfaceAffichage } from "./InterfaceAffichage.js";
-import {addClickListener, setFavorites, updateCSS} from "../app.js";
+import { addClickListener, updateCSS} from "../utils.js";
 import { LocalStorage } from "../modules/LocalStorage.js";
-import {Pagination} from "../modules/sort/pagination.js";
+import { Pagination } from "../modules/sort/Pagination.js";
 
 export class PageEquipments extends InterfaceAffichage {
     constructor(listEquipment) {
@@ -10,14 +10,20 @@ export class PageEquipments extends InterfaceAffichage {
         this.paginationObject = new Pagination(this.listEquipment, ".pagination", "/#/equipments");
     }
 
+    // Page de listing d'equipments
     async afficher() {
+
+        // Refresh de la page pour SPA 
         const container = document.getElementById("view-container");
         container.innerHTML = "";
 
+        // Barre de recherche
+        // Container de la search bar
         const searchContainer = document.createElement("div");
         searchContainer.classList.add("search-container");
         container.append(searchContainer);
 
+        // Box de recherche
         let searchBox = document.querySelector('.search-box');
         if (!searchBox) {
             searchBox = document.createElement("div");
@@ -26,18 +32,19 @@ export class PageEquipments extends InterfaceAffichage {
             container.append(searchBox);
         }
 
+        // Container des equipments
         const equipmentsContainer = document.createElement("div");
         equipmentsContainer.classList.add("equipments-container");
         container.appendChild(equipmentsContainer);
 
+        // Màj du CSS
+        await updateCSS("equipments.css");
+        
+        // Gestion de la pagination
         const paginationContainer = document.createElement("div");
         paginationContainer.classList.add("pagination-container");
         container.append(paginationContainer);
-
-        await updateCSS("equipments.css");
-
         this._addPagination(paginationContainer);
-
 
         // Initialiser les équipements paginés
         const paginatedEquipments = this.paginationObject.getSlices();
@@ -48,6 +55,7 @@ export class PageEquipments extends InterfaceAffichage {
             this._createEquipmentCard(equipmentsContainer, equipment);
         }
 
+        // Ajout du listener pour le lien de la page détail de l'equipment
         addClickListener(".card-equipment", "data-id-equip");
 
         setTimeout(() => {
@@ -55,6 +63,7 @@ export class PageEquipments extends InterfaceAffichage {
         }, 100);
     }
 
+    // Met a jour les données de la page pour la pagination
     async setData(data) {
         this.paginationObject.updateData(data);
         const paginatedData = this.paginationObject.getSlices();
@@ -74,6 +83,7 @@ export class PageEquipments extends InterfaceAffichage {
         this.paginationObject.updatePage();
     }
 
+    // Ajoute la liste correspondante a la pagination
     _addPagination(container) {
         container.innerHTML = `
         <nav aria-label="Pagination equipments">
@@ -83,6 +93,7 @@ export class PageEquipments extends InterfaceAffichage {
         this.paginationObject.updatePage(); // Met à jour la pagination en fonction des données actuelles
     }
 
+    // Créer une carte pour un equipment
     _createEquipmentCard(container, equipment, index) {
         const equipmentCard = document.createElement("div");
         equipmentCard.classList.add("card-equipment");

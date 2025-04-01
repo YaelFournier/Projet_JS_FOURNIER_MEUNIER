@@ -1,5 +1,3 @@
-
-
 export class Equipment {
     constructor(id, name, type, image, owner, isGeneric) {
         this.id = id;
@@ -34,22 +32,5 @@ export class Equipment {
     getOwner() {
         return this.owner;
     }
-
-    setId(id) {
-        this.id = id;
-    }
-
-    setName(name) {
-        this.name = name;
-    }
-
-    setType(type) {
-        this.type = type;
-    }
-
-    setOwner(owner) {
-        this.owner = owner;
-    }
-
 
 }

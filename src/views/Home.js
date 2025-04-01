@@ -1,14 +1,19 @@
 import { InterfaceAffichage } from "./InterfaceAffichage.js";
-import {addClickListener, updateCSS} from "../app.js";
+import { addClickListener, updateCSS } from "../utils.js";
+
 export class Home extends InterfaceAffichage {
 
     constructor(listCharacter) {
         super();
     }
 
+    // Initialistation de l'application 
     _init() {
 
+        // Mise en place du CSS
         updateCSS("home.css")
+
+        // Carte de choix de fonctionnalités
         document.querySelectorAll(".card").forEach(card => {
             card.addEventListener("mouseenter", function() {
                 const text = card.querySelector("h3");
@@ -28,6 +33,7 @@ export class Home extends InterfaceAffichage {
         });
     }
 
+    // Affichage de la page
     afficher() {
         const main = document.getElementById("view-container");
         main.innerHTML = `<div class="container-fluid d-flex justify-content-center">

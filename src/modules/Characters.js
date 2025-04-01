@@ -1,5 +1,5 @@
 export class Character {
-    constructor(id, name, game, characterClass, level, rating, image, equipments, favorites) {
+    constructor(id, name, game, characterClass, level, rating, image, equipments) {
         this.id = id;
         this.name = name;
         this.game = game;
@@ -8,7 +8,6 @@ export class Character {
         this.rating = rating;
         this.image = image;
         this.equipments = equipments;
-        this.favorites = favorites;
     }
 
     getId() {
@@ -39,17 +38,8 @@ export class Character {
         return this.equipments;
     }
 
-    getFavorites() {
-        return this.favorites;
-    }
-
-    setFavorites() {
-        this.favorites = !this.favorites;
-    }
-
     getRating() {
         return this.rating;
     }
-
 
 }

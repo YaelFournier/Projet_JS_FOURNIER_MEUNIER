@@ -1,5 +1,5 @@
 import { InterfaceAffichage } from "./InterfaceAffichage.js";
-import {addClickListener, updateCSS} from "../app.js";
+import { addClickListener, updateCSS } from "../utils.js";
 import { ChangeRate } from "./ChangeRate.js";
 import { Rating } from "../modules/Ratings.js";
 
@@ -11,9 +11,13 @@ export class PageRatings extends InterfaceAffichage {
         this.characters = characters;
     }
 
+    // Page de listing des notes
     async afficher() {
+
+        // Refresh de la page pour SPA 
         const container = document.getElementById("view-container");
         container.innerHTML = "";
+
         for (const rating of this.listRatings) {
             //Création de la div qui contiendra les informations
             const div = document.createElement("div");
@@ -47,6 +51,8 @@ export class PageRatings extends InterfaceAffichage {
             button.textContent = "Modifier";
             div.appendChild(button);
         }
+
+        // Ajout du listener pour le lien de la page détail du character
         addClickListener(".char", "id-char");
 
         // Ajout d'un écouteur d'événement sur les boutons de modification de note
@@ -59,9 +65,11 @@ export class PageRatings extends InterfaceAffichage {
                     ratings.push(new Rating(rating.id, rating.characterId, rating.score, rating.comment));
                 }
 
+                // Récupération des containers
                 const ratingId = event.currentTarget.getAttribute("change-rate");
                 const ratingDiv = event.currentTarget.parentElement;
 
+                // Ajoute le form que s'il n'est pas affiché
                 let existingForm = ratingDiv.querySelector(".form-rate");
                 if (existingForm) {
                     existingForm.remove();

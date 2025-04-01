@@ -1,5 +1,5 @@
 import { InterfaceAffichage } from "./InterfaceAffichage.js";
-import { addClickListener, updateCSS } from "../app.js";
+import { addClickListener, updateCSS } from "../utils.js";
 import { LocalStorage } from "../modules/LocalStorage.js";
 
 export class PageFavorites extends InterfaceAffichage {
@@ -12,29 +12,32 @@ export class PageFavorites extends InterfaceAffichage {
         this.favorites_equip = LocalStorage.getFavorites("equipments");
     }
 
+    // Page de listing des favoris
     async afficher(){
+
+        // Refresh de la page pour SPA 
         const container = document.getElementById("view-container");
         container.innerHTML = "";
+
+        // Màj du CSS
         await updateCSS("favoris.css");
-        console.log(this.favorites_charac);
-        console.log(this.favorites_equip);
+        
         //Affichage des favoris
-        // Perssonages
+        // Personages
         if (this.favorites_charac.length > 0){
             for (const character of this.characters) {
                 if (this.favorites_charac.includes(character.getId())) {
                     this._createCharacterCard(container, character);
                 }          
             }
-        }
-        else{
+        } else {
             const errc = document.createElement("div");
             errc.classList.add("Erreur");
             errc.textContent = "Aucun Personnage en Favoris";
             container.appendChild(errc);
         }
 
-        // delimiter
+        // Delimiter
         const delimiter = document.createElement("div");
         delimiter.classList.add("delimiter");
         container.appendChild(delimiter);
@@ -46,18 +49,19 @@ export class PageFavorites extends InterfaceAffichage {
                     this._createEquipmentCard(container, equipment);
                 }            
             }
-        }
-        else{
+        } else {
             const erre = document.createElement("div");
             erre.classList.add("Erreur");
             erre.textContent = "Aucun Equipement en Favoris";
             container.appendChild(erre);
         }
+
         // Ajout des listeners sur les cartes
         addClickListener(".card-equipment", "data-id-equip");
         addClickListener(".card-character", "data-id-charac");
     }
 
+    // Carte de character
     _createCharacterCard(container, character, index) {
         const characterCard = document.createElement("div");
         characterCard.classList.add("card-character");
@@ -113,6 +117,7 @@ export class PageFavorites extends InterfaceAffichage {
         }, index * 100);
     }
 
+    // Carte d'equipment
     _createEquipmentCard(container, equipment, index) {
         const equipmentCard = document.createElement("div");
         equipmentCard.classList.add("card-equipment");

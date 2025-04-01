@@ -1,5 +1,5 @@
 import { InterfaceAffichage } from "./InterfaceAffichage.js";
-import { addClickListener, updateCSS } from "../app.js";
+import { addClickListener, updateCSS } from "../utils.js";
 import { ChangeRate } from "./ChangeRate.js";
 import { LocalStorage } from "../modules/LocalStorage.js";
 
@@ -12,7 +12,10 @@ export class DetailsCharacters extends InterfaceAffichage {
         this.listRatings = listRatings;
     }
 
+    // Page de détail d'un character
     async afficher() {
+        
+        // Refresh de la page pour SPA 
         const container = document.getElementById("view-container");
         container.innerHTML = "";
 
@@ -35,6 +38,8 @@ export class DetailsCharacters extends InterfaceAffichage {
         illustration_container.appendChild(illustration);
         characters_container.append(illustration_container);
         characters_container.append(details_container);
+
+        // Màj du css 
         await updateCSS("detail-character.css");
 
         // Sous containers des détails du personnage
@@ -48,17 +53,12 @@ export class DetailsCharacters extends InterfaceAffichage {
 
         // Ajout des caracteristiques du personnage
         this._addCategorie(detail_cara, "Caracteristiques");
-        this._addCharacterDetail(detail_cara, "h4", this.character.getName());
-        this._addCharacterDetail(detail_cara, "h5", this.character.getCharacterClass());
-        this._addCharacterDetail(detail_cara, "h5", this.character.getLevel());
-
-        // Ajout du jeu d'origine du personnage
+        this._addCharacterDetail(detail_cara, "h4", "Nom : "+this.character.getName());
+        this._addCharacterDetail(detail_cara, "h5", "Classe : "+this.character.getCharacterClass());
+        this._addCharacterDetail(detail_cara, "h5", "Niveau : "+this.character.getLevel());
         this._addCategorie(detail_univers, "Univers");
-
         this._addCharacterDetail(detail_univers, "h4", this.character.getGame());
-
         this._addCategorie(detail_equipment, "Equipements");
-
         this._displayEquipments(detail_equipment);
 
         // Ajout du bouton favoris
@@ -74,12 +74,16 @@ export class DetailsCharacters extends InterfaceAffichage {
         rating_container.appendChild(delimiter);
         for (let i=0; i<this.listRatings.length; i++) { 
             const note = this.listRatings[i];
+            // Si pas d'auteur : Unknown
             let authorName = note.getAuthor() ? note.getAuthor() : "Unknown";
             this._addNote(rating_container, note.getComment(), note.getScore(), authorName, note.getId());
         }
 
     }
 
+    // Fonctions pour l'affichage
+
+    // Affichage de la note
     _addNote(container, title, notation, author, ratingId) {
         const note_container = document.createElement("div");
         note_container.classList.add("rating-container");
@@ -124,7 +128,6 @@ export class DetailsCharacters extends InterfaceAffichage {
             if (existingForm) {
                 existingForm.remove();
             } else {
-                console.log(this.listRatings, ratingId);
                 const changeRate = new ChangeRate(this.listRatings, ratingId);
                 const form = changeRate.afficher();
                 note_container.appendChild(form);
@@ -133,7 +136,7 @@ export class DetailsCharacters extends InterfaceAffichage {
     }
 
 
-    // créer une catégorie
+    // Créer une catégorie
     _addCategorie(container, title) {
         const titre = document.createElement('h2');
         titre.classList.add("titre-category");

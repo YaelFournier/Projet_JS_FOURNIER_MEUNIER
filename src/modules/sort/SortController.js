@@ -7,6 +7,7 @@ export class SortController {
         this.currentSearch = "";
     }
 
+    // Mise en place des les listeners pour la search bar
     setupListeners() {
         const searchInput = document.getElementById("searchInput");
         if (searchInput) {
@@ -17,7 +18,7 @@ export class SortController {
         }
     }
 
-
+    // Mise à jour de la vue 
     async refreshAll(view, data) {
         this.view = view;
         this.data = data;
@@ -26,11 +27,13 @@ export class SortController {
         this.setupListeners();
     }
 
+    // Change l'item à chercher
     updateSearch(searchTerm) {
         this.currentSearch = searchTerm;
         this.refreshDataSort();
     }
 
+    // Mise à jour des données 
     refreshDataSort() {
         let objectsList = [];
 
@@ -54,6 +57,5 @@ export class SortController {
         // Mise à jour de la vue avec les éléments filtrés et paginés
         this.view.setData(filteredData); // Appel à `setData` avec les données filtrées
     }
-
 
 }
