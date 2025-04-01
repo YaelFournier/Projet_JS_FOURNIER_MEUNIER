@@ -12,7 +12,6 @@ export class SortController {
         if (searchInput) {
             searchInput.addEventListener("input", (event) => {
                 const searchTerm = event.target.value;
-                console.log(searchTerm);
                 this.updateSearch(searchTerm);
             });
         }
@@ -51,12 +50,6 @@ export class SortController {
 
         // Mise à jour de la pagination avec les données filtrées
         this.view.paginationObject.updateData(filteredData);
-
-        // Ajuster la page actuelle en fonction des données filtrées
-        const maxPage = Math.ceil(filteredData.length / this.view.paginationObject.objectsPerPage);
-        if (this.view.paginationObject.currentPage > maxPage) {
-            this.view.paginationObject.currentPage = maxPage;
-        }
 
         // Mise à jour de la vue avec les éléments filtrés et paginés
         this.view.setData(filteredData); // Appel à `setData` avec les données filtrées
